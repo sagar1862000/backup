@@ -1,0 +1,198 @@
+<div class="login-page">
+    <div class="login-page__login-area">
+      <div class="row">
+        <div class="col-md-8 w-100  mt-4">
+          <div class="login-page__form-area">
+            <div class="login-page__form-input">
+              <div *ngIf="isLoginForm" (keyup)="onKeydown($event)">
+                <h2 class="text-center mx-5  justify-content-center" class="ml-2"
+                  style="margin-left:0rem;font-weight: bold;text-align: left;font-family: Lato-Bold; margin-top: 6%;">
+  
+                  Login</h2>
+                <div class="login-page__form-group" style="margin-bottom: 15px;">
+  
+  
+                  <div class="pl-1 pb-2"> Username <span id="red">*</span>
+  
+                    <input type="text" autocomplete="off" id="username" class="pl-2 form-rounded" name="username" required
+                      [(ngModel)]="loginData.username" placeholder="Username@mail.com" />
+                  </div>
+                </div>
+                <div class="login-page__form-group ">
+                  <div class="pl-1 pb-2"> Password <span id="red">*</span>
+                    <input type="password" name="password" class="pl-2 form-rounded" required
+                      [(ngModel)]="loginData.password" placeholder="Password" TextMode="MultiLine" autocomplete="off" />
+                  </div>
+                </div>
+  
+                <div class="login-page__form-group">
+                  <div class="pl-1 pb-2"> Captcha <span id="red">*</span>
+                    <div class="row">
+                      <div class="input-group presuffix">
+                        <span class="input-group-addon prefix" id="captcha"></span>
+                        <input type="text" autocomplete="off" name="captcha" class="pl-2 form-rounded" required
+                          [(ngModel)]="loginData.cpatchaTextBox" placeholder="captcha" TextMode="SingleLine" />
+                        <span class="input-group-addon suffix"
+                          (click)="createCaptcha()"><mat-icon>refresh</mat-icon></span>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div>
+                    <div class="row">
+                      <div class="col-md-6 mt-4">
+                        <div class="form-group ">
+                          <div class="custom-control custom-checkbox">
+                            <mat-checkbox [(ngModel)]="loginData.remember" ngDefaultControl>Remember me!
+                            </mat-checkbox>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6 mt-4 pl-3">
+                        <h4 class="text-center" style="cursor: pointer;color:#a64eed" (click)="ForgetPasswordClick()"
+                          id="pass">
+                          Forgot Password
+                        </h4>
+                      </div>
+                    </div>
+                    <div [style.display]="showSpinner ? 'block' : 'none'">
+  
+                    </div>
+  
+                  </div>
+                  <div class="login-page__form-button">
+                    <button class="login-page__form-btn" (click)="login()">Login</button>
+                  </div>
+                </div>
+              </div>
+              <div class="ForgetPassword" *ngIf="showForgetPassword">
+  
+                <h2 class="text-center">
+                  Forget Password
+                </h2>
+                <form class="forgetPasswordform">
+                  <div class="form-group">
+                    <div class="pl-1 pb-2"> Email <span id="red">*</span>
+  
+                      <input matInput autocomplete="off" type="text" id="emailormobile" class="mx-3"
+                        [(ngModel)]="fp.emailormobile" name="emailormobile"
+                        class=" ng-pristine ng-untouched ng-valid ng-valid-email" aria-invalid="false"
+                        placeholder="Enter email">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="pl-1 pb-2"> Captcha <span id="red">*</span>
+                      <div class="row">
+                        <div class="input-group presuffix">
+                          <span class="input-group-addon prefix" id="captcha"></span>
+                          <input type="text" autocomplete="off" name="captcha" class="pl-2 form-rounded" required
+                            [(ngModel)]="fp.cpatchaTextBox" placeholder="captcha" TextMode="SingleLine" />
+                          <span class="input-group-addon suffix"
+                            (click)="createCaptcha()"><mat-icon>refresh</mat-icon></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="login-page__form-button">
+                    <button class="login-page__form-btn" (click)="ForgetPassword()">Send</button>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4 class="text-center" style="cursor: pointer;" (click)="BackToLogin()">Back to login</h4>
+                    </div>
+                  </div>
+                </form>
+              </div>
+  
+  
+  
+  
+              <div class="" *ngIf="showOtp">
+                <h2 class="text-center" class="form4">
+                  OTP</h2>
+                <form class="otp1">
+                  <div class="form-group">
+                    <mat-label>Enter OTP</mat-label>
+                    <input matInput autocomplete="off" type="text" id="" class="mx-3" [(ngModel)]="otp.otp" name="otp"
+                      class="">
+  
+  
+  
+                  </div>
+  
+                  <div class="login-page__form-button">
+                    <button class="login-page__form-btn" (click)="checkotp()">OTP</button>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <h4 class="text-center" style="cursor: pointer;" (click)="BackToLogin()">Back to login</h4>
+                    </div>
+                  </div>
+                </form>
+              </div>
+  
+  
+  
+              <div *ngIf="showChangepassword">
+                <h2 class="text-center" class="form5">
+                  Change Password
+                </h2>
+                <form [formGroup]="loginForm">
+                  <div class="form-group col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>New Password</mat-label>
+                      <input matInput autocomplete="off" formControlName="newpassword" type="password"
+                        [(ngModel)]="resetpassword.newpassword" />
+                    </mat-form-field>
+                    <!-- <app-password-strength-bar [passwordToCheck]="resetpassword.newpassword" [barLabel]="barLabel">
+                        </app-password-strength-bar> -->
+  
+                    <div class="error-messages">
+                      <ng-container *ngFor="let error of error_messages.newpassword">
+                        <div class="error-message" style="color: red;"
+                          *ngIf="loginForm.get('newpassword').hasError(error.type) && (loginForm.get('newpassword').dirty || loginForm.get('newpassword').touched)">
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+  
+                  <div class="form-group col-md-12">
+                    <mat-form-field class="w-100">
+                      <mat-label>Confirm Password</mat-label>
+                      <input matInput autocomplete="off" formControlName="confirmpassword"
+                        [(ngModel)]="resetpassword.confirmpassword" type="password" />
+                    </mat-form-field>
+                    <!-- <app-password-strength-bar [passwordToCheck]="resetpassword.confirmpassword"
+                          [barLabel]="barLabel">
+                        </app-password-strength-bar> -->
+                    <div class="error-messages">
+                      <ng-container *ngFor="let error of error_messages.confirmpassword">
+                        <div class="error-message" style="color: red;"
+                          *ngIf="loginForm.get('confirmpassword').hasError(error.type) && ( (loginForm.get('confirmpassword').dirty || loginForm.get('confirmpassword').touched))">
+                          {{ error.message }}
+                        </div>
+                      </ng-container>
+                    </div>
+                  </div>
+  
+                  <div class="login-page__form-button">
+                    <button class="login-page__form-btn" type="submit" (click)="changepasswordFN()"
+                      [disabled]="!loginForm.valid">Change Update</button>
+  
+                  </div>
+                </form>
+              </div>
+  
+  
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+  
+  
+       
+      </div>
+    </div>
+  

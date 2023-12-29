@@ -1,0 +1,103 @@
+.buttonwithnumber button {
+    margin-right: 20px;
+    margin-bottom: 15px;
+  }
+  
+  .shareparent a {
+    margin: 3px 5px;
+  }
+  
+  .sharediv {
+    margin-top: 10px;
+  }
+  
+  .socialdiv {
+    margin-top: -40px;
+  }
+  
+  .test {
+    background-color: green;
+  }
+  
+  .example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .redClass {
+    background-color: #a64eed;
+    color: #fff;
+  }
+  
+  .searchassign {
+    width: 700px;
+    background: rgba(230, 225, 225, 0.74);
+    padding: 20px;
+    position: relative;
+    margin-top: 7%;
+    left: 5%;
+    border-radius: 20px;
+    //transform: translate(-50%,-5o%);
+    text-align: center;
+  }
+  
+  .btn-activecolor {
+    background-color: #9c27b0;
+  }
+  
+  .btn-activecolor:active {
+    background: rgb(166, 167, 166) !important;
+  }
+  
+  .btn-activecolor:focus {
+    background: rgb(166, 167, 166) !important;
+  }
+  
+  mat-button-toggle-group {
+    margin-left: 12px;
+  }
+  
+  // .green {
+  //   background-color: #9c27b0;
+  // }
+  
+  // .red {
+  //   background-color:  rgb(166, 167, 166)!important;
+  // }
+  // // .success {
+  //   background-color: green;
+  //   color: #fff;
+  // }
+  #iconbackground {
+    background-color: white;
+  }
+  
+  #iconbackground:hover {
+    background-color: #FF9933;
+  }
+  
+  .icones {
+    color: rgb(43, 41, 41);
+  }
+  
+  #iconbackground:hover .icones {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+  }
+  
+  .button:hover {
+    background-color: cornflowerblue;
+  }
+  
+  #matBadgebutton {
+    width: auto;
+    background: white;
+    color: black;
+  }
