@@ -1,0 +1,922 @@
+<app-scrool-to-top-buttom></app-scrool-to-top-buttom>
+<div class="main-content" style="position:relative;">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 ">
+        <div class="row text-center border-top border-bottom ">
+          <ul class="nav   justify-content-center ">
+            <div class="form-group mt-3">
+              <input id='candidatessearch' [(ngModel)]="searchcandidate" (keyup.enter)="filterbycandidate()"
+                placeholder="Search Candidates" type="email" class="form-control form-control-sm"
+                aria-describedby="emailHelp" placeholder="Type candidate Name">
+            </div>
+            <mat-form-field class="col-md-2 mt-2 " *ngIf="alljobclient && db.mp.page_client"
+              style="padding-bottom: 0px;font-size: 10px ;border-radius: 8px;font-weight:bold">
+              <mat-label>Search Client</mat-label>
+              <mat-select [(ngModel)]="Client_ids">
+                <mat-option *ngFor="let x of clients" (click)='clientjobs()' [value]="x.id" help="{{x.billingName}}">
+                  {{x.billingName}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class="col-md-2 mt-2" *ngIf="alljobdepartment && db.mp.page_departments"
+              style="padding-bottom: 0px;font-size: 10px;border-radius: 8px;font-weight:bold">
+              <mat-select [(ngModel)]="Client_ids" placeholder="Search Department">
+                <mat-option (click)='departmentjobs()' *ngFor="let x of departmentslist" [value]="x.id"
+                  help="{{x.department}}">{{x.department}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="  mt-2 col-md-2 "
+              style="font-size: 10px ;border-radius: 8px;padding: 5px 5px 5px 10px;font-weight:bold" *ngIf="showjobs">
+              <mat-select [(ngModel)]="searchcandidatetext" placeholder="Search Jobs">
+                <mat-option *ngFor="let item of jobslist" (click)="filteragain()" value="{{item.job_title}}">
+                  {{item.job_title}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+            <mat-form-field class=" col-2 mt-2"
+              style="font-size: 10px;border-radius: 8px;padding: 5px;font-weight:bold;">
+              <mat-label>Enter a date range</mat-label>
+              <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [for]="picker">
+                <input matStartDate formControlName="start" placeholder="Start date">
+                <input matEndDate formControlName="end" placeholder="End date">
+                <mat-date-range-picker #picker></mat-date-range-picker>
+                <mat-datepicker-toggle [for]="picker"> select</mat-datepicker-toggle>
+              </mat-date-range-input>
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <!-- <mat-error *ngIf="range.controls.start.hasError('matStartDateInvalid')">Invalid start date</mat-error> -->
+              <!-- <mat-error *ngIf="range.controls.end.hasError('matEndDateInvalid')">Invalid end date</mat-error> -->
+            </mat-form-field>
+            <div style="margin-left: 1px;margin-top: 14px;padding: 3px;">
+              <button type="button"
+                style="background-color:#a64eed;border-radius:18px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:16px;text-align:center;text-decoration:none;width:100px;-webkit-text-size-adjust:none;"
+                class="btn btn-sm " (click)="getlist();">Filter</button>
+              &nbsp;
+              <button class="btn btn-sm "
+                style="background-color:#a64eed;border-radius:18px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:16px;text-align:center;text-decoration:none;width:120px;-webkit-text-size-adjust:none;"
+                *ngIf="db.mp.export_excel_calls" help='download excel' (click)='gettracker()'>
+                <span class="span1">Download</span>
+                <img class="img1 ml-2" src="../../assets/img/download.svg" height="16px">
+              </button>
+            </div>
+
+          </ul>
+        </div>
+
+
+      </div>
+
+
+
+
+      <div style="margin-top:20px;" class="col-md-12">
+        <ul class="nav nav-tabs showloader pull-left  ">
+          <li><a data-toggle="tab" (click)='changefilter("All","job_status")'
+              class="btn btn-sm btn-raised btn-outline-secondary">All</a></li>
+          <li><a data-toggle="tab" (click)='changefilter("Tagged","tagged")'
+              class="btn btn-sm btn-raised btn-outline-secondary mx-2">Tagged</a></li>
+        </ul>
+
+        <!-- <pagination-controls directionLinks="true" autoHide="true" responsive="true" previousLabel="Previous"
+          nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event">
+        </pagination-controls> -->
+
+        <div class="clearfix"></div>
+
+        <div class="box box-primary" id="#">
+          <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
+
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="card" style="height: auto; padding: -100px;" (click)="selectdeselect($event,item)" *ngFor="let item of jobslist 
+                 let i = index">
+                <div class="card-header card-header-{{item.selected?'info':'none'}}"
+                  style="margin-top: 0px; height: auto;" title="{{item.Assign_Recruter}}">
+                  <h4 class="card-title">
+                    <a class="title_in" href="/editjob/{{item.id}}" ___stopclick="showJob(item.id, $event)"
+                      title="{{item.Assign_Recruter}}">
+                      <span class="hightlighted_keyword" style="color:darkblue"> {{item.job_title}}</span> &nbsp;
+                    </a>
+                    <span itemprop="title" class="title_in" style="margin-right:2px;">
+                      <span style="color: black;">( Job ID :
+                        {{item.category_code}}{{item.id}})</span> &nbsp;
+                      <span itemtype="#" help='Client' style="color: black;">{{item.ClientName}} </span>
+                      <span itemtype="#" help='Department' style="color: black;">{{item.DepartmentName}} </span>
+                      <span itemtype="#" help='Client' style="color: black;">
+                        {{item.created_at}}</span>
+                      <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                      ng-hide='mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                      class="selectapproved{{item.is_approved_by_manager}}" help="Approved by manager">
+                      <i class="fa fa-check"></i>
+                    </span>
+
+                  </h4>
+
+                  <p class="card-category" style="position:relative;">
+
+                    <span class="pull-right socialdiv" itemtype="#">
+
+                      <a class="twitter" mat-mini-fab color="white" *ngIf="!db.profile.isvendor" id="iconbackground"
+                        href="https://twitter.com/share?url={{$urlapply}}/{{item.id}}/{{item.app_id}}/{{item.manager_id}}/b73c2d22763d1ce2143a3755c1d0ad3a&text={{item.job_title}}"
+                        target="_blank" title="twitter">
+                        <i class="fa fa-twitter icones " style="color: black;"></i>
+                      </a>&nbsp;
+
+                      <a class="linkedin" mat-mini-fab color="white" *ngIf="!db.profile.isvendor" id="iconbackground"
+                        href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}/{{item.id}}/{{item.app_id}}/{{item.manager_id}}&text={{item.job_title}}"
+                        target="_blank" title="linkedin">
+                        <i class="fa fa-linkedin icones" style="color: black;"></i>
+                      </a>&nbsp;
+
+                      <a mat-mini-fab color="white" title="Tag" href="javascript:" (click)="tag(item);"
+                        [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}">
+
+                        <i class="fa fa-tags icones"></i>
+                      </a>&nbsp;
+                    </span>
+                  </p>
+                  <div class="col-md-12 col-lg-12 row " style="position: relative; width: 109%;">
+
+                    <div class='row buttonwithnumber  '>
+                      <button mat-raised-button color="secondary" matBadgePosition="after" matBadgeColor=""
+                        style="position:relative; height:35px; margin-top:-1.2rem;"
+                        class="btn btn-outline btn-sm col-sm-1"
+                        (click)="filterdrbytab('My Candidates', 'allcalled', item)" id="matBadgebutton">All<br><span
+                          class="badge testdark "
+                          style=" font-size:10px; font-weight:bold; position:relative; top:-1.6rem;">
+                          [{{item.allcalledcandidate}}]</span>
+                      </button>
+
+                      <button mat-raised-button color="secondary" matBadgePosition="after" matBadgeColor="primary"
+                        class=" btn btn-outline btn-sm col-sm-1 " id="id1"
+                        (click)="filterdrbytab('My Candidates', 'calledinterested', item)" id="matBadgebutton"
+                        style="position:relative; height:35px; margin-top:-1.2rem;">Interested<br>
+                        <span class="badge badge testdark mb-3"
+                          style="margin-top:-2rem;">[{{item.calledinterested}}]</span>
+
+                      </button>
+
+                      <button mat-raised-button color="danger" style="height:35px; margin-top:-1.2rem;"
+                        matBadgePosition="after" matBadgeColor="" class="btn btn-outline btn-sm col-sm-1"
+                        (click)="filterdrbytab('My Candidates', 'callednotinterested', item)" id="matBadgebutton">
+                        Not interested
+                        <br>
+                        <span class="badge testdark  mb-3"
+                          style="margin-top:-2rem;">[{{item.callednotinterested}}]</span>
+                      </button>
+                      <button mat-raised-button color="secondary" style="height:35px; margin-top:-1.2rem;"
+                        matBadgePosition="after" matBadgeColor="primary" matBadgeSize="medium"
+                        class="btn btn-outline btn-sm col-sm-1"
+                        (click)="filterdrbytab('My Candidates', 'shortlisted', item)" id="matBadgebutton">
+                        Shortlisted<br>
+                        <span class="badge testdark mb-3"
+                          style="margin-top:-2rem;">[{{item.candidateShortlisted}}]</span>
+
+                      </button>
+
+                      <button mat-raised-button color="secondary" style="height:35px; margin-top:-1.2rem;"
+                        matBadgePosition="after" matBadgeColor="primary" class="btn btn-outline btn-sm col-sm-1 "
+                        (click)="filterdrbytab('My Candidates', 'callothers', item)" id="matBadgebutton">Call Later<br>
+                        <span class="badge testdark mb-3" style="margin-top:-1.9rem;">[{{item.callothers}}]</span>
+
+                      </button>
+
+                      <button mat-raised-button color="secondary" style="height:35px; margin-top:-1.2rem;"
+                        matBadgePosition="after" matBadgeColor="primary" class=" btn btn-outline btn-sm col-sm-1"
+                        (click)="filterdrbytab('My Candidates', 'Incampaign', item)" id="matBadgebutton">In Campaign<br>
+                        <span class="badge testdark " style="margin-top:-2.9rem;">[{{item.InCampaign}}]</span>
+
+                      </button>
+                      <button mat-raised-button color="secondary" style="height:35px; margin-top:-1.2rem;"
+                        matBadgePosition="after" matBadgeColor="primary" class=" btn btn-outline btn-sm col-sm-1  "
+                        (click)="filterdrbytab('My Candidates', 'StopCampaign', item)" id="matBadgebutton">Stop
+                        Campaign<br>
+                        <span class="badge testdark mb-3" style="margin-top:-1.9rem;">[{{item.StopCampaign}}]</span>
+
+                      </button>
+
+
+
+
+                    </div>
+
+
+                  </div>
+
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+
+          <!---  <mat-card [hidden]='jobslist.length>0||isLoadingJobs'>
+            No Data Found
+          </mat-card>-->
+
+        </div>
+
+        <div class="clearfix"></div>
+        <!-- <pagination-controls directionLinks="true" autoHide="true" responsive="true" previousLabel="Previous"
+          nextLabel="Next" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page" class="pull-right my-pagination" (pageChange)="p = $event">
+        </pagination-controls> -->
+        <!-- <pagination-controls [directionLinks]="true" previousLabel="Previous" nextLabel="Next" [responsive]="true"
+          [autoHide]="false" screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+          screenReaderCurrentLabel="You're on page" class="pull-right  my-pagination" (pageChange)="p = $event">
+        </pagination-controls> -->
+        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+
+      </div>
+
+
+
+
+      <div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
+
+
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h6 class="modal-title">Submit cv to panel</h6>
+              <button aria-hidden="true" data-bs-dismiss="modal" class="close btn btn-block" type="button">×</button>
+
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-horizontal" role="form">
+
+
+                    <div class="form-group">
+                      <label class="col-md-3 ">Email:</label>
+                      <div class="col-md-9">
+                        <input type="text" autocomplete="off" class="form-control e m" n="Email"
+                          [(ngModel)]="cv_to_panel.email" />
+
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 ">Subject:</label>
+                      <div class="col-md-9">
+                        <input type="text" autocomplete="off" class="form-control e" n="Subject"
+                          [(ngModel)]="cv_to_panel.subject" />
+
+
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <label class="col-md-3 ">Comment:</label>
+                      <div class="col-md-9">
+                        <textarea class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment">
+                                                            </textarea>
+
+
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <button type="submit" class="btn  btn-raised btn-block btn-primary validatebutton" validate
+                        tar="#submit_cv_to_panel_status" (click)="sendCvToPanel()">send</button>
+
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+      </div>
+      <div class="modal" id="addvendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="center">Add Vendor</h3>
+            </div>
+            <div class="modal-body">
+              <div layout-gt-xs="row">
+
+
+                <div class="col-md-6"> Name
+
+                  <input type="text" autocomplete="off" [(ngModel)]="vendornew.name" class="form-control e" n="Name" />
+
+
+                </div>
+
+                <div class="col-md-6">Email
+
+                  <input type="text" autocomplete="off" autocomplete="off" [(ngModel)]="vendornew.email"
+                    class="form-control m" n="Email" />
+                </div>
+
+                <!--                <md-input-container flex> <label>Name</label>     <input type="text" autocomplete="off"  [(ngModel)]="vendornew.name" class="form-control e" n="Name"  />  </md-input-container>
+                          <md-input-container flex>       <input type="file" fileread="vendornew.profilepic" />  </md-input-container>-->
+
+
+              </div>
+              <br>
+              <!--            <div layout-gt-xs="row">
+
+                                          <md-input-container flex> <label>Date of Birth</label>
+                                              <md-datepicker type="text" [(ngModel)]="vendornew.dob" required=""> </md-datepicker>
+                                          </md-input-container>
+                                          <div  class="errorinline" style="" ng-show="true"><div>please enter Date of Birth !</div></div>
+                                      </div>-->
+
+              <div layout-gt-xs="row">
+                <!--                <md-input-container flex>-->
+
+                <div class="col-md-6"> Mobile Number
+                  <input type="text" autocomplete="off" [(ngModel)]="vendornew.mobileNo" class="form-control n e"
+                    n="Mobile Number" />
+                </div>
+                <div class="col-md-6">Address
+                  <input type="text" autocomplete="off" [(ngModel)]="vendornew.address" class="form-control n e"
+                    n="Address" />
+                </div>
+                <!--                <md-input-container flex> <label>Mobile No</label>     <input type="text" autocomplete="off"  [(ngModel)]="vendornew.mobileNo" class="form-control n e" n="Mobile Number" />  </md-input-container>-->
+
+
+
+              </div>
+              <br>
+
+
+              <div class="row">
+                <div class="form-group">
+                  <div class=" col-xs-offset-2 col-xs-10">
+                    <button type="submit" class="btn  btn-raised btn-primary" tar="#addUser"
+                      (click)="vendorsave()">Save</button>
+                  </div>
+                </div>
+
+
+
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+      <!-- Assign End Job-->
+      <div class="modal bs-example-modal-md" id="myModal" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="center">Send Mail
+                <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected :
+                  {{countRowsinMyJob}})</span>
+              </h3>
+            </div>
+            <div class="modal-body">
+              <div class="form-horizontal" role="form">
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <select class="form-control m" [(ngModel)]="sendtracker.trackerno" n="Tracker NO" validate>
+                      <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+                      </option>
+                    </select>
+
+
+                  </div>
+                  <div class="col-lg-2 "><button ng-show="sendtracker.trackerno" type="button"
+                      (click)="sendtrackermsg(true)" class="btn  btn-raised btn-primary btn-sm">Download</button></div>
+                </div>
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="email" class="form-control m" [(ngModel)]="sendtracker.to" n="To" validate
+                      id="inputEmail4" placeholder="TO:" required>
+                  </div>
+                </div>
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="email" class="form-control m" [(ngModel)]="sendtracker.cc" n="CC" validate
+                      id="inputEmail5" placeholder="CC:" required>
+                  </div>
+
+                </div>
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="email" class="form-control m" n="BCC" validate [(ngModel)]="sendtracker.bcc"
+                      id="inputEmail6" placeholder="BCC:">
+                  </div>
+
+                </div>
+
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="file" class="form-control">
+                    <!--                                <input type="text" autocomplete="off"  class="form-control e" n=""  id="inputEmail5" placeholder="Subject:">-->
+                  </div>
+                </div>
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <input type="text" autocomplete="off" class="form-control e" n="" [(ngModel)]="sendtracker.subject"
+                      id="inputEmails" placeholder="Subject:">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <div class="col-md-12 col-sm-12 col-xs-12">
+
+                    <textarea class="form-control e" n="message" contenteditable [(ngModel)]="sendtracker.message"
+                      placeholder="message" style="min-width: 100%; height: 87px;">
+                                          </textarea>
+                  </div>
+                </div>
+
+                <button type="submit" (click)="sendtrackermsg(1)"
+                  class="btn  btn-raised btn-primary btn-md">send</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal bs-example-modal-md" id="downloadtracker" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+
+              <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+              <h3 class="center">Download Tracker
+                <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected :
+                  {{countRowsinMyJob}})</span>
+              </h3>
+            </div>
+            <div class="modal-body">
+              <div class="form-horizontal" role="form">
+
+                <div class="form-group">
+
+                  <div class="col-lg-10">
+                    <select class="form-control m" [(ngModel)]="trackerno" n="Tracker NO" validate>
+                      <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+                      </option>
+                    </select>
+
+
+                  </div>
+
+                </div>
+                <button type="button" (click)="downloadtracker()" class="btn  btn-raised btn-primary btn-md">Download <i
+                    class="fa fa-download"></i></button>
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="modal fade" role="dialog" id="commentstatus3">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-bs-dismiss="modal" class="close" type="button">×</button>
+              <h6 class="modal-title text-danger ">Comment/Status </h6>
+            </div>
+            <div class="modal-body">
+              <div class="col-md-12">
+                <div class="form-horizontal" role="form" name="userForm">
+                  <div class="form-group" ng-show="showowner">
+                    <label for="inputEmail" class="col-md-3  col-sm-offset-2">Owner</label>
+                    <div class="col-md-4">
+                      <select class="form-control e" n="Owner" [(ngModel)]="commentstatus.recruiterid">
+                        <option value="{{profile.id}}">Self</option>
+                        <option value="{{manager.id}}" *ngFor="let manager of managers">
+                          {{manager.name}}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label class="col-md-3 col-sm-offset-2" select="">Status:</label>
+                    <div class="col-md-6">
+                      <select class="form-control" style="width: 80%;" id="purpose" ng-change="purposechange()"
+                        [(ngModel)]="commentstatus.status" name="client_detail_id">
+                        <option selected="" value="{{currentstatusid}}">{{currentstatusname}}</option>
+                        <option value="{{x.id}}" title="{{x.isinterview}}" *ngFor="let x of statuses">
+                          {{x.DisplayName}}
+                        </option>
+
+                      </select>
+                      <label *ngIf="db.mp.btn_show_all_status"><input type="checkbox" ng-change="comment()"
+                          [(ngModel)]="allstatus" />Override Status</label>
+                      <label><input type="checkbox" [(ngModel)]="commentstatus.noemail" ng-true-value="1"
+                          ng-false-value="0">No email/sms to candidate</label>
+                    </div>
+                  </div>
+
+
+                  <div class="form-group">
+                    <label class="col-md-3 col-sm-offset-2" referral="">Comment :</label>
+                    <div class="col-md-5">
+                      <textarea class="form-control" [(ngModel)]="commentstatus.comment" placeholder="Comment"
+                        required=""></textarea>
+                    </div>
+                  </div>
+                  <div class="col-lg-offset-2 col-md-3">
+                    <button type="submit" class="btn  btn-raised btn-block btn-primary"
+                      (click)="updatestatuscommentmyjob(1)">Update</button>
+                  </div>
+                </div>
+
+
+              </div>
+
+              <div class="clearfix"></div>
+            </div>
+
+
+          </div>
+        </div>
+        <!--End  Start Submit CV-->
+      </div>
+      <div class="modal fade" role="dialog" id="activity">
+
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-bs-dismiss="modal" class="close" type="button">×</button>
+              <h6 class="modal-title text-danger">Activity</h6>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="col-md-12" style="padding-top: 10px;" *ngFor="let x of activities">
+
+
+                <div class="media-left media-middle">
+                  <a>
+                    <img style="width:50px; height: 50px" on-error-src="img/profilepic.png" src="{{x.profilepic}}"
+                      class="media-object img-circle img-bordered" alt="User Image">
+                  </a>
+                </div>
+                <div class="media-body">
+                  <h6 class="media-heading">
+                    <b>{{x.recruiter}}</b> changed status of
+                    <i>
+                      <span class="text-red ">{{x.candidate_name}} </span>
+                    </i> for
+                    <span class="text-aqua">({{x.job_title}})</span>
+                  </h6>
+                  <div class="row">
+                    <div class="col-md-8">Status :
+                      <b class="text-black">{{x.RootDisplayName}}/{{x.DisplayName}}</b>
+                    </div>
+                    <div class="col-md-4">Date :
+                      <b class="text-black ">{{x.created_at}}</b>
+                    </div>
+
+                  </div>
+                  <div class="col-md-12">
+                    <b>Comment : </b> {{x.comment==''?'-':x.comment}}
+
+                  </div>
+                  <div class="clearfix"></div>
+
+                </div>
+                <hr>
+              </div>
+
+              <div class="alert alert-danger" ng-show="activities.length == 0">
+                No Activity!
+              </div>
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!--End  Start Submit CV-->
+      </div>
+      <div class="modal fade" role="dialog" id="trackerDetailExtra">
+
+
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button aria-hidden="true" data-bs-dismiss="modal" class="close" type="button">×</button>
+              <h6 class="modal-title text-danger">Tracker Data</h6>
+            </div>
+
+
+            <div class="modal-body">
+              <div class="col-md-12" style="padding-top: 10px;">
+
+                <div class="form-group">
+                  <label>Resume Source:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.resume_source"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Resume Source Name:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.resume_source_name"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Panel Shared Date(first):</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.panel_shared_date_first"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Joining Date:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.joining_date"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Offered Release Date:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.offered_release_date"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Offered Fixed:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.offered_fixed"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Offered Retiral:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.offered_retiral"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Variable/Hotskills incentive:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.variable_hotskills_incentive"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Actual Date of Joining:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.actual_date_of_joining"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Recruitment Expense Po Type:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.recruitment_expense_po_type"
+                    class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Amount:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.amount" class="form-control">
+                </div>
+                <div class="form-group">
+                  <label>Relocation Expense:</label>
+                  <input type="text" autocomplete="off" [(ngModel)]="trackerdatamyjob.relocation_expense"
+                    class="form-control">
+                </div>
+
+                <div class="form-group">
+                  <input type="submit" value="Save" (click)="setatjidentitysave(trackerdatamyjob)" />
+                </div>
+
+              </div>
+
+
+              <div class="clearfix"></div>
+
+            </div>
+          </div>
+        </div>
+        <!--End  Start Submit CV-->
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div id="conversation" class="modal fade" style="z-index: 1051;" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+
+        <h6 class="modal-title">Conversation
+          <!-- (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span> -->
+        </h6>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div id="player">
+
+        </div>
+
+        <div class="col-md-12" *ngFor="let value of conversationsobj">
+
+          <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b>
+
+          <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+              <a class="btn btn-link playlink"  href='{{  (value.audio)}}'>
+                {{(value.text==''?'***':value.text)}}</a>
+              </p>
+              <div id="player">
+
+              </div> -->
+          <!-- <div class="player"></div> -->
+
+          <p>{{(value.text==''?'***':value.text)}}</p>
+          <!-- <div id="{{value.audio}}">
+
+                </div> -->
+          <!-- <div id=player2> -->
+          <audio controls style="width: 100px;">
+            <source src="{{value.audio}}" type="audio/wav">
+          </audio>
+          <!-- <iframe src="{{value.audio}}" width="100%" height="100" style="border:none; width:300px;height:100px"></iframe> -->
+          <!-- </div> -->
+          <!-- <a target="_blank" href='{{value.audio}}'>click here for audio</a>
+                <div id="player2">
+                  {{value.audio[0]}}
+
+                </div> -->
+        </div>
+
+
+        <!-- <div>
+          <button title='{{callconversation.job_title}} ' class="btn  btn-raised btn-info pull-right">Add To
+            Job</button>
+        </div> -->
+
+        <div class="clear " style="clear:both;"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div id="chat" class="modal fade" style="z-index: 1051;" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+
+        <h6 class="modal-title">Chat conversation
+          <!-- (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span> -->
+        </h6>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div id="player">
+
+        </div>
+        <div class="col-md-12" *ngFor="let value of breakchat">
+
+          <!-- <b title="{{value.start_speaking}} / {{value.end_speaking}}">{{value.key.split('__')[0]}}</b> -->
+
+          <!-- <p  title="{{value.start_transcribe}} / {{value.end_transcribe}}">
+              <a class="btn btn-link playlink"  href='{{getaudiolink(value.audio)}}'>
+                {{(value.text==''?'***':value.text)}}</a>
+              </p>
+              <div id="player">
+
+              </div> -->
+          <!-- <div class="player"></div> -->
+
+          <!-- <p>{{(value.text==''?'***':value.text)}}</p> -->
+          <p>{{value}}</p>
+
+        </div>
+
+
+        <!-- <div>
+          <button title='{{callconversation.job_title}} ' class="btn  btn-raised btn-info pull-right">Add To
+            Job</button>
+        </div> -->
+
+        <div class="clear " style="clear:both;"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+<div id="conversationnull" class="modal fade" style="z-index: 1051;" role="dialog">
+  <div class="modal-dialog modal-lg">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+
+        <h6 class="modal-title">Conversation with {{callconversation.candidate_name}} for {{callconversation.job_title}}
+          (<i>{{callconversation.recruiter}}</i>) <span class="pull-right">{{callconversation.call_status}}</span></h6>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+
+        <div id="player">
+
+        </div>
+
+        <div class="clear " style="clear:both;"></div>
+
+      </div>
+
+    </div>
+
+  </div>
+</div>
+
+<div id="exportexcel" class="modal fade" role="dialog">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h6 class="modal-title"><strong>Export Excel</strong> </h6>
+        <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+
+          <mat-form-field class="col-sm-12">
+            <mat-label>Select Job:</mat-label>
+            <mat-select [multiple]="true" [(ngModel)]="jobids" placeholder="Select Client">
+              <mat-option *ngFor="let job of jobslist" [value]="job.id" help="{{job.job_title}}">
+                {{job.job_title}} ->
+                <span itemtype="#" help='Client' style="color: black;"> {{job.ClientName}} </span>
+                <span itemtype="#" help='Department' style="color: black;"> {{job.DepartmentName}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-sm-12">
+            <mat-label>Select Tracker:</mat-label>
+            <mat-select ngDefaultControl class="m" [(ngModel)]="trackerno" n="Tracker NO" validate ngDefaultControl>
+              <mat-option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">{{tracker.tracker_name}}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+          <mat-form-field class="col-sm-6">
+            <input matInput autocomplete="off" [(ngModel)]="item.start_date_temp" [max]="item.end_date_temp"
+              [matDatepicker]="startpicker" (focus)="startpicker.open()" placeholder="Choose a date" class="e">
+            <mat-datepicker-toggle matSuffix [for]="startpicker"></mat-datepicker-toggle>
+            <mat-datepicker #startpicker></mat-datepicker>
+          </mat-form-field>
+
+
+          <mat-form-field class="col-sm-6">
+            <input matInput autocomplete="off" [(ngModel)]="item.end_date_temp" [matDatepicker]="endpicker"
+              (focus)="endpicker.open()" placeholder="Choose a date" class="e">
+            <mat-datepicker-toggle matSuffix [for]="endpicker"></mat-datepicker-toggle>
+            <mat-datepicker #endpicker></mat-datepicker>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-outline-secondary" (click)='exportdatajobcandidate(trackerno)'>Download</button>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</div>
+<app-add-to-job [allids]='allids' [callids]='callids'></app-add-to-job>
+<!-- <app-add-note (editnote)='editnot($event)'></app-add-note> -->
+<app-add-candidate></app-add-candidate>
+<!-- <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status> -->
+<app-activity [activities]="activities"></app-activity>
+<app-call [allids]='allids'></app-call>
+
+<app-update-candidate [current_data]='currentData'></app-update-candidate>

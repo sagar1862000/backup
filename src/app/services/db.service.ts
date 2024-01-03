@@ -24,7 +24,7 @@ export class DbService implements OnInit, OnChanges {
   // rooturi = 'http://192.168.51.219:8000/';
   // rooturi = 'http://192.168.4.14:8000/';
   ServiceURL = this.rooturi;
-
+  ids12: any = [];
   loaderprogressbar = false;
   token: any;
   public previousUrl: string = undefined;
@@ -40,6 +40,9 @@ export class DbService implements OnInit, OnChanges {
   storedpageno1: any;
   idscheckbox: any = [];
   http_or_https = 'https';
+  globaljobid = 0;
+  call_id: any = [];
+
 
   public NodeType = {
     internaldatabase: 'internaldatabase',
@@ -69,6 +72,9 @@ export class DbService implements OnInit, OnChanges {
       this.http_or_https = 'https';
     }
     
+
+    this.globaljobid = 0;
+
   }
 
   buildFormData(formData: any, data: any, parentKey?: any) {
@@ -1188,6 +1194,27 @@ toTT(date: any) {
     }
     return selectedcheckbox.substring(0, selectedcheckbox.lastIndexOf(','));
     // creturn selectedcheckbox;
+  }
+
+  extractCallIDData(data, id?): any {
+
+    if (id === null || id === undefined) {
+      id = 'id';
+    }
+    const ids1 = [];
+
+    for (const i in data) {
+      if (data[i]) {
+        // ids1.push(data[i].call_id);
+        ids1.push(data[i]);
+      }
+    }
+
+    this.ids12 = ids1;
+    // return ids1;
+
+    return this.ids12;
+
   }
 
 }

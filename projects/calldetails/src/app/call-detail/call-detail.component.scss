@@ -1,0 +1,70 @@
+.buttonwithnumber button {
+    margin-left: 15px;
+  }
+  
+  .badge {
+    color: blueviolet;
+  }
+  
+  .mat-badge-content {
+    width: 50px;
+  }
+  
+  .shareparent a {
+    margin: 3px 5px;
+  }
+  
+  .sharediv{
+    margin-top: 5px;
+  }
+  
+  .callbutton {
+    margin-left: 72%;
+  }
+  
+  .test {
+    background-color: #a64eed;
+    color: #fff;
+  }
+  
+  .redClass {
+    background-color: #a64eed;
+  
+    i {
+      color: #fff;
+    }
+  }
+  
+  #matBadgebutton {
+    width: auto;
+    background: white;
+  }
+  
+  .mat-badge-content {
+    background: red;
+    color: blue;
+  }
+  
+  .mat-mini-fab {
+    box-shadow: white;
+  }
+  
+  @media only screen and (max-width: 1000px) {
+    /* Replace 'button1' with a valid selector */
+    .button1 {
+      background-color: lightblue;
+    }
+  }
+  
+  /* Import your external SCSS file here */
+//   @import url("../../../../../assets/scss/core/main-panel.scss");
+  
+  .img1 {
+    vertical-align: -15%;
+  }
+  
+  .col-md-2 {
+    width: 150px;
+    padding: 5px 5px 5px 10px;
+  }
+  

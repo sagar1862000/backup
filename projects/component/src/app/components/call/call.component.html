@@ -1,0 +1,267 @@
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="calldiv" class="modal fade"
+    data-bs-backdrop="static">
+    <div class="modal-dialog" id="client">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Call</h6>
+
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="form-horizontal">
+                    <div class="form-group">
+                        <mat-form-field class="w-100" *ngIf="USR.clientsdepartment == 'Client/Department'">
+                            <mat-label>{{USR.clientsdepartment}}:</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select id="clientsdepartment" [(ngModel)]="clientsdepartment"
+                                    name="clientsdepartment">
+                                    <mat-option (click)="getclientdepartment()" value="Client"
+                                        *ngIf="USR.mp.view_client">Client</mat-option>
+                                    <mat-option (click)="getclientdepartment()" value="Department"
+                                        *ngIf="USR.mp.view_department">Department
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </mat-form-field>
+
+                        <!-- <mat-form-field class="w-100" *ngIf="USR.clientsdepartment == 'Client' || clientsdropdown">
+                            <mat-label for="client">Client:</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select id="client" [(ngModel)]="addtojob.client_detail_id" name="client">
+                                    <mat-option (click)="MR.GetJobAssignedbyclientdepartments('client',client.id)"  value="{{client.id}}" *ngFor="let client of departments">
+                                      {{client.department_name}}</mat-option>
+                                  </mat-select>
+                            </div>
+                        </mat-form-field> -->
+
+                        <mat-form-field class="w-100" *ngIf="USR.clientsdepartment == 'Client' || clientsdropdown">
+                            <mat-label for="client">Client:</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select id="client" [(ngModel)]="call.department_id" name="client">
+                                    <mat-option (click)="MR.GetJobAssignedbyclientdepartments('client',client.id)"
+                                        value="{{client.id}}" *ngFor="let client of MR.departments">
+                                        {{client.department_name}}</mat-option>
+                                </mat-select>
+                            </div>
+                        </mat-form-field>
+
+                        <mat-form-field class="w-100"
+                            *ngIf="USR.clientsdepartment == 'Department' || departmentsdropdown">
+                            <mat-label for="department">Department:</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select id="department" [(ngModel)]="call.department_id" name="department">
+                                    <mat-option (click)="MR.GetJobAssignedbyclientdepartments('department',dep.id)"
+                                        value="{{dep.id}}" *ngFor="let dep of MR.departments">
+                                        {{dep.department_name}}</mat-option>
+                                </mat-select>
+                            </div>
+                        </mat-form-field>
+                    </div>
+                    <!---- <div class="form-group" >
+          <div class="col-xs-10">
+            <ng-select [(ngModel)]="addtojob.client_detail_id" (change)='getcandidatebyclientaddtojob()'>
+              <ng-option *ngFor="let x of departments" [value]="x.id"  >{{x.billingName}}</ng-option>
+
+          </ng-select>
+
+          </div>
+        </div> -->
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label for="Jobs" class="control-label col-xs-2">Jobs:</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select [(ngModel)]="call.add_new_job_id" name="add_new_job_id">
+                                    <mat-option [value]="x.id" (click)="checkcallport()"
+                                        *ngFor="let  x of MR.assignedJob">
+                                        {{x.job_title}}({{x.id}})
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="form-group" *ngIf="isSelectLocation">
+                        <mat-form-field class="w-100">
+                            <mat-label for="Jobs" class="control-label col-xs-2">Select Location:</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select [(ngModel)]="call.job_location" name="add_new_job_location">
+                                    <mat-option [value]="joblocation" *ngFor="let  joblocation of location">
+                                        {{joblocation}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </mat-form-field>
+                    </div>
+
+
+                    <div class="form-group">
+                        <mat-form-field class="w-100">
+                            <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
+                            <div class="col-xs-10">
+                                <!-- <mat-label>Favorite food</mat-label> -->
+                                <mat-select [(ngModel)]="call.manager">
+                                    <mat-option [value]="USR.profile.id">
+                                        Self
+                                    </mat-option>
+                                    <mat-option [value]="x.id" *ngFor="let  x of USR.managers">
+                                        {{x.name}}
+                                    </mat-option>
+                                </mat-select>
+                                <!-- <ng-select  [(ngModel)]="call.manager">
+              <ng-option [value]="db.profile.id">Self</ng-option>
+              <ng-option [value]="x.id" *ngFor="let  x of managers">
+                {{x.name}}
+              </ng-option>
+            </ng-select> -->
+                            </div>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group" *ngIf="db.mp.multilingual">
+                        <mat-form-field class="w-100">
+                            <mat-label for="Jobs" class="control-label col-xs-2">language</mat-label>
+                            <div class="col-xs-10">
+                                <mat-select [(ngModel)]="call.language">
+                                    <mat-option [value]="x.code" *ngFor="let  x of USR.bot_language_code">
+                                        {{x.language}}
+                                    </mat-option>
+                                </mat-select>
+                            </div>
+                        </mat-form-field>
+                    </div>
+
+                    <div class="form-group">
+
+                        <!-- <mat-form-field>
+                <mat-label>Call Type</mat-label>
+                <div class="col-xs-10">
+
+                 <input matInput autocomplete="off" disabled *ngIf="byjobcalltype" [(ngModel)]="call.callto" name="callto" >
+
+                <mat-select *ngIf="!byjobcalltype" [(ngModel)]="call.callto">
+
+                   <mat-option *ngIf = "db.mp.bestseller_allpr4" value="allPR4">Screening Bot</mat-option>
+                   <mat-option *ngIf = "db.mp.mindpool_premission" value="allPR6">Mind Pool Bot</mat-option>
+
+                   <mat-option *ngIf = "db.mp.bestseller_allpr4"  value="allPR1">Technical Bot all pr1</mat-option>
+                   <mat-option *ngIf = "db.mp.satin_premission"  value="allPR7">Technical Bot</mat-option>
+
+
+
+                    <mat-option *ngIf = "db.mp.bestseller_allpr4" (click)="directlineupdata();" value="allPR">Direct Lineup Bot</mat-option>
+
+                </mat-select>
+              </div>
+              </mat-form-field> -->
+                        <div id="directlineupdata" style="display:none;">
+                            <div class="row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-12">Interview Date</label>
+                                    <div class="col-md-12">
+
+                                        <!-- <div class="input-group date" id="datetimepicker2">
+                                            <input type="text" autocomplete="off" [owlDateTime]="dt1"
+                                                [(ngModel)]="call.interview_startdate" class="form-control">
+                                            <owl-date-time [pickerType]="'calendar'" #dt1></owl-date-time>
+                                        </div> -->
+                                        <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-12">Optional Date</label>
+                                    <div class="col-md-12">
+
+                                        <!-- <div class="input-group date" id="datetimepicker2">
+                                            <input type="text" autocomplete="off" [owlDateTime]="dt2"
+                                                [owlDateTimeTrigger]="dt2" [(ngModel)]="call.interview_enddate"
+                                                class="form-control">
+                                            <owl-date-time [pickerType]="'calendar'" #dt2></owl-date-time>
+                                        </div> -->
+                                        <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-12">Interview Start Time</label>
+                                    <div class="col-md-12">
+
+                                        <!-- <div class="input-group date" id="datetimepicker3">
+                                            <input [owlDateTime]="dt3" [owlDateTimeTrigger]="dt3"
+                                                [(ngModel)]="call.interview_ostartdate" class="form-control">
+                                            <owl-date-time [pickerType]="'timer'" #dt3></owl-date-time>
+                                        </div> -->
+                                        <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                                    </div>
+
+
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-md-12">Interview End Time</label>
+                                    <div class="col-md-12">
+
+                                        <!-- <div class="input-group date" id="datetimepicker2">
+                                            <input type="text" autocomplete="off" [owlDateTime]="dt4"
+                                                [owlDateTimeTrigger]="dt4" [(ngModel)]="call.interview_oenddate"
+                                                class="form-control">
+                                            <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time>
+                                        </div> -->
+                                        <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                                    </div>
+
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-md-12">Interview Location</label>
+                                    <div class="col-md-12">
+
+                                        <mat-form-field>
+                                            <!-- <mat-label> Location</mat-label> -->
+                                            <input matInput autocomplete="off" [(ngModel)]="call.interview_loc"
+                                                name="location">
+                                            <!-- <mat-select [(ngModel)]="location" name="location">
+                        <mat-option value="{{add.address}}" *ngFor="let add of addresses">{{add.address_title}}</mat-option>
+
+
+                      </mat-select> -->
+                                        </mat-form-field>
+                                        <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
+
+                                    </div>
+
+                                </div>
+
+
+                            </div>
+                            <!-- <label for="callto" class="control-label col-xs-2">callto:</label>
+                       <div class="col-xs-10">
+                          <select class="form-control m-bot15" [(ngModel)]="call.callto">
+                                                             <option value="allPR1">Screening Bot</option>
+                                                             <option value="allPR3">Direct Lineup Bot</option>
+
+                                                         </select>
+                       </div> -->
+                        </div>
+                        <div class="form-group">
+                            <div class="col-md-12 ">
+                                <button type="submit" class="btn btn-primary btn-block" data-bs-dismiss="modal"
+                                    tar="#client" (click)="sendcalltocandidates()">Place in Queue</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>

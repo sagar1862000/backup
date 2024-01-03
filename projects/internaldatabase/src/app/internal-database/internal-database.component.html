@@ -1,0 +1,236 @@
+<!-- <app-add-candidate></app-add-candidate> -->
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="container-fluid">
+            <!-- card advancesearch -->
+            <div class="" style="margin-top:15px;">
+              <div class="card-header card-header row" style="background:#e9d3fb">
+                <div class="col-md-4">
+
+                  <h6 class="card-title" style="color: black; font-weight: bold;"> <span
+                      *ngIf="advancesearch">Advance</span> <span *ngIf="booleansearch">Boolean</span> Search</h6>
+                  <p class="card-category">Filter <span *ngIf="advancesearch">Advance</span> <span
+                      *ngIf="booleansearch">Boolean</span> Search Details</p>
+                </div>
+                <div class="col-md-8 pull-right">
+                  <div class="row" style="margin-left: 110px;margin-top:20px">
+                    <div class="col-md-8 pull-right ">
+
+                      <!-- <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <button class="btn btn-outline-secondary btnboolean" name="options" id="option1"
+                          [style.background-color]="toggle ? 'white' : '#a64eed'"
+                          [ngClass]="{'toggleactive': toggle,'togglenotactive':!toggle}" autocomplete="off"
+                          style=" border-top-left-radius: 25px;border-bottom-left-radius: 25px;"
+                          (click)="loadSearchBoolean('option1');" checked> Boolean</button>
+                        <button class="btn btn-outline-secondary btnboolean " name="options" id="option3"
+                          [style.background-color]="toggle1 ? '#a64eed' : 'white'"
+                          [ngClass]="{'toggle1active': toggle1,'toggle1notactive':!toggle1}"
+                          style=" border-top-right-radius: 25px;border-bottom-right-radius: 25px;"
+                          (click)="loadSearchAdvance('option2');" autocomplete="off"> Advance</button>
+                      </div> -->
+
+                    </div>
+                    <div class="col-md-4">
+                      <button class="btn btn-sm float-right btn-outline-secondary icousers" data-toggle="modal"
+                        title='Add Candidate' id="iconbackground" (click)="callModal()"
+                        *ngIf="db.mp.candidate_detail_store">
+                        <i class="fa fa-users icones"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+              <br>
+
+              <div class="container mb-5">
+                <div class="row">
+                  <div class="col-md-2">
+
+                  </div>
+                  <div class="col-md-8" style="background-color:#e4e6ee ; border-radius: 25px;">
+                    <div class="card-body">
+                      <div class="row" *ngIf="advancesearch">
+
+                        <div class="col-md-6">
+                          <div class="col-md-9">
+                            <mat-form-field class="w-100">
+                              <mat-label> Any Keyword- </mat-label>
+
+                              <input matInput autocomplete="off" type="text" [(ngModel)]="orsearch" (keyup.enter)="loadGrid()" />
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+                        <div class="col-md-6">
+                          <div class="col-md-10">
+                            <mat-form-field class="w-100">
+                              <mat-label> All Keyword- </mat-label>
+
+                              <input matInput autocomplete="off" type="text" [(ngModel)]="andsearch" (keyup.enter)="loadGrid()" />
+                            </mat-form-field>
+                          </div>
+                        </div>
+
+                        <!-- <div class="col-md-4">
+                      Exclude Keyword-
+                      <mat-form-field class="example-full-width">
+                        <input matInput autocomplete="off" type="text" [(ngModel)]="notsearch" (keyup.enter)="loadGrid()" />
+                      </mat-form-field>
+                    </div> -->
+                      </div>
+
+                      <div class="col-md-12 row" *ngIf="booleansearch">
+                        <div class="col-md-11">
+
+
+                          <mat-form-field class="w-100" appearance="fill">
+                            <mat-label> Search- </mat-label>
+                            <input matInput autocomplete="off" type="text" [(ngModel)]="searchText" (keyup.enter)="loadGridboolean()" />
+                          </mat-form-field>
+                        </div>
+
+
+                      </div>
+
+                      <div class="row">
+
+                        <div class="form-group col-md-6">
+                          <div class='col-md-9'>
+
+                            <!-- <mat-form-field> -->
+                            <!-- <ng-select [(ngModel)]="salaryfrom" name="salaryfrom" placeholder="Salary From"
+                              (change)="updatemaxsalary()" appearance="fill">
+                              <ng-option value='{{minimumSalarylac}}'
+                                *ngFor="let minimumSalarylac of  minimumSalaryOption">
+                                {{minimumSalarylac}} Lacs</ng-option>
+                            </ng-select> -->
+                            <mat-select [(ngModel)]="salaryfrom" name="salaryfrom" placeholder="Salary From"
+                              (change)="updatemaxsalary()" appearance="fill">
+                              <mat-option value='{{minimumSalarylac}}'
+                                *ngFor="let minimumSalarylac of  minimumSalaryOption">
+                                {{minimumSalarylac}} Lacs</mat-option>
+                            </mat-select>
+                            <!-- </ngform-field> -->
+                          </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+
+                          <div class='col-md-10'>
+                            <!-- Salary To- -->
+                            <!-- <mat-form-field> -->
+                            <!-- <ng-select [(ngModel)]="salaryto" name="salaryto" placeholder="Salary To-">
+                              <ng-option value='{{opt}}' *ngFor="let opt of  maxSalaryOption"
+                                help="first select minimum value">
+                                {{opt}} Lacs
+                              </ng-option>
+                              <ng-option value="99">any</ng-option>
+
+                            </ng-select> -->
+                            <mat-select [(ngModel)]="salaryto" name="salaryto" placeholder="Salary To-">
+                              <mat-option value='{{opt}}' *ngFor="let opt of  maxSalaryOption"
+                                help="first select minimum value">
+                                {{opt}} Lacs
+                              </mat-option>
+                              <mat-option value="99">any</mat-option>
+
+                            </mat-select>
+                            <!-- </ngform-field> -->
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row">
+
+                        <div class="form-group col-md-6">
+                          <div class='col-md-9'>
+
+
+                            <!-- <mat-form-field> -->
+                            <mat-select [(ngModel)]="expfrom" (change)="updatemaxexperience()" name="expfrom"
+                              placeholder="Experience From-">
+                              <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                              <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                              <mat-option value="1">Fresher</mat-option>
+                              <mat-option value='{{opt}}' *ngFor="let opt of  minexperience">{{opt}} year</mat-option>
+                              <mat-option value="0">Any</mat-option>
+
+                            </mat-select>
+                            <!-- </ngform-field> -->
+                          </div>
+                        </div>
+
+                        <div class="form-group col-md-6">
+
+
+                          <div class='col-md-10'>
+
+                            <!-- <mat-form-field> -->
+                            <mat-select [(ngModel)]="expto" name="expto" placeholder="Experience To-">
+                              <!-- <ng-option value="'6m'"> 6 month</ng-option> -->
+                              <mat-option value='{{opt}}' *ngFor="let opt of  maxexperience">{{opt}} year</mat-option>
+                              <mat-option value="99">Any</mat-option>
+
+                            </mat-select>
+                            <!-- </ngform-field> -->
+                          </div>
+                        </div>
+                      </div>
+                      <!-- </div> -->
+                      <div class="row">
+                        <div class="form-group col-md-6">
+                          <div class='col-md-9'>
+
+                            <!-- <ng-select [(ngModel)]="locationss" name="location" [multiple]="true"
+                              placeholder="Location:">
+                              <ng-option *ngFor="let locations of location">
+                                {{locations}}
+                              </ng-option>
+                            </ng-select> -->
+                            <mat-select [(ngModel)]="locationss" name="location" [multiple]="true"
+                              placeholder="Location:">
+                              <mat-option *ngFor="let locations of location">
+                                {{locations}}
+                              </mat-option>
+                            </mat-select>
+                          </div>
+                        </div>
+                        <div class="col-3 form-group">
+                          <div class="col-md-9 col-md-offset-3" *ngIf="advancesearch">
+                            <button type="submit" class="btn  btn-raised btn-outline-primary"
+                              (click)="loadGrid()">Search</button>
+                          </div>
+                          <div class="col-md-9 col-md-offset-3" *ngIf="booleansearch">
+                            <button type="submit" class="btn  btn-raised  btn-outline-primary" tar="#assignCandidate"
+                              (click)="loadGridboolean()">Search</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-2">
+
+                  </div>
+                </div>
+              </div>
+
+
+            </div>
+
+            <br><br>
+
+
+            <div class="clearfix clear"></div>
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
