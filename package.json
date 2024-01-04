@@ -25,6 +25,7 @@
     "@popperjs/core": "^2.11.6",
     "bootstrap": "^5.2.3",
     "bot-grid": "^0.0.1",
+    "c3": "^0.7.20",
     "file-saver": "^2.0.5",
     "grid-internal-data": "^0.0.1",
     "jquery": "^3.7.1",

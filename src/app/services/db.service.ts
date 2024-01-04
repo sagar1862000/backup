@@ -1217,4 +1217,8 @@ toTT(date: any) {
 
   }
 
+  sl(): void {
+    // $rootScope.ShowLoader = true;
+  }
+
 }

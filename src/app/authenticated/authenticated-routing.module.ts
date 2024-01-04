@@ -19,6 +19,9 @@ const routes: Routes = [
       { path: 'history', loadChildren: () => import('../../../projects/history/src/app/history/history.module').then(m => m.HistoryModule) },
       { path: 'call-detail', loadChildren: () => import('../../../projects/calldetails/src/app/call-detail/call-detail.module').then(m => m.CallDetailModule) },
       { path: 'internaldatabase', loadChildren: () => import('../../../projects/internaldatabase/src/app/internal-database/internal-database.module').then(m => m.InternalDatabaseModule) },
+      { path: 'call_detail_report', loadChildren: () => import('../../../projects/candidate-call-report/src/app/call-detail-report/call-detail-report.module').then(m => m.CallDetailReportModule) },
+      { path: 'recent-activity', loadChildren: () => import('../../../projects/settings/src/app/recent-activity/recent-activity.module').then(m => m.RecentActivityModule) },
+      { path: 'user-profile', loadChildren: () => import('../../../projects/profile/src/app/user-profile/user-profile.module').then(m => m.UserProfileModule) },
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       

@@ -1,0 +1,173 @@
+<div class="main-content" style="margin-top:-3rem;">
+    <div class="container-fluid">
+      <div class="card" style=" margin-top:6rem;">
+        <div class="card-header card-header">
+          <h6 class="card-title" style="font-weight: bold;">Candidate call Reports</h6>
+          <!-- <p class="card-category">Filter Candidate call Report</p> -->
+        </div>
+        <div class="col-md-12 row">
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-select n="Owner" [(ngModel)]="userids" (change)="getlistdata()" placeholder="Select Recruiter">
+                <mat-option value="{{db.profile.id}}" (click)="getlistdata()">Self</mat-option>
+                <mat-option value="{{x.id}}" (click)="getlistdata()" *ngFor="let x of managers">{{x.name}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-2">
+            <mat-form-field>
+              <mat-label> Select Job: </mat-label>
+              <mat-select matNativeControl appearance="outline" id="id" name="id" [(ngModel)]="jobid">
+                <mat-option value="0" (click)="getlistdata()">All</mat-option>
+                <mat-option [value]="myjobdata.id" (click)="getlistdata()" *ngFor="let myjobdata of myjobdatas">
+                  {{myjobdata.job_title}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+  
+  
+  
+  
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <input matInput autocomplete="off" [(ngModel)]="start_date" [matDatepicker]="picker" (focus)="picker.open()"
+                placeholder="Choose start date">
+              <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-3">
+            <mat-form-field>
+              <input matInput autocomplete="off" [(ngModel)]="end_date" [matDatepicker]="picker2" (focus)="picker2.open()"
+                placeholder="Choose End date">
+              <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+              <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+          </div>
+          <div class="col-md-1" style="margin-top:0.6rem;">
+            <button class="btn btn-sm btn-outline-primary" (click)="getlistdata()">Search</button>
+          </div>
+        </div>
+      </div>
+      <!-- <div id="clientbarunderreviewpie3" class="charthw2"></div>
+                      <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="100"
+                        h="100" tar="#clientbarunderreviewpie3" style="display: block;margin-bottom: 10px;"> -->
+      <!-- <div #container></div>
+                        <div id="candidatecampignreport" class="height500"></div>
+                        <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+                          tar="#candidatecampignreport" style="display: block;margin-bottom: 10px;">
+                        <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="rowData"
+                        [columnDefs]="columnDefs" suppressCsvExport=false
+                        [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+                        [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                        [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+                        (rowClicked)="onRowClicked($event)"></ag-grid-angular> -->
+  
+  
+  
+  
+      <div class="col-md-12" id='showgraph'>
+  
+        <div class="box box-primary">
+          <div class="box-body">
+            <div class="form-group pull-right">
+              <div class="checkbox">
+  
+                <!-- <label> <input type="checkbox" [(ngModel)]="showchart" /> Show Chart
+                    </label> -->
+              </div>
+            </div>
+            <!-- <button class="printview btn mt-2 btn-raised btn-outline-primary btn-sm pull-right" id='print'
+              (click)='print()'>Print preview</button>
+  
+            <mat-form-field appearance="standard" class=" mr-4 pull-right" style=" margin-top: 2px; font-size: 10px;">
+              <mat-label>Chart</mat-label>
+              <mat-select>
+                <mat-option *ngFor="let Chart of Charts" [value]="Chart.value" (click)="selectchart(Chart.value)">
+                  {{Chart.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <div class="clearfix"></div> -->
+  
+            <!-- <ejs-accumulationchart #ModelShowCallcallprint height="550px" [legendSettings]='legend'
+              [tooltip]='tooltipSetting' (pointClick)='pointClick($event)' *ngIf="FunnelShowandHide">
+  
+              <e-accumulation-series-collection>
+                <e-accumulation-series width='700px' height="400px" type='Funnel' [dataSource]='myfunnelchart' xName='x'
+                  yName='value' innerRedius='40%' [dataLabel]='chartLabel'>
+                </e-accumulation-series>
+              </e-accumulation-series-collection>
+            </ejs-accumulationchart> -->
+            <!-- <div class="d-flex justify-content-center" *ngIf="BarShowandHise">
+  
+              <app-bargraph [chartColors]="chartBarColors"  [barData]="Bardata" [Datashow]="Datashow"></app-bargraph>
+            </div>
+  
+            <div class="d-flex justify-content-center" *ngIf="PieShowandHide">
+              <app-pie-chart [enablePolylines]="true" [isPercentage]="true" [pieData]="Piechart"
+                [PieBarColors]="PieBarColors" [PieDatashow]="PieDatashow"></app-pie-chart>
+  
+            </div> -->
+            <!-- <div id="candidatecampignreport" class="height500"></div>
+              <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+                tar="#candidatecampignreport" style="display: block;margin-bottom: 10px;"> -->
+            <div class="row">
+              <div class="col-md-6">
+                <div id="callDetailReport" class="height500"></div>
+                <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+                  (click)="printdata('callDetailReport')" style="display: block;margin-bottom: 10px;">
+              </div>
+              <div class="col-md-6">
+                <div id="callDetailReportpie" class="height500"></div>
+                <input type="submit" class="printview btn  btn-raised  btn-sm " value="Print preview" w="1300" h="500"
+                  (click)="printdata('callDetailReportpie')" style="display: block;margin-bottom: 10px;">
+                <div class="clearfix"></div>
+              </div>
+            </div>
+            <!-- <app-prgrid [data]="rowData" (emitbuttondataToReport)="onRowClicked($event)" [header]='DataDefinitions'> -->
+  
+            <!-- </app-prgrid> -->
+            <div id="ModelShowCandidatecallWise" class="modal fade" role="dialog">
+              <div class="modal-dialog width80percent">
+  
+                <!-- Modal content-->
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h6 class="modal-title">{{filtertitle}}</h6> <button type="button" class="close"
+                      data-bs-dismiss="modal">&times;</button>
+  
+                  </div>
+                  <div class="modal-body">
+  
+                    <!-- <button (click)="exportdat()" *ngIf="db.mp.export_button">Export</button> -->
+                    <!-- <ag-grid-angular style="height: 500px;" class="ag-theme-material" [rowData]="candidate_filtered"
+                        [columnDefs]="candidate_filtered_cols" suppressCsvExport=false
+                        [autoGroupColumnDef]="autoGroupColumnDef" [suppressRowClickSelection]="true"
+                        [groupSelectsChildren]="true" paginationAutoPageSize='true'
+                        (selectionChanged)="onSelectionChanged($event)" [debug]="true" [rowSelection]="rowSelection"
+                        [rowGroupPanelShow]="rowGroupPanelShow" [pivotPanelShow]="pivotPanelShow"
+                        [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+                        (rowClicked)="onRowClicked($event)"></ag-grid-angular> -->
+                    <!-- <app-prgrid [data]="DataCalldetails" [header]='DataDefinitionsGrid'
+                      (GridHeaderClickedTable)="datfromprgrid($event)">
+  
+                    </app-prgrid> -->
+                  </div>
+  
+                  <div class="modal-footer">
+                    <button type="button" class="btn  btn-raised btn-default" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+  
+              </div>
+            </div>
+          </div>
+  
+        </div>
+      </div>
+    </div>
+  </div>

@@ -1,0 +1,18 @@
+@import '../../../../../src/app/styles/variables.scss';
+@import '../../../../../src/app/styles/colors';
+@import "../../../../../src/app/styles/font";
+
+
+.recent-activity {
+    display: flex;
+    margin: 0 8px;
+
+    @media (max-width: $normal) {
+        flex-wrap: wrap;
+    }
+
+    &__wrapper {
+        width: 100%;
+        padding: 10px;
+    }
+}
