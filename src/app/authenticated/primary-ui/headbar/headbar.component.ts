@@ -54,7 +54,7 @@ export class HeadbarComponent implements OnInit, OnDestroy {
       case '/managerole':
         this.pageTitle = 'User Management'
         break;
-      case '/managerole/permissions':
+      case '/managerole/create-areas':
         this.pageTitle = 'Create Areas'
         break;
       case '/managerole/create-user-roles':

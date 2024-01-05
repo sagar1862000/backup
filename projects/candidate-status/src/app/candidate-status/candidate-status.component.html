@@ -1,0 +1,43 @@
+
+
+<div class="header">
+    <!-- <a>Candidate Status</a> -->
+    <a></a>
+    <button type="button" class="btn btn-success middle" routerLink="add-candidate">Add Candidate</button>
+    <button type="button" class="btn btn-success right" routerLink="build-status-relation">Build Status Relation</button>
+  </div>
+  <div style="position: relative;">
+  <!-- <table class="table">
+   <thead>
+     <tr>
+       <th>Display Name</th>
+       <th>Root Name</th>
+       <th>Is Interview</th>
+       <th>Channel Id</th>
+     </tr>
+   </thead>
+   <tbody>
+       <tr *ngFor="let item of candidateData">
+           <td>{{ item.display_name }}</td>
+           <td>{{ item.root_name }}</td>
+           <td>{{ item.is_interview }}</td>
+           <td>{{ item.channel_id }}</td>
+     </tr>
+   </tbody>
+  </table> -->
+  
+  
+  <div class="layout">
+    <div class="content">
+        <!-- <app-prgrid [data]="message_templates" [header]='DataDefinitionsGrid'
+            (onHeaderClicked)="DatFromPRGridTableHeader($event)" >
+        </app-prgrid> -->
+    </div>
+    <div class="rightnavigation">
+      <router-outlet></router-outlet>
+      </div>    
+  </div>
+  
+  </div>
+  
+  

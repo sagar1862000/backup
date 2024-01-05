@@ -22,6 +22,9 @@ const routes: Routes = [
       { path: 'call_detail_report', loadChildren: () => import('../../../projects/candidate-call-report/src/app/call-detail-report/call-detail-report.module').then(m => m.CallDetailReportModule) },
       { path: 'recent-activity', loadChildren: () => import('../../../projects/settings/src/app/recent-activity/recent-activity.module').then(m => m.RecentActivityModule) },
       { path: 'user-profile', loadChildren: () => import('../../../projects/profile/src/app/user-profile/user-profile.module').then(m => m.UserProfileModule) },
+      { path: 'managerole', loadChildren: () => import('../../../projects/managerole/src/app/managerole/managerole.module').then(m => m.ManageroleModule) },
+      { path: 'candidate-status', loadChildren: () => import('../../../projects/candidate-status/src/app/candidate-status/candidate-status.module').then(m => m.CandidateStatusModule) },
+      
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       

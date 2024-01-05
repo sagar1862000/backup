@@ -32,7 +32,7 @@ export const navbarData: INavbarData[] = [
         label:'User Management'
       },
       {
-        routeLink:'managerole/permissions',
+        routeLink:'managerole/create-areas',
         label:'Create Areas'
       },
       {
