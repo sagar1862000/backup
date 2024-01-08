@@ -230,10 +230,10 @@
                 <!-- <app-grid [data]='datas'></app-grid> -->
                 <!-- <app-prgrid  [data]="datas" (emitbuttondataToReport)="onRowClicked($event)" (gridReady)="onGridReady($event)"  [header]='DataDefinitions'
 (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true" ></app-prgrid> -->
-                <!-- <lib-bot-grid (emitbuttondataclick)="datafromprgridbuttondetails($event)" [data]="datas"
+                <lib-bot-grid (emitbuttondataclick)="datafromprgridbuttondetails($event)" [data]="datas"
                     (emitbuttondataToReport)="dataclick($event)" (gridReady)="onGridReady($event)"
                     [header]='DataDefinitions' (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true">
-                </lib-bot-grid> -->
+                </lib-bot-grid>
 
             </div>
 
@@ -241,9 +241,9 @@
             <!-- *ngIf="shownormalgrid" -->
             <div class="excelformate col-lg-12" *ngIf="Showgrid">
 
-                <!-- <lib-grid-internal-data [data]="datas" [header]="DataDefinitions"
+                <lib-grid-internal-data [data]="datas" [header]="DataDefinitions"
                     (GridHeaderClicked)="datfromprgrid($event)" (GridRowClicked)="OnRowclicked($event)" sendData="true">
-                </lib-grid-internal-data> -->
+                </lib-grid-internal-data>
 
 
             </div>
