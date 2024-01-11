@@ -155,6 +155,7 @@ export class CallComponent implements OnInit {
       this.addtojob.client_detail_id = null;
       this.clientsdropdown = true;
       this.departmentsdropdown = false;
+      debugger
       this.MR.applicationdepartment('client');
 
     } else if (this.clientsdepartment == 'Department') {
@@ -162,6 +163,7 @@ export class CallComponent implements OnInit {
       this.addtojob.client_detail_id = null;
       this.clientsdropdown = false;
       this.departmentsdropdown = true;
+      debugger
       this.MR.applicationdepartment('department');
     }
   }

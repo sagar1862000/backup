@@ -2,6 +2,7 @@ import { Injectable, OnInit } from "@angular/core";
 import { DbService } from "./db.service";
 import { Router } from "@angular/router";
 
+
 declare var $: any;
 
 @Injectable()
@@ -37,6 +38,7 @@ export class MasterService implements OnInit {
       }
 
     getCampaign(): void {
+      debugger;
         this.db.list('campaign/campaign/', null, (response): void => {
           this.Campaigns = response;
         });

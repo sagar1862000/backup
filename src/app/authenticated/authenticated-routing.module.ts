@@ -25,6 +25,10 @@ const routes: Routes = [
       { path: 'managerole', loadChildren: () => import('../../../projects/managerole/src/app/managerole/managerole.module').then(m => m.ManageroleModule) },
       { path: 'candidate-status', loadChildren: () => import('../../../projects/candidate-status/src/app/candidate-status/candidate-status.module').then(m => m.CandidateStatusModule) },
       
+
+      { path: 'new-job', loadChildren: () => import('../../../projects/newjob/src/app/new-job/new-job.module').then(m => m.NewJobModule) },
+      { path: 'trackers', loadChildren: () => import('../../../projects/settings/src/app/add-new-tracker/add-new-tracker.module').then(m => m.AddNewTrackerModule) },
+
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       

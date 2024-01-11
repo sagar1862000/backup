@@ -18,6 +18,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MailerComponent } from './mailer/mailer.component';
+import { AddToJobComponent } from 'projects/component/src/app/components/add-to-job/add-to-job.component';
+import { CallComponent } from 'projects/component/src/app/components/call/call.component';
+import { MasterService } from 'src/app/services/master.service';
 //import { ComponentsModule } from '../../shared/components.module';
 // import { CallComponent } from '../../../../component/src/app/components/call/call.component';
 // import { AddToJobComponent } from '../../../../component/src/app/components/add-to-job/add-to-job.component';
@@ -32,6 +35,11 @@ import { MailerComponent } from './mailer/mailer.component';
     // CallComponent,
     // MailerComponent,
     // AddToJobComponent
+    AddToJobComponent,
+    CallComponent,
+    MailerComponent,
+    AddToJobComponent
+
     
   ],
   imports: [
@@ -54,10 +62,13 @@ import { MailerComponent } from './mailer/mailer.component';
     // ComponentsModule
     // MyJobModule,
     // BotGridModule,
-    // GridInternalDataModule
+    // GridInternalDataModule,
+    MatFormFieldModule
     
 
   ],
+  providers:[MasterService],
+  
   exports: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

@@ -57,6 +57,7 @@ export class AddToJobComponent implements OnInit {
     this.assign = true;
     this.unassign = false;
     this.USR.loadmyteam();
+    debugger
     this.MR.getCampaign();
   }
 
@@ -132,6 +133,7 @@ export class AddToJobComponent implements OnInit {
       this.addtojob.client_detail_id = null;
       this.clientsdropdown = true;
       this.departmentsdropdown = false;
+      debugger
       this.MR.applicationdepartment('client');
 
     } else if (this.clientsdepartment == 'Department') {
