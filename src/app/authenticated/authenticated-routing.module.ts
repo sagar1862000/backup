@@ -31,6 +31,9 @@ const routes: Routes = [
 
       { path: 'billing-detail', loadChildren: () => import('../../../projects/settings/src/app/billing-details/billing-details.module').then(m => m.BillingDetailsModule) },
 
+      { path: 'department', loadChildren: () => import('../../../projects/settings/src/app/department/department.module').then(m => m.DepartmentModule) },
+
+
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       
