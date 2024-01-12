@@ -3,9 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { AddNewTrackerComponent } from './add-new-tracker.component';
 
 const routes: Routes = [
-  {
-    path:'', component:AddNewTrackerComponent
-  }
+  {path:'', component:AddNewTrackerComponent}
 ];
 
 @NgModule({

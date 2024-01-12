@@ -1,0 +1,122 @@
+<div class="main-content">
+    <div class="container-fluid " style="position:relative; top:0.5rem">
+        <Button class="btn btn-primary" (click)="showhide() || back();"> Add Tracker Field</Button>
+
+        <div *ngIf="ishideshow" class="width100percent">
+            <div class="col-md-12">
+
+
+                <div class="card mt-3">
+                    <div class="card-header card-header ">
+                        <h6 class="card-title" style="font-weight: bold;">Tracker Detail</h6>
+                        <p class="card-category">Add or Edit Trackers</p>
+                    </div>
+                    <div class="row" id="trackermaster">
+                        <div class="bs-example col-md-12" id="messagetemp">
+                            <div class="form-horizontal" id="trackertemp">
+                                <div class="row">
+                                    <div class="form-group col-md-3">
+
+                                        <label for="" class="control-label col-md-12">Job Specific Information: <span
+                                                help='this is customized job data, which could be different in each job'
+                                                class="badge">?</span></label>
+                                        <div class="checkbox ">
+                                            <mat-checkbox [(ngModel)]="newtracker.is_job_specific"
+                                                (ngModelChange)="newtracker.is_job_specific ">
+                                            </mat-checkbox>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <!-- <label for="" class="control-label col-md-7">Display Name:</label>
+                                        <div class="col-md-10"> -->
+                                        <!-- <input type="text" autocomplete="off"  ngAutocomplete  class="form-control e"
+                                    n="a Display Name" id="dname" [(ngModel)]="newtracker.display_name" placeholder="Display Name" name="Display_Name" value="display_names"
+                                    (keyup)="DisplayNamesuggestion()" />   <br> -->
+
+
+                                        <mat-form-field class="tp-full-width" appearance="outline">
+                                            <mat-label>Display Name: </mat-label>
+                                            <input type="text" autocomplete="off"  aria-label="Number" matInput
+                                                [matAutocomplete]="displayname" (keyup)="DisplayNamesuggestion()"
+                                                [(ngModel)]="newtracker.display_name">
+                                            <mat-autocomplete #displayname="matAutocomplete">
+                                                <mat-option *ngFor="let display of dname" [value]="display">
+                                                    {{display}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                        <!-- [(ngModel)]="candidateshowdata.Name" -->
+
+                                        <!--
+                                            <input type="text" autocomplete="off"  ng-auto-complete callback-fn='DisplayNamesuggestion()'
+                                                class="form-control e" n="a Job Title" id="dname"
+                                                ng-model="newtracker.display_name" placeholder="title" name="job_title" /> -->
+                                        <!-- </div> -->
+                                    </div>
+
+                                    <div class="form-group col-md-4">
+                                        <!-- <label for="" class="control-label col-md-8">Db Name:</label> -->
+                                        <!-- <div class="col-md-10" > -->
+                                        <!-- <input type="text" autocomplete="off"  class="form-control e" id="dbname" n="DB Name" [(ngModel)]="newtracker.db_name"> -->
+                                        <!-- <input type="text" autocomplete="off"  ngAutocomplete callback-fn='DBNamesuggestion()'
+                                                class="form-control e" n="a Display Name" id="dbname"
+                                                [(ngModel)]="newtracker.db_name" placeholder="DB Name" name="db_name"
+                                                (keyup)="DBNamesuggestion()" /> -->
+
+                                        <mat-form-field class="tp-full-width" appearance="outline">
+                                            <mat-label>Db Name: </mat-label>
+                                            <input type="text" autocomplete="off"  aria-label="Number" matInput [formControl]="myControl"
+                                                [matAutocomplete]="dbnames" (keyup)="DBNamesuggestion()"
+                                                [(ngModel)]="newtracker.db_name">
+                                            <mat-autocomplete #dbnames="matAutocomplete">
+                                                <mat-option *ngFor="let namedb of dbname" [value]="namedb">
+                                                    {{namedb}}
+                                                </mat-option>
+                                            </mat-autocomplete>
+                                        </mat-form-field>
+                                        <!-- </div> -->
+                                    </div>
+                                    <div class="form-group col-sm-3" *ngIf="!isEdit">
+                                        <button type="submit"
+                                            class="btn btn-sm btn-raised btn-outline-primary  validate"
+                                            tar="#trackermaster" *ngIf="!isEdit"
+                                            (click)="newtrackersave()">Save</button>
+
+                                    </div>
+
+                                    <div class="form-group col-3" *ngIf="isEdit">
+                                        <button type="button" class="btn btn-sm btn-raised btn-outline-primary col-6"
+                                            tar="#channel" *ngIf="isEdit" (click)="newtrackerupdate()">Update</button>
+                                        <button type="button" class="btn btn-sm btn-raised btn-outline-primary col-6"
+                                            tar="#channel" *ngIf="isEdit" (click)="back()">New Deatil</button>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group">
+                                </div>
+
+
+
+
+
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- <ag-grid-angular style="height: 500px; " class="ag-theme-material mt-1" [rowData]="rowData"
+            [columnDefs]="colDefs" suppressCsvExport=false [suppressRowClickSelection]="true"
+            [groupSelectsChildren]="true" paginationAutoPageSize='true' (selectionChanged)="onSelectionChanged($event)"
+            [debug]="true" [enableRangeSelection]="true" [pagination]="true" (gridReady)="onGridReady($event)"
+            (rowClicked)="onRowClicked($event)"></ag-grid-angular> -->
+
+
+
+    </div>
+</div>

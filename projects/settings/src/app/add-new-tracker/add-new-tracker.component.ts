@@ -4,6 +4,8 @@ import { DbService } from 'src/app/services/db.service';
 import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { log } from 'util';
 import { UntypedFormControl } from '@angular/forms';
+// import { AgGridModule } from 'ag-grid-angular'; // Angular Grid Logic
+// import { ColDef } from 'ag-grid-community'; // 
 
 declare var $: any;
 @Component({
@@ -11,6 +13,7 @@ declare var $: any;
   templateUrl: './add-new-tracker.component.html',
   styleUrls: ['./add-new-tracker.component.scss']
 })
+
 
 export class AddNewTrackerComponent implements OnInit {
   public Editor = ClassicEditor;
@@ -264,3 +267,4 @@ export class AddNewTrackerComponent implements OnInit {
   // }
 
 }
+
