@@ -33,6 +33,7 @@ const routes: Routes = [
 
       { path: 'department', loadChildren: () => import('../../../projects/settings/src/app/department/department.module').then(m => m.DepartmentModule) },
 
+      { path: 'agency', loadChildren: () => import('../../../projects/settings/src/app/agency/agency.module').then(m => m.AgencyModule) },
 
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
