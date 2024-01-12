@@ -34,7 +34,7 @@ const routes: Routes = [
 
       { path: 'agency', loadChildren: () => import('../../../projects/settings/src/app/agency/agency.module').then(m => m.AgencyModule) },
 
-      // { path: 'new-trackers', loadChildren: () => import('./../tracker-fields/tracker-fields.module').then(m => m.TrackerFieldsModule) },
+      { path: 'new-trackers', loadChildren: () => import('../../../projects/settings/src/app/tracker-fields/tracker-fields.module').then(m => m.TrackerFieldsModule) },
 
       { path: 'trackers', loadChildren: () => import('../../../projects/settings/src/app/add-new-tracker/add-new-tracker.module').then(m => m.AddNewTrackerModule) },
       
