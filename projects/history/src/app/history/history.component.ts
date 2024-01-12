@@ -1313,6 +1313,7 @@ export class HistoryComponent implements OnInit {
   //     setText("#lbLastPageFound", this.gridApi.paginationIsLastPageFound());
   //   }
   // }
+  
   onGridReady(params) {
     //
 

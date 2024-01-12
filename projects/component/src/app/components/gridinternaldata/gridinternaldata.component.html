@@ -92,7 +92,7 @@
           </thead>
         </table>
 
-        <div class="GRIDBOX row col-md-12" *ngFor="let item of candidatestatus;">
+        <div class="GRIDBOX row col-md-12" *ngFor="let item of candidatestatus">
 
           <div class="col-md-1">
             <ng-container *ngFor="let entry of item;trackBy: valuetransform">
@@ -107,14 +107,14 @@
             <div class="col-md-6" style="margin-left:-8%;">
               <ng-container *ngFor="let entry of item;trackBy: valuetransform">
                 <span *ngIf="entry.print== 'headingleft'" title="{{entry.headername}}"
-                  [innerHTML]="entry.element  " (click)="onRowClicked(entry)">
+                  [innerHTML]="entry.element" (click)="onRowClicked(entry)">
                 </span>
               </ng-container>
             </div>
             <div class="col-md-6" style="margin-left: 8%;">
               <ng-container *ngFor="let entry of item;trackBy: valuetransform">
                 <span class="{{entry.size}}" title="{{entry.headername}}" *ngIf="entry.print== 'headingright'"
-                  [innerHTML]="entry.element  " (click)="onRowClicked(entry)">
+                  [innerHTML]="entry.element" (click)="onRowClicked(entry)">
                 </span>
               </ng-container>
             </div>
@@ -125,21 +125,21 @@
             <div class="col-md-10 row">
               <ng-container *ngFor="let entry of item;trackBy: valuetransform">
                 <div class="{{entry.size}}" title="{{entry.headername}}" *ngIf="entry.print== 'bodyleft'"
-                  [innerHTML]="entry.element  " (click)="onRowClicked(entry)">
+                  [innerHTML]="entry.element" (click)="onRowClicked(entry)">
                 </div>
               </ng-container>
             </div>
             <div class="col-md-2 row">
               <ng-container *ngFor="let entry of item;trackBy: valuetransform">
                 <div class="{{entry.size}}" title="{{entry.headername}}" *ngIf="entry.print== 'bodyright'"
-                  [innerHTML]="entry.element  " (click)="onRowClicked(entry)">
+                  [innerHTML]="entry.element" (click)="onRowClicked(entry)">
                 </div>
               </ng-container>
             </div>
             <div class="col-md-12 row">
               <ng-container *ngFor="let entry of item;trackBy: valuetransform">
                 <div class="{{entry.size}}" title="{{entry.headername}}" *ngIf="entry.print== 'bodybottom'"
-                  [innerHTML]="entry.element  " (click)="onRowClicked(entry)">
+                  [innerHTML]="entry.element" (click)="onRowClicked(entry)">
                 </div>
               </ng-container>
               <!-- >>>>>>> a12b4b20841315abfc11e01a1e76456981763288 -->

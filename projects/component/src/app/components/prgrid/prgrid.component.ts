@@ -3,13 +3,13 @@ import { Router } from '@angular/router';
 import { isArray } from 'util';
 import { DomSanitizer } from '@angular/platform-browser';
 import { PipeTransform, Pipe } from '@angular/core';
-// import * as c3 from 'c3';
+import * as c3 from 'c3';
 // import * as $ from 'jquery';
 // import * as $ from 'jquery';
 declare var $: any;
 import { first } from 'rxjs/operators';
-import { ExcelService } from '../../../../../../src/app/services/excel.service';
-import { DbService } from '../../../../../../src/app/services/db.service'
+import { DbService } from 'src/app/services/db.service';
+import { ExcelService } from 'src/app/services/excel.service';
 // import { debug } from 'console';
 @Component({
   selector: 'app-prgrid',
@@ -17,6 +17,7 @@ import { DbService } from '../../../../../../src/app/services/db.service'
   styleUrls: ['./prgrid.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+
 
 export class PrgridComponent implements OnInit {
   GetsendedData: any;
@@ -29,7 +30,6 @@ export class PrgridComponent implements OnInit {
   @Input()
   set CustomBtnText(data: string) {
     // //age
-    debugger;
     if (data) {
 
       this._customBtnText = data;
@@ -108,7 +108,7 @@ export class PrgridComponent implements OnInit {
   set data(data: any) {
 
     if (isArray(data)) {
-      debugger;
+
       this._data = data;
 
       // this.emitbuttondataToReport.emit({data:this._data})
@@ -1545,3 +1545,4 @@ function evt(evt: any, data: any) {
   throw new Error('Function not implemented.');
 }
 
+ 

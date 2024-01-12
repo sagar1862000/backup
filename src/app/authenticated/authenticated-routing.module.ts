@@ -29,6 +29,8 @@ const routes: Routes = [
       { path: 'new-job', loadChildren: () => import('../../../projects/newjob/src/app/new-job/new-job.module').then(m => m.NewJobModule) },
       { path: 'trackers', loadChildren: () => import('../../../projects/settings/src/app/add-new-tracker/add-new-tracker.module').then(m => m.AddNewTrackerModule) },
 
+      { path: 'billing-detail', loadChildren: () => import('../../../projects/settings/src/app/billing-details/billing-details.module').then(m => m.BillingDetailsModule) },
+
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       
