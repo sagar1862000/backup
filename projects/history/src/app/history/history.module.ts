@@ -22,6 +22,7 @@ import { AddToJobComponent } from 'projects/component/src/app/components/add-to-
 import { CallComponent } from 'projects/component/src/app/components/call/call.component';
 import { MasterService } from 'src/app/services/master.service';
 import { ComponentsModule } from 'projects/component/src/app/components/components.module';
+import { TuhinNewLibTestModule } from 'tuhin-new-lib-test';
 // import { PrgridComponent } from 'projects/component/src/app/components/prgrid/prgrid.component';
 // import { GridinternaldataComponent } from 'projects/component/src/app/components/gridinternaldata/gridinternaldata.component';
 //import { ComponentsModule } from '../../shared/components.module';
@@ -69,7 +70,8 @@ import { ComponentsModule } from 'projects/component/src/app/components/componen
     // BotGridModule,
     // GridInternalDataModule,
     MatFormFieldModule,
-    ComponentsModule
+    ComponentsModule,
+    TuhinNewLibTestModule
     
 
   ],
