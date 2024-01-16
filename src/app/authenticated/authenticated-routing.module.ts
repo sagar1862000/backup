@@ -37,6 +37,11 @@ const routes: Routes = [
       { path: 'new-trackers', loadChildren: () => import('../../../projects/settings/src/app/tracker-fields/tracker-fields.module').then(m => m.TrackerFieldsModule) },
 
       { path: 'trackers', loadChildren: () => import('../../../projects/settings/src/app/add-new-tracker/add-new-tracker.module').then(m => m.AddNewTrackerModule) },
+
+      { path: 'job-candidate', loadChildren: () => import('../../../projects/myjob/src/app/job-candidate/job-candidate.module').then(m => m.JobCandidateModule) },
+
+      { path: 'call-view', loadChildren: () => import('../../../projects/calldetails/src/app/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
+
       
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       

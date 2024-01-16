@@ -1,0 +1,1239 @@
+<app-scrool-to-top-buttom></app-scrool-to-top-buttom>
+<br>
+<div class="container-fluid">
+    <mat-drawer-container [class.drawer-opened]="drawer.opened " class="example-container  "
+        style="overflow-x: hidden;">
+        <mat-toolbar class="header">
+
+            <ul class="nav  showloader pull-left" style="color: #0c0c0c;">
+                <li *ngIf="!drawer.opened"> <button mat-icon-button class="example-icon"
+                        aria-label="Example icon-button with menu icon">
+                        <mat-icon (click)="drawer.toggle()">double_arrow
+                        </mat-icon>
+
+                    </button>
+                </li> &nbsp;
+                <li><a *ngIf="db.mp.bot_department" class="btn btn-raised btn-sm w-5 btn-outline-secondary"
+                        href="javascript:" (click)="submit_cv_to_panel_status()" style="font-size:12px ;">
+                        Submit to Panel
+                    </a></li> &nbsp;
+                <li> <a ng-if="mp.candidates_under_job_copyjob" class="btn btn-outline-secondary btn-raised btn-sm "
+                        href="javascript:" data-toggle="modal" (click)="openmodal('#addtojob')"
+                        style="font-size:12px ;">
+                        <span class="glyphicon glyphicon-log-in" id="iconbackground" style="color:#0c0c0c;"></span> Add
+                        to Job</a>
+                </li> &nbsp;
+                <li> <a href="javascript:" *ngIf="db.mp.ats_client" (click)="submitcv(1)"
+                        class="btn btn-raised btn-sm btn-outline-secondary" style="font-size:12px ;">
+                        <i class="fa fa-share-square" id="iconbackground"></i> Submit Cv
+                    </a></li> &nbsp;
+                <li>
+                    <a href="javascript:" *ngIf="db.mp.ats_client" (click)="sendinterviewlink(1)"
+                        class="btn btn-raised btn-sm btn-outline-secondary" style="font-size:12px ;">
+                        <i class="fa fa-share-square" id="iconbackground"></i> Send data
+                    </a>
+                </li> &nbsp;
+
+                <li>
+                    <a href="javascript:" [matMenuTriggerFor]="DownloadData" class="btn btn-sm btn-outline-secondary"
+                        style="font-size:12px ;">
+                        <i class="fa fa-arrow-down" id="iconbackground"></i> Export data xlsx
+                    </a>
+                    <mat-menu #DownloadData="matMenu">
+                        <!-- <button mat-menu-item *ngIf="count != 0" (click)="exportAsXLSX()" help='download excel'>Export
+                          Candidate(s) </button> -->
+                        <button mat-menu-item *ngIf="db.mp.export_excel_calls" class="btn btn-sm"
+                            title='Download Selected Candidate using Tracker'
+                            (click)="OnDownlaoddata('downloadSelected')"> Selected
+                        </button>
+                        <button mat-menu-item *ngIf="db.mp.export_excel_calls"
+                            (click)="OnDownlaoddata('downloadsDatewise')"
+                            title='Download Filtered Candidate using Tracker'>
+                            Date-Wise
+                        </button>
+                        <button mat-menu-item *ngIf="db.mp.export_excel_calls"
+                            (click)="OnDownlaoddata('downloadsFiltered')"
+                            title='Download Filtered Candidate using Tracker'>
+                            {{currentPage}}
+                        </button>
+                    </mat-menu>
+                </li> &nbsp;
+            </ul>
+
+            <ul class="nav  showloader pull-right" style="color: #0c0c0c;">
+                <li><a data-toggle="tab" id="activetaball"
+                        (click)="filterdrbythistab('My Candidates', 'allcalled',myjobid)"
+                        class="btn btn-sm btn-outline-primary" style="font-size:12px ;">All</a></li> &nbsp;
+                <li><a data-toggle="tab" id="activetabintersted"
+                        (click)="filterdrbythistab('My Candidates', 'calledinterested',myjobid)"
+                        class="btn btn-sm btn-outline-primary" style="font-size:12px ;">Interested</a></li> &nbsp;
+                <li><a data-toggle="tab" id="activetabnotintrested"
+                        (click)="filterdrbythistab('My Candidates', 'callednotinterested',myjobid)"
+                        class="btn btn-sm  btn-outline-primary" style="font-size:12px ;">Not Interested</a>
+                </li> &nbsp;
+                <li><a data-toggle="tab" id="activetabrejected"
+                        (click)="filterdrbythistab('My Candidates', 'rejected',myjobid)"
+                        class="btn btn-sm btn-outline-primary" style="font-size:12px ;">Rejected</a></li> &nbsp;
+                <li><a data-toggle="tab" id="activetabrejected"
+                        (click)="filterdrbythistab('My Candidates', 'shortlisted',myjobid)"
+                        class="btn btn-sm btn-outline-primary" style="font-size:12px ;">Shortlisted</a></li> &nbsp;
+                <li><a data-toggle="tab" class="btn btn-sm btn-outline-primary" id="activetabcallleter"
+                        (click)="filterdrbythistab('My Candidates', 'callothers', myjobid)"
+                        style="font-size:12px ;">Call
+                        Later</a></li> &nbsp;
+                <li><a data-toggle="tab" id="activetabscampaign"
+                        (click)="filterdrbythistab('My Candidates', 'StopCampaign',myjobid)"
+                        class="btn btn-sm  btn-outline-primary" style="font-size:12px ;">Completed Campaign</a>
+                </li> &nbsp;
+                <li><a data-toggle="tab" id="activetabIcampaign"
+                        (click)="filterdrbythistab('My Candidates', 'InCampaign',myjobid)"
+                        class="btn btn-sm  btn-outline-primary" style="font-size:12px ;">In Campaign</a>
+                </li> &nbsp;
+            </ul>
+        </mat-toolbar>
+        <mat-drawer #drawer class="drawer fixed-content" mode="side" opened="false">
+            <mat-toolbar class="header ">
+                <mat-icon data-toggle="tooltip" style="transform: rotate(180deg);" *ngIf="drawer.opened" title="Filter"
+                    (click)="drawer.close()" class="close">
+                    double_arrow</mat-icon>
+            </mat-toolbar>
+
+            <div class="contents" *ngIf='filterscreen && db.mp.all_search && drawer.opened'>
+
+                <div class="col-md-12 " style="padding-right: 0px;padding-left: 0px;">
+                    <div class=" ">
+                        <div id="myHeader" [class.header_change]="header_variable">
+
+                            <div class=" col-md-12 row  " style="padding-right: 0px;padding-left: 0px;">
+                                <div class=" col-md-6 pl-4">Freshness
+                                </div>
+                                <!-- <div class=" col-md-6 mb-4">
+                                            <span> -->
+                                <div mat-button [matMenuTriggerFor]="Freshness" class="pull-right pointer col-md-6 mb-4"
+                                    href="javascript:">
+                                    <span class="">
+                                        {{Filterdatetime}}
+                                    </span>
+                                    <span class="material-icons pull-right">
+                                        filter_alt
+                                    </span>
+                                </div>
+                                <mat-menu #Freshness="matMenu">
+                                    <button mat-menu-item (click)="loaddatawithdate('Today')">Today</button>
+                                    <button mat-menu-item (click)="loaddatawithdate('Yesterday')">Yesterday</button>
+                                    <button mat-menu-item (click)="loaddatawithdate('Last 7 Days')">Last
+                                        7
+                                        Days</button>
+                                    <button mat-menu-item (click)="loaddatawithdate('This Month')"> This
+                                        Month</button>
+                                    <button mat-menu-item (click)="loaddatawithdate('Last Month')"> Last
+                                        Month</button>
+                                    <button mat-menu-item (click)="openmodal('#choosedatescv')">Custom</button>
+                                </mat-menu>
+                            </div>
+                            <div class="col-md-12" style="padding-right: 0px;padding-left: 0px;">
+                                <mat-form-field class="col-md-12">
+                                    <mat-label class="pl-6">Search Candidate</mat-label>
+                                    <input matInput autocomplete="off" type="text" id="candidatessearch" [(ngModel)]="searchcandidate"
+                                        class="pl-4" (keyup.enter)="loadCandidate()" />
+                                </mat-form-field>
+                            </div>
+                            <!-- </div> -->
+                            <div class="col-md-12">
+                                <mat-form-field class="w-100">
+                                    <mat-label>Candidate Status</mat-label>
+                                    <mat-select n="Owner" [(ngModel)]="candidatestatus" help="enter location"
+                                        class="pl-4" (change)="loadCandidate()">
+                                        <mat-option (click)="loadCandidate()" value="all">All</mat-option>
+                                        <mat-option (click)="loadCandidate()" value="{{candidate.final_disposition}}"
+                                            *ngFor="let candidate of datas">
+                                            {{candidate.final_disposition}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+
+                            <div class="">
+                                <mat-form-field class="col-md-12">
+                                    <mat-lable class="pl-6">Location: </mat-lable>
+                                    <mat-select multiple="multiple" n="Owner" [(ngModel)]="location"
+                                        help="enter location" class="pl-4" (change)="loadCandidate()">
+                                        <mat-option (click)="loadCandidate()" value="{{location}}"
+                                            *ngFor="let location of locations">
+                                            {{location}} </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+                            <div class="col-md-12 row" *ngIf="appid == 115"
+                                style="padding-right: 0px;padding-left: 0px;">
+                                <div class="col-md-6">
+
+                                    <mat-form-field class=" paddingremover"
+                                        style="padding-right: 0px;padding-left: 0px;">
+                                        <mat-lable class="pl-6">Experience: </mat-lable>
+                                        <mat-select style="margin-top: -20px; font-size: 14px;" [(ngModel)]="expfrom"
+                                            name="expfrom" help="Experience" (change)="loadCandidate()">
+                                            <mat-option (click)="loadCandidate()" value="0-6"> 0-6 Months
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="6-12"> 6-12 Months
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="12-24"> 12-24
+                                                Months
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="24+"> 24 Months
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-6">
+                                    <mat-form-field class="col-md-6 " style="padding-right: 0px;padding-left: 0px;">
+                                        <mat-lable class="pl-6">Salary: </mat-lable>
+                                        <mat-select name="salaryfrom" style="font-size: 14px;" [(ngModel)]="salaryfrom"
+                                            (change)="loadCandidate()" ngDefaultControl help='Salary'>
+                                            <mat-option (click)="loadCandidate()" value="Up To INR 10000">Up
+                                                To INR
+                                                10000</mat-option>
+                                            <mat-option (click)="loadCandidate()" value="INR 10000 – INR 15000">
+                                                INR
+                                                10000 – INR 15000
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="INR 15000 – INR 20000">
+                                                INR
+                                                15000 – INR 20000
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="INR 20000 – INR 25000">
+                                                INR
+                                                20000 – INR 25000
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="Above INR 25000">
+                                                Above INR
+                                                25000</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                    <!-- <span class="pl-6">Experience:</span> -->
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <!-- <mat-form-field> -->
+                                <span class="pl-6">Education:</span>
+                                <ng-select style="margin-top: -20px;  font-size: 14px;" [(ngModel)]="education"
+                                    name="expfrom" help="Experience" (change)="loadCandidate()">
+                                    <ng-option value="12th">12th</ng-option>
+                                    <ng-option value="Graduate">Graduate</ng-option>
+                                    <ng-option value="Post Graduate or Higher">Post Graduate or Higher
+                                    </ng-option>
+                                </ng-select>
+                                <!-- </mat-form-field> -->
+                            </div>
+
+                            <div class="col-md-12 row paddingremover" *ngIf="appid != 115">
+                                <div class="col-md-12"><strong> Experience:</strong></div>
+                                <div class="col-md-6  ">
+                                    <mat-form-field class="col-md-12" [(ngModel)]="expfrom"
+                                        name="expfrom" help="Experience From" (change)="loadCandidate()">
+
+                                        <mat-select disableRipple>
+
+                                            <mat-option (click)="loadCandidate()" value="0">Fresher
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="1">1 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="2">2 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="3">3 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="4">4 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="5">5 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="6">6 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="7">7 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="8">8 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="9">9 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="10">10 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="11">11 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="12">12 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="13">13 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="14">14 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="15">15 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="16">16 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="17">17 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="18">18 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="19">19 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="20">20 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="21">21 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="22">22 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="23">23 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="24">24 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="25">25 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="30">25+ years
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="3">Any</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+                                <div class="col-md-6">
+
+                                    <mat-form-field class="col-md-12" [(ngModel)]="expto"
+                                        name="expto" help="Experience to" (change)="loadCandidate()">
+                                        <!-- <mat-label>Select an option</mat-label> -->
+                                        <mat-select disableRipple>
+
+                                            <mat-option (click)="loadCandidate()" value="1">1 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="2">2 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="3">3 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="4">4 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="5">5 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="6">6 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="7">7 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="8">8 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="9">9 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="10">10 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="11">11 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="12">12 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="13">13 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="14">14 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="15">15 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="16">16 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="17">17 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="18">18 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="19">19 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="20">20 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="21">21 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="22">22 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="23">23 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="24">24 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="25">25 year
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="35">35 years
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="50">Any
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+                            </div>
+
+
+
+
+
+                            <div class="col-md-12 row paddingremover" *ngIf="appid != 115">
+                                <div class="col-md-9"><strong> Salary </strong>
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <mat-form-field class="col-sm-12" name="salaryfrom"
+                                        [(ngModel)]="salaryfrom" (change)="loadCandidate()" ngDefaultControl
+                                        help='Salary From'>
+                                        <mat-select disableRipple>
+
+                                            <mat-option (click)="loadCandidate()" value="0.0">0</mat-option>
+                                            <mat-option (click)="loadCandidate()" value="1.0">1 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="2.0">2 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="3.0">3 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="4.0">4 lacs
+                                            </mat-option>
+
+                                            <mat-option (click)="loadCandidate()" value="6.0">5 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="7.0">6 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="8.0">7 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="9.0">8 lacs
+                                            </mat-option>
+
+                                            <mat-option (click)="loadCandidate()" value="10.0">10 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="11.0">11 lacs
+                                            </mat-option>
+
+                                            <mat-option (click)="loadCandidate()" value="12.0">12 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="13.0">13 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="14.0">14 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="15.0">15 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="16.0">16 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="17.0">17 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="18.0">18 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="19.0">19 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="20.0">20 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="21.0">21 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="22.0">22 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="23.0">23 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="24.0">24 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="25.0">25 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="50.0">25+ Lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="51.0">Any
+                                            </mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col-sm-6">
+
+                                    <mat-form-field class="col-sm-12" name="salaryto"
+                                        [(ngModel)]="salaryto" (change)="loadCandidate()" ngDefaultControl
+                                        help='Salary To'>
+                                        <!-- <mat-label>Select an option</mat-label> -->
+                                        <mat-select disableRipple>
+                                            <mat-option (click)="loadCandidate()" value="1.0">1 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="2.0">2 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="3.0">3 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="4.0">4 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="6.0">5 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="7.0">6 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="8.0">7 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="9.0">8 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="10.0">10 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="11.0">11 lacs
+                                            </mat-option>
+                                            <mat-optionn (click)="loadCandidate()" value="12.0">12 lacs
+                                            </mat-optionn>
+                                            <mat-option (click)="loadCandidate()" value="13.0">13 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="14.0">14 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="15.0">15 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="16.0">16 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="17.0">17 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="18.0">18 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="19.0">19 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="20.0">20 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="21.0">21 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="22.0">22 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="23.0">23 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="24.0">24 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="25.0">25 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="35.0">35 lacs
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="90.0">Any
+                                            </mat-option>
+
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+
+
+
+                            </div>
+
+
+
+
+
+
+
+                            <div class="col-md-12 row paddingremover" *ngIf="appid != 115">
+                                <div class="col-md-9"><strong> Notice Period</strong>
+                                </div>
+                                <div class="col-md-12">
+                                    <mat-form-field class="col-sm-12"
+                                     [(ngModel)]="noticp"
+                                        name="noticp" help="Notice Period">
+                                        <mat-label>Select an option</mat-label>
+                                        <mat-select disableRipple>
+
+                                            <mat-option (click)="loadCandidate()" value="0">Any</mat-option>
+                                            <mat-option (click)="loadCandidate()"
+                                                value="15 Days or less, 15 Days, 15">15 Days or less
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="1 Months, 30 Days, 30">
+                                                1
+                                                Months</mat-option>
+                                            <mat-option (click)="loadCandidate()" value="45 Days, 45">45
+                                                Days
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="2 Months, 60 Days, 60">
+                                                2
+                                                Months</mat-option>
+                                            <mat-option (click)="loadCandidate()" value="75 Days, 75">75
+                                            </mat-option>
+                                            <mat-option (click)="loadCandidate()" value="3 Months, 90 Days, 90">
+                                                3
+                                                Months</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+
+
+
+                                </div>
+
+                            </div>
+
+
+                            <div class="col-md-12 row paddingremover" *ngIf="appid != 127">
+                                <div class="col-md-6 pl-6"> filter ratings
+                                </div>
+                                <div class="col-md-6 pl-4">
+                                    <mat-select name="salaryto" class="col-sm-12"
+                                        [(ngModel)]="rating" (change)="rateingshow()" ngDefaultControl help='Rating'>
+                                        <mat-option (click)="rateingshow()" value="0">Average</mat-option>
+                                        <mat-option (click)="rateingshow()" value="1" *ngIf='Tecnical'>
+                                            {{first_skill}}
+                                        </mat-option>
+                                        <mat-option (click)="rateingshow()" value="2" *ngIf='Tecnical'>
+                                            {{second_skill}}
+                                        </mat-option>
+                                        <mat-option (click)="rateingshow()" value="3" *ngIf='Tecnical'>
+                                            {{third_skill}}
+                                        </mat-option>
+                                        <mat-option (click)="rateingshow()" value="4" *ngIf='grammar'>
+                                            Grammar I
+                                        </mat-option>
+
+                                        <mat-option (click)="rateingshow()" value="5" *ngIf='grammar'>
+                                            Grammar II
+                                        </mat-option>
+                                    </mat-select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 pl-4" style="padding-right: 0px;padding-left: 0px;" *ngIf='Averages'>
+                                <div class="col-md-4 pt-4" style="padding-right: 0px;padding-left: 0px;">
+                                    <p>Average</p>
+                                </div>
+                                <div class="col-md-8 ratings mr-3" style="padding-right: 0px;padding-left: 0px;">
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="2" min="0" max="5"
+                                        [(ngModel)]="avgreting" (click)="loadCandidate()">
+                                    </mat-slider>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12 pl-4 paddingremover" *ngIf='pskills'>
+                                <div class="col-md-11">
+                                    <p>{{first_skill}}</p>
+                                </div>
+                                <div class="col-md-8 ratings">
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="2" min="0" max="5"
+                                        [(ngModel)]="pskill" (click)="loadCandidate()">
+                                    </mat-slider>
+                                </div>
+                            </div>
+
+
+
+
+                            <div class="col-md-12 pl-4" *ngIf='sskills'>
+                                <div class="col-md-11">
+                                    <p>{{second_skill}}</p>
+                                </div>
+                                <div class="col-md-8 ratings">
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="2" min="0" max="5"
+                                        [(ngModel)]="sskill" (click)="loadCandidate()">
+                                    </mat-slider>
+                                </div>
+                            </div>
+
+
+
+                            <div class="col-md-12 pl-4" *ngIf='tskills'>
+                                <div class="col-md-11">
+                                    <p>{{third_skill}}</p>
+                                </div>
+                                <div class="col-md-8 ratings">
+
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="2" min="0" max="5"
+                                        [(ngModel)]="tskill" (click)="loadCandidate()">
+                                    </mat-slider>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 pl-4" *ngIf="grammarI">
+                                <div class="col-md-12"> <strong>Grammar I ratings
+                                    </strong> </div>
+                                <div class="col-md-8 grmrating">
+
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="2" min="0" max="5"
+                                        [(ngModel)]="gmrreting" (click)="loadCandidate()">
+                                    </mat-slider>
+
+                                </div>
+                            </div>
+
+                            <div class="col-md-12 pl-4" *ngIf="grammarII">
+                                <div class="col-md-12"> <strong>Grammar II ratings
+                                    </strong> </div>
+                                <div class="col-md-8 grmrating">
+
+                                    <mat-slider thumbLabel [displayWith]="formatLabel" tickInterval="2" min="0" max="5"
+                                        [(ngModel)]="gmrretingsec" (click)="loadCandidate()">
+                                    </mat-slider>
+
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <span class="pl-6">Willing to relocate: </span>
+                                <ng-select name="relocatelocation" style="margin-top: -20px; font-size: 14px;"
+                                    class="pl-4" [(ngModel)]="relocatelocation" (change)="loadCandidate()"
+                                    ngDefaultControl>
+                                    <ng-option (click)="loadCandidate()" value="Yes">Yes</ng-option>
+                                    <ng-option (click)="loadCandidate()" value="No">No
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+
+                            <div class="col-md-12 row" *ngIf="appid == 115">
+                                <!-- <span class="pl-6">Source: </span> -->
+                                <mat-form-field class="col-md-6">
+                                    <mat-lable class="pl-6">Source: </mat-lable>
+                                    <mat-select name="jobOpportunity" style="margin-top: -20px;  font-size: 14px;"
+                                        [(ngModel)]="jobOpportunity" (change)="loadCandidate()" ngDefaultControl>
+                                        <mat-option (click)="loadCandidate()" value="0">All</mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Employee Referral">
+                                            Concentrix
+                                            Employee</mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Concentrix Career Website">
+                                            Concentrix Career Website
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Campus">Campus
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Job Websites">Job
+                                            Websites
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="LinkedIn">LinkedIn
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Facebook">Facebook
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Direct Walkin">Direct
+                                            Walkin
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Tik Tok">Tik Tok
+                                        </mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Agency / Vendor">Agency
+                                            /
+                                            Vendor</mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Social Media">Social
+                                            Media
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field class="col-md-6">
+                                    <mat-lable class="pl-6">24/7:: </mat-lable>
+                                    <mat-select name="nightshift" style="margin-top: -20px; font-size: 14px;"
+                                        [(ngModel)]="nightshift" (change)="loadCandidate()" ngDefaultControl>
+                                        <mat-option (click)="loadCandidate()" value="0">All</mat-option>
+                                        <mat-option (click)="loadCandidate()" value="Yes">Yes</mat-option>
+                                        <mat-option (click)="loadCandidate()" value="No">No</mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                            </div>
+
+
+
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <span class="pl-6">Have Internet: </span>
+                                <ng-select name="isinternet" style="margin-top: -20px; font-size: 14px;"
+                                    [(ngModel)]="isinternet" (change)="loadCandidate()" ngDefaultControl>
+                                    <ng-option (click)="loadCandidate()" value="Yes">Yes</ng-option>
+                                    <ng-option (click)="loadCandidate()" value="No">No
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+
+
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <span class="pl-6">Work from Clients: </span>
+                                <ng-select name="Concentrixpremises" style="margin-top: -20px; font-size: 14px;"
+                                    [(ngModel)]="Concentrixpremises" (change)="loadCandidate()" ngDefaultControl>
+                                    <ng-option (click)="loadCandidate()" value="Yes">Yes</ng-option>
+                                    <ng-option (click)="loadCandidate()" value="No">No
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <span class="pl-6">Have a System: </span>
+                                <ng-select name="issystem" style="margin-top: -20px; font-size: 14px;"
+                                    [(ngModel)]="issystem" (change)="loadCandidate()" ngDefaultControl>
+                                    <ng-option (click)="loadCandidate()" value="Yes">Yes</ng-option>
+                                    <ng-option (click)="loadCandidate()" value="No">No
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+
+
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <span class="pl-6">Foreign language: </span>
+                                <ng-select name="Diplomaflanguage" style="margin-top: -20px; font-size: 14px;"
+                                    [(ngModel)]="Diplomaflanguage" (change)="loadCandidate()" ngDefaultControl>
+                                    <ng-option (click)="loadCandidate()" value="Yes">Yes</ng-option>
+                                    <ng-option (click)="loadCandidate()" value="No">No
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+
+
+
+                            <div class="col-md-11" *ngIf="appid == 115">
+                                <span class="pl-6">Worked in Past: </span>
+                                <ng-select name="Workedinpast" style="margin-top: -20px; font-size: 14px;"
+                                    [(ngModel)]="Workedinpast" (change)="loadCandidate()" help='appliedinpast'>
+                                    <ng-option (click)="loadCandidate()" value="Yes">Yes</ng-option>
+                                    <ng-option (click)="loadCandidate()" value="No">No
+                                    </ng-option>
+                                </ng-select>
+                            </div>
+
+                            <div class="col-md-12 pull-right">
+                                <button class="btn btn-info btn-sm" (click)="loadCandidate()"> Filter
+                                </button>
+                            </div>
+
+
+
+
+
+
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+
+
+
+            <div class="col-md-12" *ngIf="fullscreen || !db.mp.all_search">
+                <button class="btn btn-link" *ngIf="db.mp.all_search">
+                    <span class="material-icons" (click)="filterscreens()" help="Apply Filter">
+                        filter_list
+                    </span>
+                </button>
+                <div class="col-md-3" *ngIf="!db.mp.all_search">
+                    <mat-form-field >
+                        <input matInput autocomplete="off" type="text" id='candidatessearch' [(ngModel)]="searchcandidate"
+                            (keyup.enter)="loadCandidate()" placeholder="Search Candidates" />
+                        <button matSuffix class="btn btn-outline-primary btn-sm" (click)="loadCandidate()"
+                            type="button">
+                            Go
+                        </button>
+                    </mat-form-field>
+                </div>
+
+
+            </div>
+        </mat-drawer>
+
+
+        <div class="col-12">
+
+
+            <div class="form-group pull-right">
+                <div class="checkbox">
+                    <label>
+                        <input type="checkbox" [(ngModel)]="showchart" /> Show Chart</label>
+                </div>
+            </div>
+            <div class="clearfix"></div>
+            <div class="container" *ngIf="showchart">
+                <div class="row g-2">
+                    <div class="col-4">
+                        <div class="p-3 border bg-light">
+                            <app-bargraph *ngIf="senddata==true" [chartColors]="chartBarColors" [Datashow]="Datashow"
+                                [barData]="Rating"> </app-bargraph>
+
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border bg-light">
+                            <div style="height:300px;">
+                                <app-bubblechart [data]="Bubbledata"></app-bubblechart>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="p-3 border bg-light">
+                            <div style="height:300px;">
+                                <app-circular-progress *ngIf="senddata==true" [CircularData]="chartData"
+                                    [Circulartitle]="title" [CircularColors]="chartColors"
+                                    [allCircularData]="allChartData">
+                                </app-circular-progress>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <app-gridinternaldata [data]="datas" [header]='DataDefinitions'
+                (GridHeaderClicked)="OnHeaderClicked($event)" (GridRowClicked)="OnRowclicked($event)" sendData="true">
+            </app-gridinternaldata>
+        </div>
+
+
+    </mat-drawer-container>
+
+    <div id="choosedatescv" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <a id="loginnaukri_stop" target="">
+                        Browse
+                    </a> <button type="button" class="close btn btn-block" data-bs-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+                    <div class="col-md-12 col-sm-6 col-xs-12 row">
+
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput autocomplete="off" [(ngModel)]="item.start_date_temp" [matDatepicker]="picker"
+                                    (focus)="picker.open()" help="Choose Start date" class="e">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                            </mat-form-field>
+
+                        </div>
+                        <div class="col-md-6">
+                            <mat-form-field>
+                                <input matInput autocomplete="off" [(ngModel)]="item.end_date_temp" [matDatepicker]="picker2"
+                                    (focus)="picker2.open()" help="Choose End date" class="e">
+                                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                                <mat-datepicker #picker2></mat-datepicker>
+                            </mat-form-field>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+                <div class="modal-footer">
+                    <button (click)="loaddatawithdate('Custom')" class="btn-raised btn-outline btn btn-dark">GO</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="exportexcel" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title"><strong>Export Excel</strong> </h6>
+                    <button type="button" class="close btn btn-outline" data-bs-dismiss="modal"
+                        (click)="Removemodal('#exportexcel')">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <mat-form-field class="col-sm-12">
+                            <mat-label>Select Tracker:</mat-label>
+                            <mat-select ngDefaultControl class="m" [(ngModel)]="trackerno" n="Tracker NO" validate
+                                ngDefaultControl>
+                                <mat-option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">
+                                    {{tracker.tracker_name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="row col-md-12">
+                        <mat-form-field class="col-sm-6">
+                            <input matInput autocomplete="off" [(ngModel)]="item.start_date_temp" [matDatepicker]="picker3"
+                                (focus)="picker3.open()" help="Choose Start date" class="e">
+                            <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                            <mat-datepicker #picker3></mat-datepicker>
+                        </mat-form-field>
+
+
+                        <mat-form-field class="col-sm-6">
+                            <input matInput autocomplete="off" [(ngModel)]="item.end_date_temp" [matDatepicker]="picker4"
+                                (focus)="picker4.open()" help="Choose End date" class="e">
+                            <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                            <mat-datepicker #picker4></mat-datepicker>
+                        </mat-form-field>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-outline-info" (click)='exportdatajobcandidate()'>Download</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+
+    <div id="exportexcelpagewise" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title"><strong>Export Excel</strong> </h6>
+                    <button type="button" class="close btn btn-outline" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <mat-form-field class="col-sm-12">
+                            <mat-label>Select Tracker:</mat-label>
+                            <mat-select ngDefaultControl class="m" [(ngModel)]="trackerno" n="Tracker NO" validate
+                                ngDefaultControl>
+                                <mat-option value="{{tracker.id}}" (click)="getTrackerData()"
+                                    *ngFor="let tracker of trackerlist">
+                                    {{tracker.tracker_name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-outline-info" (click)="Downloadtrackerdata()">Download
+                        Selected</button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <div class="modal bs-example-modal-md" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="center">Send Mail
+                        <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected :
+                            {{countRowsinMyJob}})</span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" role="form">
+
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <select class="form-control m" [(ngModel)]="sendtracker.trackerno" n="Tracker NO"
+                                    validate>
+                                    <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">
+                                        {{tracker.tracker_name}}
+                                    </option>
+                                </select>
+
+
+                            </div>
+                            <div class="col-lg-2 "><button ng-show="sendtracker.trackerno" type="button"
+                                    (click)="sendtrackermsg(true)"
+                                    class="btn  btn-raised btn-primary btn-sm">Download</button></div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="email" class="form-control m" [(ngModel)]="sendtracker.to" n="To" validate
+                                    id="inputEmail4" placeholder="TO:" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="email" class="form-control m" [(ngModel)]="sendtracker.cc" n="CC" validate
+                                    id="inputEmail5" placeholder="CC:" required>
+                            </div>
+
+                        </div>
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="email" class="form-control m" n="BCC" validate
+                                    [(ngModel)]="sendtracker.bcc" id="inputEmail6" placeholder="BCC:">
+                            </div>
+
+                        </div>
+
+
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="file" class="form-control">
+                                <!--                                <input type="text" autocomplete="off"  class="form-control e" n=""  id="inputEmail5" placeholder="Subject:">-->
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <input type="text" autocomplete="off"  class="form-control e" n="" [(ngModel)]="sendtracker.subject"
+                                    id="inputEmails" placeholder="Subject:">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+
+                                <textarea class="form-control e" n="message" contenteditable
+                                    [(ngModel)]="sendtracker.message" placeholder="message"
+                                    style="min-width: 100%; height: 87px;">
+                                      </textarea>
+                            </div>
+                        </div>
+
+                        <button type="submit" (click)="sendtrackermsg(1)"
+                            class="btn  btn-raised btn-primary btn-md">send</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="modal bs-example-modal-md" id="downloadtracker" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="center">Download Tracker
+                        <span ng-class='countRowsinMyJob > 10 ? "text-danger" : "text - success"'> (CV Selected :
+                            {{countRowsinMyJob}})</span>
+                    </h3>
+                </div>
+                <div class="modal-body">
+                    <div class="form-horizontal" role="form">
+
+                        <div class="form-group">
+
+                            <div class="col-lg-10">
+                                <select class="form-control m" [(ngModel)]="trackerno" n="Tracker NO" validate>
+                                    <option value="{{tracker.id}}" *ngFor="let tracker of trackerlist">
+                                        {{tracker.tracker_name}}
+                                    </option>
+                                </select>
+
+
+                            </div>
+
+                        </div>
+                        <button type="button" (click)="downloadtracker()"
+                            class="btn  btn-raised btn-primary btn-md">Download <i class="fa fa-download"></i></button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div id="exportexcelfiltered" class="modal fade" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h6 class="modal-title"><strong>Export Excel</strong> </h6>
+                    <button type="button" class="close btn btn-outline" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="col-sm-12">
+                        <mat-form-field class="col-sm-12">
+                            <mat-label>Select Tracker:</mat-label>
+                            <mat-select ngDefaultControl class="m" [(ngModel)]="trackerno" n="Tracker NO" validate
+                                ngDefaultControl>
+                                <mat-option value="{{tracker.id}}" (click)="getTrackerData()"
+                                    *ngFor="let tracker of trackerlist">
+                                    {{tracker.tracker_name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-sm btn-outline-info" (click)="DownloadFilterdData()">Download Filtered
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <app-update-candidate [current_data]='currentData'></app-update-candidate>
+</div>
+
+
+<div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
+
+
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title">Submit cv to panel</h6>
+                <button aria-hidden="true" data-bs-dismiss="modal" class="close" type="button">×</button>
+
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-horizontal" role="form">
+
+
+                            <div class="form-group">
+                                <label class="col-md-3 ">Email:</label>
+                                <div class="col-md-9">
+                                    <input type="text" autocomplete="off"  class="form-control e m" n="Email"
+                                        [(ngModel)]="cv_to_panel.email" ngDefaultControl />
+
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 ">Subject:</label>
+                                <div class="col-md-9">
+                                    <input type="text" autocomplete="off"  class="form-control e" n="Subject"
+                                        [(ngModel)]="cv_to_panel.subject" ngDefaultControl />
+
+
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-md-3 ">Comment:</label>
+                                <div class="col-md-9">
+                                    <textarea class="form-control e" n="Comment" [(ngModel)]="cv_to_panel.comment"
+                                        ngDefaultControl>
+                                                </textarea>
+
+
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <button type="submit" class="btn  btn-raised btn-block btn-primary validatebutton"
+                                    validate tar="#submit_cv_to_panel_status" (click)="sendCvToPanel(1)">send</button>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<app-add-to-job [allids]='allids'></app-add-to-job>

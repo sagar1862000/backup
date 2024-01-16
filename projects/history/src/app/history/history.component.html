@@ -226,7 +226,8 @@
 
 
 
-            <div class="excelformate col-lg-12" *ngIf="Showtable">
+            <!-- <div class="excelformate col-lg-12" *ngIf="Showtable"> -->
+            <div class="excelformate col-lg-12">
                 <!-- <app-grid [data]='datas'></app-grid> -->
                 <!-- <app-prgrid  [data]="datas" (emitbuttondataToReport)="onRowClicked($event)" (gridReady)="onGridReady($event)"  [header]='DataDefinitions'
 (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true" ></app-prgrid> -->
@@ -234,17 +235,20 @@
                     (emitbuttondataToReport)="dataclick($event)" (gridReady)="onGridReady($event)"
                     [header]='DataDefinitions' (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true">
                 </lib-bot-grid>
+                <!-- <h1>tuhin</h1> -->
 
             </div>
 
             <!-- <p *ngif="Showgrid"> asdasd</p> -->
             <!-- *ngIf="shownormalgrid" -->
-            <div class="excelformate col-lg-12" *ngIf="Showgrid">
+            <div class="excelformate col-lg-12">
+                <h1>grid start</h1>
 
-                <lib-grid-internal-data [data]="datas" [header]="DataDefinitions"
+                <lib-bot-grid-internal-data [data]="datas" [header]="DataDefinitions"
                     (GridHeaderClicked)="datfromprgrid($event)" (GridRowClicked)="OnRowclicked($event)" sendData="true">
-                </lib-grid-internal-data>
+                </lib-bot-grid-internal-data>
 
+                <h1>grid end</h1>
 
             </div>
 

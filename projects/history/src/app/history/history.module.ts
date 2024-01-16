@@ -22,15 +22,13 @@ import { AddToJobComponent } from 'projects/component/src/app/components/add-to-
 import { CallComponent } from 'projects/component/src/app/components/call/call.component';
 import { MasterService } from 'src/app/services/master.service';
 import { ComponentsModule } from 'projects/component/src/app/components/components.module';
-import { TuhinNewLibTestModule } from 'tuhin-new-lib-test';
 // import { PrgridComponent } from 'projects/component/src/app/components/prgrid/prgrid.component';
 // import { GridinternaldataComponent } from 'projects/component/src/app/components/gridinternaldata/gridinternaldata.component';
 //import { ComponentsModule } from '../../shared/components.module';
 // import { CallComponent } from '../../../../component/src/app/components/call/call.component';
 // import { AddToJobComponent } from '../../../../component/src/app/components/add-to-job/add-to-job.component';
-// import { BotGridModule } from 'bot-grid';
-// import { GridInternalDataModule } from 'grid-internal-data';
-
+import { BotGridModule } from 'bot-grid';
+import { BotGridInternalDataModule } from 'bot-grid-internal-data';
 
 @NgModule({
   declarations: [
@@ -68,10 +66,10 @@ import { TuhinNewLibTestModule } from 'tuhin-new-lib-test';
     // ComponentsModule
     // MyJobModule,
     // BotGridModule,
-    // GridInternalDataModule,
     MatFormFieldModule,
     ComponentsModule,
-    TuhinNewLibTestModule
+    BotGridModule,
+    BotGridInternalDataModule
     
 
   ],

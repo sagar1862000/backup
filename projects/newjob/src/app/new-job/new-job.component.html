@@ -19,6 +19,15 @@
     <!--Tracker not create close-->
 
     <!-- new job form start -->
+    <mat-form-field appearance="outline" class="w-100" style="font-size: 10px;">
+        <mat-label> Copy From Existing Job </mat-label>
+        <mat-select matNativeControl appearance="outline" id="id"  name="id"
+            [(ngModel)]="myjob.id">
+            <mat-option >test
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
 
     <mat-card class="newjob-card" [hidden]="!(clientdetails.length > 0) && !(trackerlist.length > 0)"
         id="addnewjobform">
@@ -32,12 +41,6 @@
                     job</mat-card-subtitle>
             </div>
             <div class="col-md-3 pull-right">
-                <!-- <ng-select matNativeControl id="is_client" name="id" [(ngModel)]="myjob.id" (change)="showJob(myjob.id)" style="margin-top: -10px;" placeholder="">
-                    <ng-option [value]="myjobdata.id" >
-                    </ng-option>
-
-
-                </ng-select> -->
                 <mat-form-field appearance="outline" class="w-100" style="font-size: 10px;">
                     <mat-label> Copy From Existing Job </mat-label>
                     <mat-select matNativeControl appearance="outline" id="id" (change)="showJob(myjob.id)" name="id"
@@ -50,7 +53,6 @@
 
             </div>
         </mat-card-header>
-
 
         <div class="row card-body" style="font-size: 10px">
 
@@ -67,6 +69,11 @@
                     </mat-select>
                 </mat-form-field>
             </div>
+
+
+
+
+
 
 
             <!-- Defautl data -->
@@ -133,6 +140,8 @@
                 </mat-form-field>
             </div>
 
+
+
             <div class=" col-md-2">
                 <mat-form-field appearance="outline" class="w-100">
                     <mat-label>Manager:</mat-label>
@@ -156,6 +165,8 @@
                 </mat-form-field>
 
             </div>
+
+
 
 
             <!-- Skills ........... -->
@@ -202,7 +213,7 @@
             </div>
 
             <div class="col-md-6">
-                <mat-form-field class="pmd-chip-primary w-100" appearance="outline">
+                <!-- <mat-form-field class="pmd-chip-primary w-100" appearance="outline">
                     <mat-label>Job Key Skills <span style="color: red;">*</span> </mat-label>
                     <mat-chip-list #chipList>
                         <mat-chip *ngFor="let skill of skills" [selectable]="selectable" [removable]="removable"
@@ -210,11 +221,7 @@
                             {{skill}}
                             <mat-icon matChipRemove *ngIf="removable" class="fa fa-close"></mat-icon>
                         </mat-chip>
-                        <!-- <input #skillInput [formControl]="skillCtrl" [matAutocomplete]="autoOpen"
-                            [matChipInputFor]="chipList" [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                            [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="add($event)"
-                            (keyup.control)="Sendjd()" (keyup)="getkeyskillssearch()" placeholder="Job Key Skills" /> -->
-                    </mat-chip-list>
+                      </mat-chip-list>
                     <mat-autocomplete #autoOpen="matAutocomplete" (optionSelected)="selected($event)"
                         max-results-to-show="100" load-on-focus="true" select-first-match="false"
                         load-on-down-arrow='true' load-on-empty="true">
@@ -222,7 +229,7 @@
                             {{ skill }}
                         </mat-option>
                     </mat-autocomplete>
-                </mat-form-field>
+                </mat-form-field> -->
             </div>
 
 
@@ -698,12 +705,53 @@
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
 
 
 
 
+
+
+
+
     </mat-card>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </div>
 
 

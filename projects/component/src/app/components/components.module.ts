@@ -18,6 +18,8 @@ import { AddCandidateComponent } from './add-candidate/add-candidate.component';
 import { AddNoteComponent } from './add-note/add-note.component';
 import { AddToJobComponent } from './add-to-job/add-to-job.component';
 import { CallComponent } from './call/call.component';
+import { ActivityComponent } from './activity/activity.component';
+import { UpdateStatusComponent } from './update-status/update-status.component';
 
 
 
@@ -38,11 +40,12 @@ import { CallComponent } from './call/call.component';
     AddNoteComponent,
     CallComponent,
     AddCandidateComponent,
-     AddToJobComponent, CallComponent,
+     AddToJobComponent, CallComponent, ActivityComponent, UpdateStatusComponent,
   ],
   exports: [
      AddNoteComponent,RouterModule, 
-    AddCandidateComponent,AddToJobComponent, CallComponent
+    AddCandidateComponent,AddToJobComponent, CallComponent,
+    ActivityComponent
   ],
   providers: [ExcelService],
 

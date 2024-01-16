@@ -19,6 +19,9 @@ import { MatBadgeModule } from '@angular/material/badge';
 // import { MyFilterPipe } from 'src/app/shared/pipes/my-filter.pipe';
 // import { ComponentsModule } from 'src/app/components/components.module';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { ComponentsModule } from 'projects/component/src/app/components/components.module';
+import { MasterService } from 'src/app/services/master.service';
+import { ControlModule } from 'projects/control/src/app/control/control.module';
 // import { CandidateCallViewComponent } from './candidate-call-view/candidate-call-view.component';
 
 @NgModule({
@@ -40,8 +43,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     MatInputModule,
     MatBadgeModule,
     MatSelectModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    ComponentsModule,
+    ControlModule
   ],
-  schemas:[CUSTOM_ELEMENTS_SCHEMA]
+  schemas:[CUSTOM_ELEMENTS_SCHEMA],
+  providers:[MasterService]
 })
 export class CallDetailModule { }

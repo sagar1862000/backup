@@ -28,6 +28,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+// import { ActivityComponent } from './components/activity/activity.component';
 // import { OverlayModule } from '@angular/cdk/overlay';
 // import { RouteReuseStrategy } from '@angular/router';
 
@@ -35,7 +36,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    // ActivityComponent
   ],
   imports: [
     BrowserModule,

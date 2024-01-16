@@ -1,0 +1,54 @@
+<div id="addcandidate" class="modal fadeOut " role="dialog">
+    <div class="modal-dialog modal-md">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title">Add Candidate</h6>
+          <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="col-md-12 ">
+            <div class="form-horizontal" role="form">
+              <div class="form-group">
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput autocomplete="off" type="text" [(ngModel)]="store.candidate_name"  validate
+                    id="name" placeholder="Enter name">
+                </mat-form-field>
+              </div>
+              <div class="form-group">
+  
+  
+                <mat-form-field class="w-100" appearance="outline">
+                  <mat-label for="Gender">Gender</mat-label>
+                  <mat-select [(ngModel)]="store.gender" name="Gender">
+                    <mat-select *ngFor="let  x of genders" value="{{x.id}}">
+                      {{x.gender_name}}</mat-select>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+  
+              <div class="form-group">
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput autocomplete="off" type="text" class=" no" validate n="Mobile" [(ngModel)]="store.mobileNo"
+                    id="mobileNo" placeholder="Mobile Number">
+                </mat-form-field>
+              </div>
+  
+              <div class="form-group">
+                <mat-form-field class="w-100" appearance="outline">
+                  <input matInput autocomplete="off" type="text" class=" e m" validate n="Email" [(ngModel)]="store.email"
+                    id="email" placeholder="Email">
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary" (click)="candidatesave()">Save</button>
+        </div>
+      </div>
+  
+    </div>
+  </div>
