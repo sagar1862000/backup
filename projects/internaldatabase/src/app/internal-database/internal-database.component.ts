@@ -10,6 +10,8 @@ declare var $: any;
   styleUrls: ['./internal-database.component.scss']
 })
 
+
+
 export class InternalDatabaseComponent implements OnInit {
   constructor(public db: DbService, private router: Router) {
   }

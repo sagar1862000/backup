@@ -1,54 +1,120 @@
+// .switch {
+//   position: relative;
+//   display: inline-block;
+//   width: 60px;
+//   height: 34px;
+// }
+
+// .switch input {
+//   opacity: 0;
+//   width: 0;
+//   height: 0;
+// }
+
+// .slider {
+//   position: absolute;
+//   cursor: pointer;
+//   top: 0;
+//   left: 0;
+//   right: 0;
+//   bottom: 0;
+//   background-color: #ccc;
+//   -webkit-transition: .4s;
+//   transition: .4s;
+// }
+
+// .slider:before {
+//   position: absolute;
+//   content: "Boolean";
+//   height: 26px;
+//   width: 26px;
+//   left: 4px;
+//   bottom: 4px;
+//   background-color: white;
+//   -webkit-transition: .4s;
+//   transition: .4s;
+// }
+
+// input:checked + .slider {
+//   background-color: #2196F3;
+// }
+
+// input:focus + .slider {
+//   box-shadow: 0 0 1px #2196F3;
+// }
+
+// input:checked + .slider:before {
+//   -webkit-transform: translateX(26px);
+//   -ms-transform: translateX(26px);
+//   transform: translateX(26px);
+//   content: "Advance";
+//   left: -4px;
+
+// }
+
+// __<<ngThemingMigrationEscapedComment0>>__
+// .slider.round {
+//   border-radius: 34px;
+// }
+
+// .slider.round:before {
+//   border-radius: 50%;
+// }
+// .advancesearch,.boolean {
+//   background-color: white;
+//   border: 1px solid black;
+//   border-radius: 10px;
+// }
 #iconbackground:hover .icones{
-    -moz-transform: rotate(360deg);
-  -webkit-transform: rotate(360deg);
-  -ms--transform: rotate(360deg);
-  transform: rotate(360deg);
-  -webkit-transition: all 0.2s;
-  -moz-transition: all 0.2s;
-  -o-transition: all 0.2s;
-  -ms-transition: all 0.2s;
-  transition: all 0.2s;
+  -moz-transform: rotate(360deg);
+-webkit-transform: rotate(360deg);
+-ms--transform: rotate(360deg);
+transform: rotate(360deg);
+-webkit-transition: all 0.2s;
+-moz-transition: all 0.2s;
+-o-transition: all 0.2s;
+-ms-transition: all 0.2s;
+transition: all 0.2s;
+}
+#iconbackground:hover{
+  background-color: #FF9933;
   }
-  #iconbackground:hover{
-    background-color: #FF9933;
-    }
-  .ag-pinned-cols-viewport {
-    float: left;
-    position: absolute;
-    //overflow: hidden;
-   }
-   .highlightText {
-    background: yellow;
+.ag-pinned-cols-viewport {
+  float: left;
+  position: absolute;
+  //overflow: hidden;
+ }
+ .highlightText {
+  background: yellow;
+}
+
+.toggleactive
+{
+  color: #a64eed;
+}
+.togglenotactive
+{
+  color: whitesmoke;
+}
+.toggle1active
+{
+  color: whitesmoke;
+
+}
+.toggle1notactive
+{
+  color: #a64eed;
+}
+
+
+
+
+ng-select.custom .ng-select-container {
+  position: relative !important;
+  top: 0;
+  border-color: transparent !important;
+  border-bottom-color: black !important;
+  border-bottom-width: 0.0625rem !important;
+  background-color: transparent !important;
+  border-radius: 0px;
   }
-  
-  .toggleactive
-  {
-    color: #a64eed;
-  }
-  .togglenotactive
-  {
-    color: whitesmoke;
-  }
-  .toggle1active
-  {
-    color: whitesmoke;
-  
-  }
-  .toggle1notactive
-  {
-    color: #a64eed;
-  }
-  
-  
-  
-  
-  ng-select.custom .ng-select-container {
-    position: relative !important;
-    top: 0;
-    border-color: transparent !important;
-    border-bottom-color: black !important;
-    border-bottom-width: 0.0625rem !important;
-    background-color: transparent !important;
-    border-radius: 0px;
-    }
-  

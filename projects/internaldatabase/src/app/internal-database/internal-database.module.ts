@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
-////import { ComponentsModule } from '../../shared/components.module';
+import { ComponentsModule } from 'projects/component/src/app/components/components.module';
 
 
 @NgModule({
@@ -17,12 +17,13 @@ import { MatInputModule } from '@angular/material/input';
   imports: [
     CommonModule,
     InternalDatabaseRoutingModule,
-    MatFormFieldModule,
+    CommonModule, 
     FormsModule,
-    ReactiveFormsModule,
-    MatSelectModule,
-    MatInputModule,
-    RouterModule
+     ReactiveFormsModule, 
+     MatInputModule,
+     ComponentsModule,
+     MatFormFieldModule,
+     MatSelectModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

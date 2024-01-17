@@ -1,0 +1,269 @@
+<app-scrool-to-top-buttom></app-scrool-to-top-buttom>
+<app-call [allids]='allids'></app-call>
+<app-add-to-job [allids]='allids'></app-add-to-job>
+<app-pv-get-reference [allids]='allids'></app-pv-get-reference>
+<app-add-candidates></app-add-candidates>
+
+<div class="main-content" style="position:relative;">
+
+  <div class=" container-fluid">
+    <div class="col-md-12">
+      <div class="row">
+        <div class="col-md-8">
+
+          <button type="button" class="btn btn-sm btn btn-outline-secondary col-md-2" *ngIf="db.mp.add_to_job_store"
+            title="Add to job" (click)="openmodal('#addtojob')">Add To Job
+
+          </button>
+          <button type="button" class="btn btn-sm btn btn-outline-secondary col-md-3"
+            (click)="openmodal('#addcandidate')" *ngIf="db.mp.candidate_detail_store" title="Add Candidate">Add
+            Candidate</button>
+          <button type="button" class="btn btn-sm btn btn-outline-secondary col-md-2" (click)="openmodal('#calldiv')"
+            title="call" *ngIf="db.mp.btn_can_call">
+            <i class="fa fa-phone "></i>
+            Call</button>
+          <button type="button" class="btn btn-sm btn btn-outline-secondary col-md-2"
+            (click)="openmodal('#searchpopup')" title="search">
+            <i class="fa fa-search icones"></i>
+            Search</button>
+          <button type="button" class="btn btn-sm btn btn-outline-secondary col-md-3"
+            click)="openmodal('#getreferencemodal')" *ngIf="db.mp.btn_take_internal_refeference"
+            title="Get Reference from selected candidates or send mail ">Get Reference</button>
+
+
+
+
+
+
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <!--   <div class="col-12 "style="">
+
+        <div class="row pull-right">
+
+          <app-call [allids]='allids'></app-call>
+          <app-add-to-job [allids]='allids'></app-add-to-job>
+          <app-pv-get-reference [allids]='allids'></app-pv-get-reference>
+
+          <div class="col-md-4 col-lg-3 fa-pull-right" *ngIf="db.mp.btn_take_internal_refeference"style="position:relative; padding:0;">
+            <button type="button" class="btn btn-block  btn-secondary btn-sm"
+              (click)="openmodal('#getreferencemodal')" title="Get referrence from selected candidates or send mail ">Get
+              Reference/Send Mail</button>
+
+
+          </div>
+          <div class="col-md-2 col-lg-3 pull-right" *ngIf="db.mp.add_to_job_store"style="position:relative; margin-left:-4rem; padding:0; ">
+
+            <button type="button" class="btn btn-outline btn-block  btn-secondary btn-sm" data-toggle="modal"
+              (click)="openmodal('#addtojob')">Add
+              to Job</button>
+
+
+
+          </div>
+          <app-add-candidate></app-add-candidate>
+          <div class=" col-md-2  col-lg-3 validate"style="position:relative; margin-left:17rem;  padding:0; top:-2rem;">
+
+            <button class="btn btn-block btn btn-sm btn-default btn-raised btn btn-secondary"   title='Add Candidate'
+               *ngIf="db.mp.candidate_detail_store"(click)="openmodal('#addcandidate')">
+              Add Candidate
+          </button>
+
+
+          </div>
+          <div class='col-md-2 col-lg-2'style="position:relative; left:-8rem; top:-2.1rem;">
+            <a class="btn btn-secondary btn btn-sm"  title='call'  (click)="openmodal('#calldiv')"
+              *ngIf="db.mp.btn_can_call">
+              <i class="fa fa-phone fa-2x"></i>
+
+            </a>
+          </div>
+          <div class='col-md-1 col-lg-1'style="margin-top:-2rem; margin-left:-15rem; ">
+
+            <a class="btn btn-secondary icouser" href="javascript:" title='Search' (click)="openmodal('#searchpopup')"
+               id="iconbackground">
+              <i class="fa fa-search icones"></i>
+
+            </a>
+          </div>
+        </div>
+
+      -->
+    <div class="col-12">
+      <app-gridinternaldata [data]="datas" [hidecol]="hidecols" (GridHeaderClicked)="datfromprgrid($event)"
+        (GridRowClicked)="OnRowclicked($event)" sendData="true" [header]="DataDefinitions"></app-gridinternaldata>
+    </div>
+  </div>
+
+</div>
+
+
+
+
+
+<div id="searchpopup" class="modal fade " role="dialog">
+  <div class="modal-dialog modal-md">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+
+        <h6 class="card-title" style="color: black; font-weight: bold;"> <span *ngIf="advancesearch">Advance</span>
+          <span *ngIf="booleansearch">Boolean</span> Search
+        </h6> <button type="button" class="close btn btn-block" data-bs-dismiss="modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="container-fluid" id="mymodal">
+          <div class="card advancesearch">
+            <div class="card-body">
+              <div class="row" *ngIf="advancesearch">
+
+                <div class="col-md-6">
+                  <div class="col-md-9">
+                    <mat-form-field class="example-full-width">
+                      <mat-label> Any Keyword- </mat-label>
+
+                      <input matInput autocomplete="off" type="text" [(ngModel)]="orsearch" (keyup.enter)="loadGrid()" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="col-md-10">
+                    <mat-form-field class="example-full-width">
+                      <mat-label> All Keyword- </mat-label>
+
+                      <input matInput autocomplete="off" type="text" [(ngModel)]="andsearch" (keyup.enter)="loadGrid()" />
+                    </mat-form-field>
+                  </div>
+                </div>
+
+                <!-- <div class="col-md-4">
+                Exclude Keyword-
+                <mat-form-field class="example-full-width">
+                  <input matInput autocomplete="off" type="text" [(ngModel)]="notsearch" (keyup.enter)="loadGrid()" />
+                </mat-form-field>
+              </div> -->
+              </div>
+
+              <div class="col-md-12 row" *ngIf="booleansearch">
+                <div class="col-md-11">
+                  <mat-form-field class="example-full-width">
+                    <mat-label> Search- </mat-label>
+                    <input matInput autocomplete="off" type="text" [(ngModel)]="searchText" (keyup.enter)="loadGridboolean()" />
+                  </mat-form-field>
+                </div>
+
+
+              </div>
+
+              <div class="row">
+
+                <div class="form-group col-md-6">
+                  <div class='col-md-9'>
+
+                    <!-- <mat-form-field> -->
+                    <ng-select [(ngModel)]="salaryfrom" name="salaryfrom" placeholder="Salary From"
+                      (change)="updatemaxsalary()">
+                      <ng-option value='{{minimumSalarylac}}' *ngFor="let minimumSalarylac of  minimumSalaryOption">
+                        {{minimumSalarylac}} Lacs</ng-option>
+                    </ng-select>
+                    <!-- </ngform-field> -->
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+
+
+                  <div class='col-md-10'>
+                    <!-- Salary To- -->
+                    <!-- <mat-form-field> -->
+                    <ng-select [(ngModel)]="salaryto" name="salaryto" placeholder="Salary To-">
+                      <ng-option value='{{opt}}' *ngFor="let opt of  maxSalaryOption" help="first select minimum value">
+                        {{opt}} Lacs
+                      </ng-option>
+                      <ng-option value="99">any</ng-option>
+
+                    </ng-select>
+                    <!-- </ngform-field> -->
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+
+                <div class="form-group col-md-6">
+                  <div class='col-md-9'>
+
+
+                    <!-- <mat-form-field> -->
+                    <ng-select [(ngModel)]="expfrom" (change)="updatemaxexperience()" name="expfrom"
+                      placeholder="Experience From-">
+                      <!-- <ng-select value="{{0}}" (click)="getlistmain()" >All</ng-select> -->
+                      <!-- <ng-option value="" (click)="getlistmain()" *ngFor="let clientprocess of processes">1</ng-option> -->
+                      <ng-option value="'Fresher'">Fresher</ng-option>
+                      <ng-option value='{{opt}}' *ngFor="let opt of  minexperience">{{opt}} year</ng-option>
+                      <ng-option value="0">Any</ng-option>
+
+                    </ng-select>
+                    <!-- </ngform-field> -->
+                  </div>
+                </div>
+
+                <div class="form-group col-md-6">
+
+
+                  <div class='col-md-10'>
+
+                    <!-- <mat-form-field> -->
+                    <ng-select [(ngModel)]="expto" name="expto" placeholder="Experience To-">
+                      <!-- <ng-option value="'6m'"> 6 month</ng-option> -->
+                      <ng-option value='{{opt}}' *ngFor="let opt of  maxexperience">{{opt}} year</ng-option>
+                      <ng-option value="99">Any</ng-option>
+
+                    </ng-select>
+                  </div>
+                </div>
+              </div>
+              <!-- </div> -->
+              <div class="row">
+                <div class="form-group col-md-12">
+                  <div class='col-md-9'>
+
+                    <ng-select [(ngModel)]="locationss" name="location" [multiple]="true" placeholder="Location:">
+                      <ng-option *ngFor="let locations of location">
+                        {{locations}}
+                      </ng-option>
+                    </ng-select>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="resetfilter()">Reset</button>
+
+        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-sm btn-raised  btn-outline-success button"
+          (click)="LoadHistory();">Search</button> -->
+        <button *ngIf="booleansearch" type="submit" class="btn  btn-raised btn-sm btn-outline-info"
+          tar="#assignCandidate" (click)="loadGridboolean()">Search</button>
+        <button *ngIf="advancesearch" type="submit" class="btn  btn-raised btn-sm btn-outline-primary"
+          (click)="loadGrid()">Search</button>
+      </div>
+    </div>
+
+  </div>
+</div>

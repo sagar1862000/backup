@@ -108,8 +108,7 @@
                                                 <!-- <img  src= "../../assets/img/historyicon/Call.svg"  /> -->
                                             </span>Add to Job</button>
                                         <button (mouseout)="isHidden_Call = false" (mouseover)="isHidden_Call = true;"
-                                             type="button"
-                                            style=" margin-left: 10px;" (click)="openmodal('#calldiv')"
+                                            type="button" style=" margin-left: 10px;" (click)="openmodal('#calldiv')"
                                             class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
                                                 <!-- <i class="glyphicon glyphicon-ok"></i> -->
@@ -1166,9 +1165,28 @@
     </div>
 </div>
 
+
+
+
+
+
+<div id="searchpopup" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <mat-form-field appearance="outline" class="w-100">
+            <mat-label>Job Display From : </mat-label>
+            <input matInput autocomplete="off" [(ngModel)]="startdate" [matDatepicker]="picker"
+                placeholder="Choose a date" (focus)="picker.open()">
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>      </div>
+    </div>
+  </div>
+</div>
 <!-- <div id="searchpopup" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md"> -->
-<div id="searchpopup" class="modal fade" role="dialog">
+<div id="" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
         <!-- Modal content-->
         <div class="modal-content">
@@ -1182,6 +1200,16 @@
             </div>
             <div class="modal-body">
                 <div class="row">
+                    <div class="col-sm-6" style="padding-left: 33px;">
+
+                        <mat-form-field appearance="outline" class="w-100">
+                            <mat-label>Referral Bonus:</mat-label>
+                            <input matInput autocomplete="off" type="number"  id="referralBonus"
+                                [(ngModel)]="searchcandidatetext" required />
+                        </mat-form-field>
+                    </div>
+
+   
 
                     <div class="col-sm-6" style="padding-left: 33px;">
                         <mat-form-field class="w-100">
@@ -1192,7 +1220,7 @@
                     <div class="col-6 ">
 
                         <!---     <div class="col-md-2 col-sm-2"style="position:relative; left:0.5rem;  top:4px;">-->
-                        <mat-form-field  style=" margin-top: 2px; position:absolute;top:-14px;">
+                        <mat-form-field style=" margin-top: 2px; position:absolute;">
                             <mat-label>Recruiter</mat-label>
                             <mat-select [(ngModel)]="recruiter">
                                 <mat-option value="{{USR.profile.id}}">Self</mat-option>

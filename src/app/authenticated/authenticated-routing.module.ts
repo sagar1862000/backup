@@ -44,7 +44,8 @@ const routes: Routes = [
 
       { path: 'hiring-manager', loadChildren: () => import('../../../projects/hiring-manager/src/app/hiring-manager/hiring-manager.module').then(m => m.HiringManagerModule) },
 
-      
+      { path: 'internaldatabaseadvance/:advancesearch', loadChildren: () => import('../../../projects/internaldatabase/src/app/internal-database/internal-database-search/internal-database-search.module').then(m => m.InternalDatabaseSearchModule) },
+
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       
 ]
