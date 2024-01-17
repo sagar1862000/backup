@@ -181,6 +181,7 @@ export class DbService implements OnInit, OnChanges {
           }
         },
         err => {
+          debugger;
           this.showMessage(err);
           if (fail !== undefined) {
             fail(err);
@@ -245,7 +246,7 @@ export class DbService implements OnInit, OnChanges {
 
 
   public showMessage(message: any, action?: string, durationMS?: number): void {
-
+debugger;
     if (this.isObject(message) && message.status === 0) {
       message = 'Please check your internet.';
     } else if (this.isObject(message) && message.error && message.error.msg) {
@@ -273,7 +274,8 @@ export class DbService implements OnInit, OnChanges {
       message = 'Please authenticate to access secured resource.';
     } else if (this.isObject(message) && message.status >= 500) {
       message = 'Error Occured';
-    } else if (this.isObject(message) && message.status === 422) {
+    }
+     else if (this.isObject(message) && message.status === 422) {
       message = message.error;
       const messages = [];
       for (const k in message) {
@@ -287,6 +289,21 @@ export class DbService implements OnInit, OnChanges {
 
 
     }
+    else if (this.isObject(message) && message.status === 400) {
+      message = message.error;
+      const messages = [];
+      for (const k in message) {
+        if (message[k]) {
+          this.showNotification(message[k]);
+        }
+        // messages.push(message[k].toString());
+
+      }
+      message = 'Please Fill Valid Details';
+
+
+    }
+
     if (action === undefined) {
       action = 'Message';
     }

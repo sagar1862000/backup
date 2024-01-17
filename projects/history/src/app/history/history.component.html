@@ -13,7 +13,6 @@
                         <div class="row">
 
                             <mat-toolbar class="header">
-                                <!-- <div class=" col-md-3 col-sm-2"> -->
                                 <ul class=" nav  showloader float-start " style="padding-left: 0px;">
                                     <div class="input-group   input-group-sm " style="width:200px;">
                                         <input type="text" autocomplete="off" class="form-control  form-control-sm"
@@ -26,7 +25,6 @@
                                         </div>
                                     </div>
                                     <div class=" ">
-                                        <!-- background-color: #a64eed -->
                                         <img style="margin-left:20px" href="javascript:" title='Search'
                                             (click)="openmodal('#searchpopup')"
                                             src="../../assets/img/historyicon/Filter.svg" />
@@ -35,13 +33,8 @@
                                             <span class="btn-label" id="iconbackground"
                                                 (mouseout)="isHidden_Bulk_operation = false"
                                                 (mouseover)="isHidden_Bulk_operation = true">
-                                                <!-- <i class="glyphicon glyphicon-ok"></i> -->
 
-
-
-                                                <!-- [@rotatedState]='state' -->
                                                 <img id="icons" src="../../assets/img/historyicon/down.svg" />
-                                                <!-- <img  src= "../../assets/img/historyicon/Call.svg"  /> -->
                                             </span>Bulk operation
                                         </button>
                                         <mat-menu #menu="matMenu" style="background-color: #a64eed;">
@@ -49,30 +42,17 @@
                                                 title='Download Excel Format' data-toggle='modal' value="option1"
                                                 id="iconbackground" [matMenuTriggerFor]="downloadexcel">Download
                                                 Excel</button>
-                                            <!-- *ngIf="USR.mp.add_to_job_store" -->
                                             <button mat-menu-item [matMenuTriggerFor]="Uploadexcel" href="javascript:"
                                                 title='Add to Job' data-toggle='modal' id="iconbackground">Upload
                                                 Excel</button>
-                                            <!--manoj <button id="iconbackground" mat-menu-item [matMenuTriggerFor]="Bulkresume">
-                                                Resume Parser</button> -->
+
                                         </mat-menu>
                                         <mat-menu #downloadexcel="matMenu">
                                             <button mat-menu-item *ngFor="let item of trackerlist"
                                                 (click)="DownloadExcelFormate(item.id)">
                                                 {{ item.tracker_name }}
                                             </button>
-                                            <!-- <button mat-menu-item (click)="hidedownloadexcel();"><a
-                                                    href="./assets/downloadexcel/{{USR.profile.app_id}}Selfformat.csv"
-                                                    download="Selfformat.csv"
-                                                    title=" {{USR.profile.application}} Excel Format">
-                                                    {{USR.profile.application}} Format</a></button>
-                                            <button mat-menu-item (click)="hidedownloadexcel();"><a
-                                                    href="./assets/downloadexcel/historyformat.csv"
-                                                    download="HistoryFormat.csv"> History Format</a></button> -->
-                                            <!-- <button mat-menu-item (click)="hidedownloadexcel();"><a
-    href="./assets/downloadexcel/internaldatabaseformat.csv" download="InternalDataBaseFormat.csv">
-    InternalDataBase Format</a></button> -->
-                                            <!-- <button mat-menu-item (click)="addcandidate()" ng-if="mp.candidate_detail_store">Add Candidate</button> -->
+
                                         </mat-menu>
                                         <mat-menu #Uploadexcel="matMenu">
                                             <button mat-menu-item (click)="openmodal('#uploadSelfexcel')"
@@ -89,7 +69,6 @@
                                     </div>
 
                                 </ul>
-                                <!-- </div> -->
 
                                 <div class="">
                                     <ul class=" mr-4 float-none ">
@@ -100,36 +79,20 @@
                                             (click)="openmodal('#addtojob')" data-target='#addtojob' data-toggle='modal'
                                             (click)="loadalert();" class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
-                                                <!-- <i class="glyphicon glyphicon-ok"></i> -->
                                                 <img [@rotatedState]='state' *ngIf="isHiddenAdd_to_Job"
                                                     src="../../assets/img/historyicon/onhover/Add_to_job.svg" />
                                                 <img *ngIf="!isHiddenAdd_to_Job"
                                                     src="../../assets/img/historyicon/Add_to_job.svg" />
-                                                <!-- <img  src= "../../assets/img/historyicon/Call.svg"  /> -->
                                             </span>Add to Job</button>
                                         <button (mouseout)="isHidden_Call = false" (mouseover)="isHidden_Call = true;"
                                             type="button" style=" margin-left: 10px;" (click)="openmodal('#calldiv')"
                                             class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
-                                                <!-- <i class="glyphicon glyphicon-ok"></i> -->
                                                 <img [@rotatedState]='state' *ngIf="isHidden_Call"
                                                     src="../../assets/img/historyicon/onhover/Vector_hover.svg" />
                                                 <img *ngIf="!isHidden_Call"
                                                     src="../../assets/img/historyicon/Call.svg" />
                                             </span>Test Call</button>
-
-                                        <!-- <button (mouseout)="isHidden_internal_refeference = false"
-                                            (mouseover)="isHidden_internal_refeference = true;"
-                                            *ngIf="USR.mp.btn_take_internal_refeference" type="button"
-                                            style=" margin-left:10px; " (click)="openmodal('#getreferencemodal')"
-                                            title='Get Reference' data-toggle="modal" data-target="#getreferencemodal"
-                                            id="iconbackground" class="btn btn-sm btn-labeled ">
-                                            <span class="btn-label" id="iconbackground">
-                                                <img [@rotatedState]='state' *ngIf="isHidden_internal_refeference"
-                                                    src="../../assets/img/historyicon/onhover/Add_to_job_hover.svg" />
-                                                <img *ngIf="!isHidden_internal_refeference"
-                                                    src="../../assets/img/historyicon/Call.svg" />
-                                            </span>internal refeference</button> -->
 
                                         <button (mouseout)="isHidden_Mailer = false"
                                             (mouseover)="isHidden_Mailer = true;" *ngIf="USR.mp.btn_can_mailer"
@@ -137,7 +100,6 @@
                                             href="javascript:" title='mailer' (click)="openmodal('#mailer')"
                                             id="iconbackground" class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
-                                                <!-- <i class="glyphicon glyphicon-ok"></i> -->
                                                 <img [@rotatedState]='state' *ngIf="isHidden_Mailer"
                                                     src="../../assets/img/historyicon/onhover/Mail hover.svg" />
                                                 <img *ngIf="!isHidden_Mailer"
@@ -149,8 +111,6 @@
                                             data-toggle="modal" title='Add Candidate' id="iconbackground"
                                             class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
-                                                <!-- <i class="glyphicon glyphicon-ok"></i> -->
-                                                <!-- <img  src= "../../assets/img/historyicon/Mail.svg"  /> -->
                                                 <img [@rotatedState]='state' *ngIf="isHidden_Add_candidate"
                                                     src="../../assets/img/historyicon/onhover/Add_candidate.svg" />
                                                 <img *ngIf="!isHidden_Add_candidate"
@@ -168,50 +128,12 @@
                                                     src="../../assets/img/historyicon/Refresh.svg" />
                                             </span>Refresh
                                         </button>
-                                        <!-- <button (mouseout)="isHidden_Refresh = false"
-                                            (mouseover)="isHidden_Refresh = true" type="button"
-                                            style="margin-left:10px;" title='Refresh Page' (click)="Gridchange()"
-                                            class="btn btn-sm btn-labeled ">
-                                            <span class="btn-label" id="iconbackground">
-                                                <i class="glyphicon glyphicon-ok"></i>
-                                                <img [@rotatedState]='state' *ngIf="isHidden_Refresh"
-                                                    src="../../assets/img/historyicon/onhover/Swap.svg" />
-                                                <img *ngIf="!isHidden_Refresh"
-                                                    src="../../assets/img/historyicon/Swap2.svg" />
-                                            </span>Grid View
-                                        </button> -->
+
                                     </ul>
 
                                 </div>
                             </mat-toolbar>
 
-
-
-
-
-                            <!-- <button (click)="addcandidate()" class=" btn btn-sm btn-outline-secondary" data-toggle="modal" title='Add Candidate' id="iconbackground"> <i class="fa fa-users icones"></i></button> -->
-                            <!-- <div class="col-md-1 col-sm-1" *ngIf="USR.mp.btn_take_internal_refeference">
-                <button class="btn btn-md btn-outline-secondary" (click)="openmodal('#getreferencemodal')" title='Get Reference' data-toggle="modal" data-target="#getreferencemodal" id="iconbackground"><i
-                  class="fa fa-handshake-o icones"></i></button>
-            </div> -->
-
-
-
-                            <!-- <div class="col-md-1 col-sm-1" *ngIf="USR.mp.btn_can_call">
-
-                <button class="btn btn-md btn-outline-secondary icocall" style="background-color: #a64eed;" href="javascript:" title='call' (click)="openmodal('#calldiv')" id="iconbackground">
-
-                  <img  src= "../../assets/img/historyicon/Call.svg"  />
-                </button>
-            </div> -->
-
-                            <!-- <div class="col-md-1 col-sm-1" *ngIf="USR.mp.btn_can_call">
-                <button class="btn btn-md btn-outline-secondary mail_outline" style="background-color: #a64eed;" (click)="loadalert();" href="javascript:" title='mailer' (click)="openmodal('#mailer')" id="iconbackground">
-
-
-                  <img  src= "../../assets/img/historyicon/Mail.svg"  />
-                </button>
-            </div> -->
                         </div>
                     </div>
 
@@ -220,8 +142,6 @@
 
                 </div>
             </mat-toolbar>
-
-
 
 
 
@@ -234,12 +154,9 @@
                     (emitbuttondataToReport)="dataclick($event)" (gridReady)="onGridReady($event)"
                     [header]='DataDefinitions' (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true">
                 </lib-bot-grid>
-                <!-- <h1>tuhin</h1> -->
 
             </div>
 
-            <!-- <p *ngif="Showgrid"> asdasd</p> -->
-            <!-- *ngIf="shownormalgrid" -->
             <div class="excelformate col-lg-12">
                 <h1>grid start</h1>
 
@@ -252,43 +169,6 @@
             </div>
 
             <div class="clearfix clear"></div>
-
-
-            <!-- </div> -->
-
-            <!-- </div> -->
-            <!-- <div id="notesdetail1" class="modal fade" style="z-index:2000" role="dialog">
-      <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-
-          <div class="modal-body">
-            <div class='col-md-12'>
-              <div class='row'>
-                <div class='col-md-12'>
-                  <mat-form-field>
-                    <mat-label>Contactibility</mat-label>
-                    <mat-select [(ngModel)]="contactibility" name="Contactibility">
-                      <mat-option (click)="CandidateNotesave();" value='No Response'>No Response</mat-option>
-                      <mat-option (click)="CandidateNotesave();" value='Wrong Number'>Wrong Number</mat-option>
-                      <mat-option (click)="CandidateNotesave();" value='Call Back'>Call Back</mat-option>
-                      <mat-option (click)="CandidateNotesave();" value='Answered'>Answered</mat-option>
-
-                    </mat-select>
-                  </mat-form-field>
-                </div>
-
-
-              </div>
-
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-      </div>
-    </div> -->
-            <!-- resumeParser -->
 
             <div id="notesdetail2" class="modal fade" style="z-index:2000" role="dialog">
                 <div class="modal-dialog modal-sm">
@@ -382,7 +262,6 @@
 
                                                     </mat-select>
                                                 </mat-form-field>
-                                                <!--                                                <md-datepicker ng-model="commentstatus.date" md-placeholder="Enter date"></md-datepicker>-->
                                             </div>
 
                                         </div>
@@ -459,32 +338,10 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 <div id="uploadnaukriexcel" class="modal fade" style="z-index:2000" role="dialog">
     tstasd
     <div class="modal-dialog modal-lg">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
                 tstasd
@@ -516,7 +373,6 @@
 <div id="uploadhistoryexcel" class="modal fade" style="z-index:2000" role="dialog">
     <div class="modal-dialog modal-md">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
 
@@ -548,10 +404,8 @@
 <div id="uploadSelfexcel" class="modal fade" style="z-index:2000" role="dialog">
     <div class="modal-dialog modal-md">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
-                <!-- {{USR.profile.application}} -->
                 <h6 class="modal-title">Upload Excel</h6>
                 <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -590,7 +444,6 @@
 <div id="uploaddbexcel" class="modal fade" style="z-index:2000" role="dialog">
     <div class="modal-dialog modal-lg">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
 
@@ -649,7 +502,6 @@
         </div>
     </div>
 </div>
-<!-- </div> -->
 <div id="changesalary" class="modal fade" style="z-index:2000" role="dialog">
     <div class="modal-dialog modal-sm">
 
@@ -822,42 +674,11 @@
         </div>
     </div>
 </div>
-<!-- </div> -->
-<!-- <div id="downloadexcel" class="modal fade" style="z-index:2000" role="dialog">
-    <div class="modal-dialog modal-sm">
 
-  <div class="modal-content">
-
-    <div class="modal-body">
-      <div class='col-md-12'>
-          <div class='row'>
-
-                  <div class='col-md-12'>
-
-                    <mat-form-field>
-                      <mat-label>click here</mat-label>
-                      <mat-select [(ngModel)]="experience" name="download excel format">
-                        <mat-option (click)="hidedownloadexcel();"  ><a class="btn btn-light" role="button" href="./assets/downloadexcel/historyformat.csv" download="HistoryFormat.csv"> History Format</a></mat-option>
-                        <mat-option (click)="hidedownloadexcel();" ><a class="btn btn-light" role="button" href="./assets/downloadexcel/internaldatabaseformat.csv" download="InternalDataBaseFormat.csv"> InternalDataBase Form(click)="hidedownloadexcel();
-                              "a(click)="hidedownloadexcel();"t</a></mat-option>
-
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-
-            </div>
-      </div>
-      <div class="clearfix"></div>
-    </div>
-
-  </div>
-  </div>
-  </div> -->
 
 <div id="resumeupload" class="modal fade" style="z-index:2000" role="dialog">
     <div class="modal-dialog modal-xl">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
 
@@ -865,18 +686,7 @@
                 <button type="button" class="close btn btn-block" data-bs-dismiss="modal">&times;</button>
             </div>
             <div class="modal-body">
-                <!-- <div class="media">
-        <div class="row">
-          <div class="col-12">
-              <input type="file"
-              id="file"
-              (change)="uploadresume($event.target.files)">
 
-          </div>
-
-      </div>
-
-      </div> -->
                 <div class="media">
                     <div class="row">
                         <div class="col-md-12">
@@ -1165,30 +975,8 @@
     </div>
 </div>
 
-
-
-
-
-
-<div id="searchpopup" class="modal fade">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-body">
-        <mat-form-field appearance="outline" class="w-100">
-            <mat-label>Job Display From : </mat-label>
-            <input matInput autocomplete="off" [(ngModel)]="startdate" [matDatepicker]="picker"
-                placeholder="Choose a date" (focus)="picker.open()">
-            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-            <mat-datepicker #picker></mat-datepicker>
-        </mat-form-field>      </div>
-    </div>
-  </div>
-</div>
-<!-- <div id="searchpopup" class="modal fade" role="dialog">
-    <div class="modal-dialog modal-md"> -->
-<div id="" class="modal fade" role="dialog">
+<div id="searchpopup" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
 
@@ -1200,16 +988,6 @@
             </div>
             <div class="modal-body">
                 <div class="row">
-                    <div class="col-sm-6" style="padding-left: 33px;">
-
-                        <mat-form-field appearance="outline" class="w-100">
-                            <mat-label>Referral Bonus:</mat-label>
-                            <input matInput autocomplete="off" type="number"  id="referralBonus"
-                                [(ngModel)]="searchcandidatetext" required />
-                        </mat-form-field>
-                    </div>
-
-   
 
                     <div class="col-sm-6" style="padding-left: 33px;">
                         <mat-form-field class="w-100">
@@ -1228,25 +1006,7 @@
                                     {{x.name}}</mat-option>
                             </mat-select>
                         </mat-form-field>
-                        <!-- <button class="btn btn-sm btn-outline-secondary" id="iconbackground" href="javascript:" title='Select Recruiter' [matMenuTriggerFor]="menu">Select Recruiter</button>
-            <mat-menu #menu="matMenu" n="Owner" [(ngModel)]="recruiter">
-              <button mat-menu-item (click)="LoadHistory()" value="{{USR.profile.id}}"> Self</button>
-              <button mat-menu-item (click)="LoadHistory()" value="{{x.id}}" *ngFor="let x of managers">{{x.name}}</button>
-            </mat-menu> -->
 
-                        <!-- <button class="btn btn-md btn-outline-secondary" id="iconbackground" href="javascript:" title='Select Recruiter'>
-                          <span matPrefix style="position: absolute;">
-                            <i class="fa fa-user-secret"></i>
-                          </span>
-                          <mat-select n="Owner" [(ngModel)]="recruiter">
-                            <mat-option (click)="LoadHistory()" value="{{USR.profile.id}}">Self</mat-option>
-                            <mat-option (click)="LoadHistory()" value="{{x.id}}" *ngFor="let x of managers">{{x.name}}
-                            </mat-option>
-                          </mat-select>
-
-
-
-                        </button> -->
 
                     </div>
                 </div>
@@ -1288,7 +1048,6 @@
 <div id="parseloader" class="modal fade" style="z-index:0" role="dialog">
     <div class="modal-dialog modal-sm modal-sm">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
 
@@ -1320,7 +1079,6 @@
 <div id="addcandidate" class="modal fade" role="dialog" data-bs-backdrop="static">
     <div class="modal-dialog modal-md">
 
-        <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
 
@@ -1339,18 +1097,7 @@
                                     class="form-control e" validate id="name2" placeholder="Enter name">
                             </mat-form-field>
                         </div>
-                        <!-- <div class="form-group">
-                                        <label for="gender" class="control-label col-md-12">Gender</label>
-                                        <div>
 
-                                            <ng-select [(ngModel)]="store.gender">
-                                                <ng-option *ngFor="let x of genders" value="{{x.id}}">
-                                                    {{x.gender_name}}
-                                                </ng-option>
-                                            </ng-select>
-
-                                        </div>
-                                    </div> -->
                         <div class="form-group">
                             <mat-form-field class="w-100">
                                 <mat-label for="Gender" class="control-label col-xs-2">Gender:</mat-label>
@@ -1381,13 +1128,6 @@
                         </div>
 
 
-                        <!-- <div class="form-group">
-                            <label for="resume" class="control-label col-sm-4">Resume</label>
-                            <div class="col-sm-7">
-
-                            </div>
-                        </div> -->
-
                         <div class="form-group">
 
                             <div class="col-md-4 col-md-offset-4">
@@ -1411,11 +1151,9 @@
 <div id="Openresume" [attr.disabled]="disabled ? '' : null" class="modal fade" style="z-index:2000" role="dialog">
     <div class="modal-dialog modal-md">
 
-        <!-- Modal content -->
         <div class="modal-content">
             <div class="modal-header">
 
-                <!-- <a href="file:///home/passivereferral/passivereferral_projects/laravalprapi/python/recommandation/a/{{candidateresume}}" target="_blank">Resume</a> -->
                 <a href="http://api.passivereferral.com" target="_blank">Resume</a>
             </div>
             <div class="modal-body">
@@ -1430,145 +1168,3 @@
         </div>
     </div>
 </div>
-
-<!-- <div id="multiplename" class="modal fade" style="z-index:2000" role="dialog">
-      <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-
-          <div class="modal-body">
-            <div class='col-md-12'>
-              <div class='row'>
-
-                <div class='col-md-12'>
-
-                  <ul class="comment">
-                    <li *ngFor="let comment of showcomment">{{comment.comment}}</li>
-                  </ul>
-                  <mat-form-field class="example-full-width">
-                    <textarea [(ngModel)]="comment" name="comment" matInput placeholder="Leave a comment"></textarea>
-                  </mat-form-field>
-                </div>
-
-              </div>
-              <div class="form-group">
-                <div class=" col-md-10" style="margin-left:20%">
-                  <button type="submit" class="btn btn-raised btn-primary" ng-hide="isEditCandidateNote"
-                    (click)="CandidateCommentSave();">Save</button>
-
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div id="multipleemail" class="modal fade" style="z-index:2000" role="dialog">
-      <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-
-          <div class="modal-body">
-            <div class='col-md-12'>
-              <div class='row'>
-
-                <div class='col-md-12'>
-
-                  <ul class="comment">
-                    <li *ngFor="let comment of showcomment">{{comment.comment}}</li>
-                  </ul>
-                  <mat-form-field class="example-full-width">
-                    <textarea [(ngModel)]="comment" name="comment" matInput placeholder="Leave a comment"></textarea>
-                  </mat-form-field>
-                </div>
-
-              </div>
-              <div class="form-group">
-                <div class=" col-md-10" style="margin-left:20%">
-                  <button type="submit" class="btn btn-raised btn-primary" ng-hide="isEditCandidateNote"
-                    (click)="CandidateCommentSave();">Save</button>
-
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div id="multiplephone" class="modal fade" style="z-index:2000" role="dialog">
-      <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-
-          <div class="modal-body">
-            <div class='col-md-12'>
-              <div class='row'>
-
-                <div class='col-md-12'>
-
-                  <ul class="comment">
-                    <li *ngFor="let comment of showcomment">{{comment.comment}}</li>
-                  </ul>
-                  <mat-form-field class="example-full-width">
-                    <textarea [(ngModel)]="comment" name="comment" matInput placeholder="Leave a comment"></textarea>
-                  </mat-form-field>
-                </div>
-
-              </div>
-              <div class="form-group">
-                <div class=" col-md-10" style="margin-left:20%">
-                  <button type="submit" class="btn btn-raised btn-primary" ng-hide="isEditCandidateNote"
-                    (click)="CandidateCommentSave();">Save</button>
-
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-    <div id="multipleskill" class="modal fade" style="z-index:2000" role="dialog">
-      <div class="modal-dialog modal-sm">
-
-        <div class="modal-content">
-
-          <div class="modal-body">
-            <div class='col-md-12'>
-              <div class='row'>
-
-                <div class='col-md-12'>
-
-                  <ul class="comment">
-                    <li *ngFor="let comment of showcomment">{{comment.comment}}</li>
-                  </ul>
-                  <mat-form-field class="example-full-width">
-                    <textarea [(ngModel)]="comment" name="comment" matInput placeholder="Leave a comment"></textarea>
-                  </mat-form-field>
-                </div>
-
-              </div>
-              <div class="form-group">
-                <div class=" col-md-10" style="margin-left:20%">
-                  <button type="submit" class="btn btn-raised btn-primary" ng-hide="isEditCandidateNote"
-                    (click)="CandidateCommentSave();">Save</button>
-
-                </div>
-              </div>
-            </div>
-            <div class="clearfix"></div>
-          </div>
-
-        </div>
-      </div>
-    </div> -->
-<!---  <app-update-candidate [current_data]='currentData'></app-update-candidate>-->
-<!--- <app-add-note [set_candidate_id]='candidate_id'></app-add-note> -->
