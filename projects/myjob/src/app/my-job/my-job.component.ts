@@ -397,7 +397,7 @@ export class MyJobComponent implements OnInit {
 
   }
   updatestatuscommentmyjob = function (showpopup) {
-
+    debugger
     if (typeof showpopup === 'undefined') {
       showpopup = true;
     }
@@ -411,6 +411,7 @@ export class MyJobComponent implements OnInit {
     // this.commentstatus.recruiterid=this.recruiterid;
     this.db.store('csr/', this.commentstatus, ((response): void => {
       $('#commentstatus').modal('hide');
+      debugger
       this.filterdrbytab();
       this.commentstatus = {};
 
@@ -678,12 +679,13 @@ export class MyJobComponent implements OnInit {
 
 
   filterdrbytab(mainprocess?, childprocess?, jobitem?): void {
+    debugger
     const jobdata = JSON.stringify(jobitem);
-
+    debugger
     const url = this.router.serializeUrl(
       this.router.createUrlTree(['job-candidate', { job_id: jobitem.id, jobstatus: childprocess, candidate_name: this.searchcandidate, startIndex: this.startIndex, EndIndex: this.EndIndex, setpage: this.setpage }])
     );
-
+    debugger
     window.open(url, '_blank');
   }
   fsilterdrbytabds(mainprocess?, childprocess?, jobitem?): void {

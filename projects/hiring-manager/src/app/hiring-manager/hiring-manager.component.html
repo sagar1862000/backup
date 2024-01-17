@@ -1,0 +1,134 @@
+
+
+<mat-toolbar class="header">
+    <ul class=" nav  showloader float-start " style="padding-left: 0px;">
+        <div class="" style="position:relative;">
+            <ul class=" mr-4 float-none ">
+  
+                <button (mouseout)="isCreateTemplate = false" (mouseover)="isCreateTemplate = true ;" type="button"
+                    style="margin-left:10px" href="javascript:" title='Add to Job' (click)="goToChild('create-new-hiring')"
+                    data-target='#addtojob' data-toggle='modal' class="btn btn-sm btn-labeled ">
+                    <span class="btn-label" id="iconbackground">
+                        <!-- <i class="glyphicon glyphicon-ok"></i> -->
+                        <img [@rotatedState]='state' *ngIf="isCreateTemplate"
+                            src="../../assets/img/historyicon/onhover/Add_to_job.svg" />
+                        <img *ngIf="!isCreateTemplate" src="../../assets/img/historyicon/Add_to_job.svg" />
+                        <!-- <img  src= "../../assets/img/historyicon/Call.svg"  /> -->
+                    </span>Create Hiring Manager</button>
+  
+                <button (mouseout)="is_Refresh = false" (mouseover)="is_Refresh = true" type="button"
+                    style="margin-left:10px;" title='Refresh Page' (click)="LoadTemplates()"
+                    class="btn btn-sm btn-labeled ">
+                    <span class="btn-label" id="iconbackground">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        <img [@rotatedState]='state' *ngIf="is_Refresh"
+                            src="../../assets/img/historyicon/onhover/Refresh_hover.svg" />
+                        <img *ngIf="!is_Refresh" src="../../assets/img/historyicon/Refresh.svg" />
+                    </span>Refresh
+                </button>
+            </ul>
+        </div>
+    </ul>
+  </mat-toolbar>
+  
+  
+  <div class="main-content"style="position:relative; ">
+    <div class="container-fluid">
+  
+      <!-- <button class="btn btn-primary btn-outline" (click)="visible()||back();" value="show grid">Add Manager
+      </button> -->
+      <!-- <div class="card" *ngIf="isvisible">
+        <div class="card header card header">
+          <h3 class="text-capitalize ">hiring manager</h3>
+        </div>
+        <div class="card-body"> -->
+  
+  
+          <!-- <form #Form="ngForm" (ngSubmit)="onsubmit(Form.value)" *ngIf="isvisible" method="post"> -->
+  
+  
+          <!-- <div class="col-md-12 row">
+  
+            <mat-form-field appearance="outline" class="col-md-6 col-lg-6 col-sm-12">
+              <mat-label>Name</mat-label>
+              <input matInput autocomplete="off" type="text" [(ngModel)]="hiringmanager.name" name="name">
+            </mat-form-field>
+  
+  
+            <mat-form-field appearance="outline" class="col-md-6 col-lg-6 col-sm-12">
+              <mat-label>Email</mat-label>
+              <input matInput autocomplete="off" type="text" [(ngModel)]="hiringmanager.email" name="email" [formControl]="emailFormControl"
+                placeholder="Ex. pat@example.com">
+              <mat-error *ngIf="emailFormControl.hasError('email') && !emailFormControl.hasError('required')">
+                Please enter a valid email address
+              </mat-error>
+              <mat-error *ngIf="emailFormControl.hasError('required')">
+                Email is <strong>required</strong>
+              </mat-error>
+            </mat-form-field>
+  
+  
+  
+  
+  
+  
+          </div> -->
+  
+  
+          <!-- <div class="col-md-12 row">
+            <mat-form-field appearance="outline" class="col-md-6 col-lg-6 col-sm-12">
+              <mat-label>Phone</mat-label>
+              <input matInput autocomplete="off" type="text" [(ngModel)]="hiringmanager.mobile" name="phone">
+  
+  
+                </mat-form-field>
+  
+  
+  
+  
+            <mat-form-field appearance="outline" class="col-md-6 col-lg-6 col-sm-12">
+              <mat-label>Department</mat-label>
+              <mat-select [(ngModel)]="hiringmanager.department">
+                <mat-option value="{{dep.id}}" *ngFor="let dep of departments">
+                  {{dep.department}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col-md-12">
+            <button type="button" class="btn-outline-primary btn btn-sm col-2 "
+              (click)="addHiringmanager()">Submit</button>
+          </div>
+  
+        </div> -->
+  
+        <!-- </form> -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+      </div>
+    </div>
+  
+    <div class="col-md-12" *ngIf="!isvisible">
+      <!-- <ag-grid-angular style="height: 500px;" class="ag-theme-material" (rowClicked)="onRowClicked($event)"
+        rowSelection='multiple' class="ag-theme-material" [rowData]="rowData" [columnDefs]="columnDefs"
+        suppressCsvExport=false [suppressRowClickSelection]="true" [groupSelectsChildren]="true"
+        paginationAutoPageSize='true' [debug]="true" [enableRangeSelection]="true" [pagination]="true"
+        (gridReady)="onGridReady($event)">
+      </ag-grid-angular> -->
+      <!-- <app-prgrid [data]="rowData" [header]='DataDefinitions'
+      (onHeaderClicked)="DatFromPRGridTableHeader($event)" (onRowClicked)="onRowClicked($event)">
+    </app-prgrid> -->
+    <div class="fixed-sidebar">
+      <router-outlet></router-outlet>
+      <!-- <mat-icon (click)="onCloseChild()">close</mat-icon> -->
+  </div>
+    </div>
+  
+  
