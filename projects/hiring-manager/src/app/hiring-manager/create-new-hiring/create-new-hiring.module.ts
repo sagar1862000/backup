@@ -12,6 +12,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MasterService } from 'src/app/services/master.service';
 import { MatButtonModule } from '@angular/material/button';
+import {NgxMaterialTimepickerModule} from 'ngx-material-timepicker';
 
 
 @NgModule({
@@ -32,7 +33,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatNativeDateModule,
     MatIconModule,
     MatDatepickerModule,
-    // NgxMaterialTimepickerModule,
+    NgxMaterialTimepickerModule,
     MatButtonModule,
     
   ],
