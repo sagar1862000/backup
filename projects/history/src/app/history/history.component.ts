@@ -5,8 +5,10 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { DbService } from '../../../../../src/app/services/db.service'
 import { UserService } from '../../../../../src/app/services/user.service'
 import { MatDialog } from '@angular/material/dialog';
+import { CallComponent } from 'projects/component/src/app/components/call/call.component';
 
 declare var $: any;
+declare var window:any;
 export interface Message {
   source: string;
   content: string;
@@ -107,6 +109,7 @@ export class HistoryComponent implements OnInit {
   limitendIndex: any = 20;
   trackerid: number = 0
   paginationNumberFormatter: (params: any) => string;
+  formModal: any;
   public gridColumnApi;
 
   public autoGroupColumnDef;
@@ -384,8 +387,6 @@ export class HistoryComponent implements OnInit {
     // this.filterhistory();
     // this.loadalert();
     // this.reloadpage();
-
-
 
 
   }
@@ -1443,6 +1444,14 @@ export class HistoryComponent implements OnInit {
 
   openTestDialog(){
     console.warn('tuhin')
+  }
+
+
+  openCallDialog(){
+    this.dialog.open(CallComponent, {
+      width: '450px',
+    }
+    )
   }
 
 }

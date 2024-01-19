@@ -20,6 +20,7 @@ import { AddToJobComponent } from './add-to-job/add-to-job.component';
 import { CallComponent } from './call/call.component';
 import { ActivityComponent } from './activity/activity.component';
 import { UpdateStatusComponent } from './update-status/update-status.component';
+import { MatDialogModule } from '@angular/material/dialog';
 
 
 
@@ -33,6 +34,7 @@ import { UpdateStatusComponent } from './update-status/update-status.component';
     MatTabsModule,
     CommonModule, MatMenuModule,
     MatToolbarModule,
+    MatDialogModule
 
 
   ],

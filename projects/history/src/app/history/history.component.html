@@ -1,5 +1,5 @@
 <app-scrool-to-top-buttom></app-scrool-to-top-buttom>
-<app-call [allids]='allids'></app-call>
+<!-- <app-call [allids]='allids'></app-call> -->
 <app-mailer [allids]='allids'></app-mailer>
 <app-add-to-job [allids]='allids'></app-add-to-job>
 <!-- <app-pv-get-reference [allids]='allids'></app-pv-get-reference> -->
@@ -86,7 +86,7 @@
                                                     src="../../assets/img/historyicon/Add_to_job.svg" />
                                             </span>Add to Job</button>
                                         <button (mouseout)="isHidden_Call = false" (mouseover)="isHidden_Call = true;"
-                                            type="button" style=" margin-left: 10px;" (click)="openmodal('#calldiv')"
+                                            type="button" style=" margin-left: 10px;" (click)="openCallDialog()"
                                             class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
                                                 <img [@rotatedState]='state' *ngIf="isHidden_Call"
@@ -94,7 +94,6 @@
                                                 <img *ngIf="!isHidden_Call"
                                                     src="../../assets/img/historyicon/Call.svg" />
                                             </span>Test Call</button>
-
 
                                         <button (mouseout)="isHidden_Mailer = false"
                                             (mouseover)="isHidden_Mailer = true;" *ngIf="USR.mp.btn_can_mailer"
