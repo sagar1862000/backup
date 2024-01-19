@@ -27,6 +27,7 @@
                                     <div class=" ">
                                         <img style="margin-left:20px" href="javascript:" title='Search'
                                             (click)="openmodal('#searchpopup')"
+                                            (click)="openDialogWithTemplateRef(myDialog)"
                                             src="../../assets/img/historyicon/Filter.svg" />
                                         <button style="border-radius:25px;margin-left:20px;"
                                             class="mat-menu-trigger btn btn-sm  btn-labeled" [matMenuTriggerFor]="menu">
@@ -93,6 +94,7 @@
                                                 <img *ngIf="!isHidden_Call"
                                                     src="../../assets/img/historyicon/Call.svg" />
                                             </span>Test Call</button>
+
 
                                         <button (mouseout)="isHidden_Mailer = false"
                                             (mouseover)="isHidden_Mailer = true;" *ngIf="USR.mp.btn_can_mailer"
@@ -975,7 +977,7 @@
     </div>
 </div>
 
-<div id="searchpopup" class="modal fade" role="dialog">
+<!-- <div id="searchpopup" class="modal fade" role="dialog">
     <div class="modal-dialog modal-md">
         <div class="modal-content">
             <div class="modal-header">
@@ -997,7 +999,6 @@
                     </div>
                     <div class="col-6 ">
 
-                        <!---     <div class="col-md-2 col-sm-2"style="position:relative; left:0.5rem;  top:4px;">-->
                         <mat-form-field style=" margin-top: 2px; position:absolute;">
                             <mat-label>Recruiter</mat-label>
                             <mat-select [(ngModel)]="recruiter">
@@ -1043,7 +1044,71 @@
         </div>
 
     </div>
-</div>
+</div> -->
+
+
+<ng-template #myDialog>
+    <div style="display: flex; justify-content: space-between;">
+        <div>
+            <h1 style="padding-left: 20px; padding-top: 10px;">Search Candidate</h1>
+        </div>
+        <div>
+            <i class="fa-solid fa-x closedialog" matDialogClose></i>
+        </div>
+    </div>
+    <mat-dialog-content>
+        <div class="row">
+            <div class="col-sm-6" style="padding-left: 33px;">
+                <mat-form-field class="w-100">
+                    <input matInput autocomplete="off" type="text" [(ngModel)]="searchcandidatetext"
+                        (keyup.enter)="LoadHistory()" placeholder="Search..." id="history1">
+                </mat-form-field>
+            </div>
+            <div class="col-6 ">
+
+                <mat-form-field style=" margin-top: 2px; position:absolute;">
+                    <mat-label>Recruiter</mat-label>
+                    <mat-select [(ngModel)]="recruiter">
+                        <mat-option value="{{USR.profile.id}}">Self</mat-option>
+                        <mat-option value="{{x.id}}" *ngFor="let x of managers">
+                            {{x.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+
+
+            </div>
+        </div>
+        <div class="col-sm-12 row">
+            <div class="col-6 col-sm-6">
+                <mat-form-field>
+                    <input matInput autocomplete="off" [(ngModel)]="startdate" [matDatepicker]="picker"
+                        (focus)="picker.open()" (keyup.enter)="LoadHistory()" placeholder="from date" class="e">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+
+            </div>
+            <div class="col-6 col-sm-6">
+                <mat-form-field>
+                    <input matInput autocomplete="off" [(ngModel)]="enddate" [matDatepicker]="picker2"
+                        (focus)="picker2.open()" (keyup.enter)="LoadHistory()" placeholder="to date" class="e">
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                </mat-form-field>
+            </div>
+        </div>
+    </mat-dialog-content>
+    <mat-dialog-actions align="end">
+        <button type="button" class="btn btn-outline-primary btn-sm" (click)="resethistorysearch()">Reset</button>
+        <button type="button" class="btn btn-outline-danger btn-sm" data-bs-dismiss="modal"
+            matDialogClose>Close</button>
+        <button type="button" class="btn btn-sm btn-raised btn-outline-success button"
+            (click)="LoadHistorywithlimit();">Search</button>
+    </mat-dialog-actions>
+</ng-template>
+
+
+
 
 <div id="parseloader" class="modal fade" style="z-index:0" role="dialog">
     <div class="modal-dialog modal-sm modal-sm">

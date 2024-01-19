@@ -130,4 +130,16 @@
     width: 10px;
   }
   
-  
+  .closedialog {
+    font-size: 1.32rem; 
+    position: absolute;
+    right: 0.625rem; 
+    color: #f44336;
+    padding-top: 20px;
+    padding-right: 15px;
+
+    &:hover {
+      color: red;
+      cursor: pointer;
+    }
+  }

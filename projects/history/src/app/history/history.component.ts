@@ -1,20 +1,10 @@
-// import { Component } from '@angular/core';
 
-// @Component({
-//   selector: 'app-history',
-//   templateUrl: './history.component.html',
-//   styleUrls: ['./history.component.scss']
-// })
-// export class HistoryComponent {
-
-// }
-
-
-import { Component, OnInit, Renderer2 } from '@angular/core';
+import { Component, OnInit, Renderer2, TemplateRef, ViewChild  } from '@angular/core';
 import { Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DbService } from '../../../../../src/app/services/db.service'
 import { UserService } from '../../../../../src/app/services/user.service'
+import { MatDialog } from '@angular/material/dialog';
 
 declare var $: any;
 export interface Message {
@@ -354,7 +344,7 @@ export class HistoryComponent implements OnInit {
   multiplecandidate: any;
   checkpage: string;
   trackerlist: any;
-  constructor(public db: DbService, public USR: UserService, private router: Router, private renderer: Renderer2) {
+  constructor(public db: DbService, public USR: UserService, private router: Router, private renderer: Renderer2, private dialog: MatDialog) {
 
     this.defaultColDef = {
       editable: true,
@@ -1444,6 +1434,15 @@ export class HistoryComponent implements OnInit {
         alert('Default case');
     }
 
+  }
+
+  openDialogWithTemplateRef(templateRef: TemplateRef<any>) {
+    this.dialog.open(templateRef);
+  }
+
+
+  openTestDialog(){
+    console.warn('tuhin')
   }
 
 }

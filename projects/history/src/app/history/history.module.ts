@@ -29,6 +29,8 @@ import { ComponentsModule } from 'projects/component/src/app/components/componen
 // import { AddToJobComponent } from '../../../../component/src/app/components/add-to-job/add-to-job.component';
 import { BotGridModule } from 'bot-grid';
 import { BotGridInternalDataModule } from 'bot-grid-internal-data';
+import { MatDialogModule } from '@angular/material/dialog';
+
 
 @NgModule({
   declarations: [
@@ -69,8 +71,8 @@ import { BotGridInternalDataModule } from 'bot-grid-internal-data';
     MatFormFieldModule,
     ComponentsModule,
     BotGridModule,
-    BotGridInternalDataModule
-    
+    BotGridInternalDataModule,
+    MatDialogModule
 
   ],
   providers:[MasterService],
