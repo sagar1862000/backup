@@ -8,6 +8,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CallComponent } from 'projects/component/src/app/components/call/call.component';
 import { AddToJobComponent } from 'projects/component/src/app/components/add-to-job/add-to-job.component';
 import { MailerComponent } from './mailer/mailer.component';
+import { AddCandidatesComponent } from 'projects/control/src/app/control/add-candidates/add-candidates.component';
 
 declare var $: any;
 declare var window: any;
@@ -1460,6 +1461,11 @@ export class HistoryComponent implements OnInit {
         break;
       case 'mailer':
         this.dialog.open(MailerComponent, {
+          width: '450px',
+        });
+        break;
+      case 'addcandidate':
+        this.dialog.open(AddCandidatesComponent, {
           width: '450px',
         });
         break;
