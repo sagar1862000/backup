@@ -1,6 +1,6 @@
 <app-scrool-to-top-buttom></app-scrool-to-top-buttom>
 <!-- <app-call [allids]='allids'></app-call> -->
-<app-mailer [allids]='allids'></app-mailer>
+<!-- <app-mailer [allids]='allids'></app-mailer> -->
 <!-- <app-add-to-job [allids]='allids'></app-add-to-job> -->
 <!-- <app-pv-get-reference [allids]='allids'></app-pv-get-reference> -->
 
@@ -98,7 +98,7 @@
                                         <button (mouseout)="isHidden_Mailer = false"
                                             (mouseover)="isHidden_Mailer = true;" 
                                             type="button" style="margin-left:10px;" (click)="loadalert();"
-                                            href="javascript:" title='mailer' (click)="openmodal('#mailer')"
+                                            href="javascript:" title='mailer' (click)="openDialogBox('mailer')"
                                             id="iconbackground" class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
                                                 <img [@rotatedState]='state' *ngIf="isHidden_Mailer"
@@ -108,7 +108,7 @@
                                             </span>Mailer</button>
                                         <button (mouseout)="isHidden_Add_candidate = false"
                                             (mouseover)="isHidden_Add_candidate = true"
-                                            type="button" style="margin-left:10px;" (click)="addcandidate()"
+                                            type="button" style="margin-left:10px;" 
                                             data-toggle="modal" title='Add Candidate' id="iconbackground"
                                             class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">

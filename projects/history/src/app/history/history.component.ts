@@ -7,6 +7,7 @@ import { UserService } from '../../../../../src/app/services/user.service'
 import { MatDialog } from '@angular/material/dialog';
 import { CallComponent } from 'projects/component/src/app/components/call/call.component';
 import { AddToJobComponent } from 'projects/component/src/app/components/add-to-job/add-to-job.component';
+import { MailerComponent } from './mailer/mailer.component';
 
 declare var $: any;
 declare var window: any;
@@ -1454,6 +1455,11 @@ export class HistoryComponent implements OnInit {
   
       case 'addtojob':
         this.dialog.open(AddToJobComponent, {
+          width: '450px',
+        });
+        break;
+      case 'mailer':
+        this.dialog.open(MailerComponent, {
           width: '450px',
         });
         break;
