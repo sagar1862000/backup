@@ -10,11 +10,17 @@
     color: #29cc00;
     display: inline-block;
 }
-// ng-select ng-option:after {
-//     content: " ";
-//     height: 5px;
-//     width: 5px;
-//     background: #c00;
-//     border-radius: 5px;
-//     display: inline-block;
-// }
+
+.closedialog {
+    font-size: 1.32rem; 
+    position: absolute;
+    right: 0.625rem; 
+    color: #f44336;
+    padding-top: 20px;
+    padding-right: 15px;
+
+    &:hover {
+      color: red;
+      cursor: pointer;
+    }
+  }

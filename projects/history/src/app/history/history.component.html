@@ -1,7 +1,7 @@
 <app-scrool-to-top-buttom></app-scrool-to-top-buttom>
 <!-- <app-call [allids]='allids'></app-call> -->
 <app-mailer [allids]='allids'></app-mailer>
-<app-add-to-job [allids]='allids'></app-add-to-job>
+<!-- <app-add-to-job [allids]='allids'></app-add-to-job> -->
 <!-- <app-pv-get-reference [allids]='allids'></app-pv-get-reference> -->
 
 <div class="main-content" style="position:relative;">
@@ -75,9 +75,9 @@
                                     <ul class=" mr-4 float-none ">
 
                                         <button (mouseout)="isHiddenAdd_to_Job = false"
-                                            (mouseover)="isHiddenAdd_to_Job = true ;" *ngIf="USR.mp.add_to_job_store"
+                                            (mouseover)="isHiddenAdd_to_Job = true ;"
                                             type="button" style="margin-left:10px" href="javascript:" title='Add to Job'
-                                            (click)="openmodal('#addtojob')" data-target='#addtojob' data-toggle='modal'
+                                            (click)="openDialogBox('addtojob')" data-target='#addtojob' data-toggle='modal'
                                             (click)="loadalert();" class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
                                                 <img [@rotatedState]='state' *ngIf="isHiddenAdd_to_Job"
@@ -86,7 +86,7 @@
                                                     src="../../assets/img/historyicon/Add_to_job.svg" />
                                             </span>Add to Job</button>
                                         <button (mouseout)="isHidden_Call = false" (mouseover)="isHidden_Call = true;"
-                                            type="button" style=" margin-left: 10px;" (click)="openCallDialog()"
+                                            type="button" style=" margin-left: 10px;" (click)="openDialogBox('call')"
                                             class="btn btn-sm btn-labeled ">
                                             <span class="btn-label" id="iconbackground">
                                                 <img [@rotatedState]='state' *ngIf="isHidden_Call"
@@ -96,7 +96,7 @@
                                             </span>Test Call</button>
 
                                         <button (mouseout)="isHidden_Mailer = false"
-                                            (mouseover)="isHidden_Mailer = true;" *ngIf="USR.mp.btn_can_mailer"
+                                            (mouseover)="isHidden_Mailer = true;" 
                                             type="button" style="margin-left:10px;" (click)="loadalert();"
                                             href="javascript:" title='mailer' (click)="openmodal('#mailer')"
                                             id="iconbackground" class="btn btn-sm btn-labeled ">
@@ -107,7 +107,7 @@
                                                     src="../../assets/img/historyicon/Mail.svg" />
                                             </span>Mailer</button>
                                         <button (mouseout)="isHidden_Add_candidate = false"
-                                            (mouseover)="isHidden_Add_candidate = true" *ngIf="USR.mp.btn_add_candidate"
+                                            (mouseover)="isHidden_Add_candidate = true"
                                             type="button" style="margin-left:10px;" (click)="addcandidate()"
                                             data-toggle="modal" title='Add Candidate' id="iconbackground"
                                             class="btn btn-sm btn-labeled ">

@@ -1,14 +1,15 @@
 
-import { Component, OnInit, Renderer2, TemplateRef, ViewChild  } from '@angular/core';
+import { Component, OnInit, Renderer2, TemplateRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { DbService } from '../../../../../src/app/services/db.service'
 import { UserService } from '../../../../../src/app/services/user.service'
 import { MatDialog } from '@angular/material/dialog';
 import { CallComponent } from 'projects/component/src/app/components/call/call.component';
+import { AddToJobComponent } from 'projects/component/src/app/components/add-to-job/add-to-job.component';
 
 declare var $: any;
-declare var window:any;
+declare var window: any;
 export interface Message {
   source: string;
   content: string;
@@ -1304,7 +1305,7 @@ export class HistoryComponent implements OnInit {
   //     setText("#lbLastPageFound", this.gridApi.paginationIsLastPageFound());
   //   }
   // }
-  
+
   onGridReady(params) {
     //
 
@@ -1442,17 +1443,28 @@ export class HistoryComponent implements OnInit {
   }
 
 
-  openTestDialog(){
-    console.warn('tuhin')
-  }
 
-
-  openCallDialog(){
-    this.dialog.open(CallComponent, {
-      width: '450px',
+  openDialogBox(val: any) {
+    switch (val) {
+      case 'call':
+        this.dialog.open(CallComponent, {
+          width: '450px',
+        });
+        break;
+  
+      case 'addtojob':
+        this.dialog.open(AddToJobComponent, {
+          width: '450px',
+        });
+        break;
+  
+  
+      default:
+        break;
     }
-    )
-  }
+}
+
+
 
 }
 

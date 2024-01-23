@@ -20,7 +20,9 @@ export class DbService implements OnInit, OnChanges {
   // rooturi = 'http://192.168.4.21:8000/';
   // rooturi = 'http://192.168.4.21:8000/';
   // rooturi = 'http://192.168.3.7:8000/';
-  rooturi = 'http://192.168.4.16:8000/';
+  // rooturi = 'http://192.168.4.16:8000/';
+  rooturi = 'http://192.168.4.21:8000/';
+  
   // rooturi = 'http://192.168.51.219:8000/';
   // rooturi = 'http://192.168.4.14:8000/';
   ServiceURL = this.rooturi;
