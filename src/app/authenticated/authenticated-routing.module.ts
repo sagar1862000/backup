@@ -46,6 +46,8 @@ const routes: Routes = [
 
       { path: 'internaldatabaseadvance/:advancesearch', loadChildren: () => import('../../../projects/internaldatabase/src/app/internal-database/internal-database-search/internal-database-search.module').then(m => m.InternalDatabaseSearchModule) },
 
+      { path: 'campaign', loadChildren: () => import('../../../projects/campaign/src/app/campaign/campaign.module').then(m => m.CampaignModule) },
+
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },
       
 ]
