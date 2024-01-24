@@ -10,7 +10,7 @@
                 placeholder="Search Candidates" type="email" class="form-control form-control-sm"
                 aria-describedby="emailHelp" placeholder="Type candidate Name">
             </div>
-            <mat-form-field class="col-md-2 mt-2 " *ngIf="alljobclient && db.mp.page_client"
+            <mat-form-field class="col-md-2 mt-2 " 
               style="padding-bottom: 0px;font-size: 10px ;border-radius: 8px;font-weight:bold">
               <mat-label>Search Client</mat-label>
               <mat-select [(ngModel)]="Client_ids">
@@ -19,7 +19,7 @@
                 </mat-option>
               </mat-select>
             </mat-form-field>
-            <mat-form-field class="col-md-2 mt-2" *ngIf="alljobdepartment && db.mp.page_departments"
+            <mat-form-field class="col-md-2 mt-2" 
               style="padding-bottom: 0px;font-size: 10px;border-radius: 8px;font-weight:bold">
               <mat-select [(ngModel)]="Client_ids" placeholder="Search Department">
                 <mat-option (click)='departmentjobs()' *ngFor="let x of departmentslist" [value]="x.id"
@@ -29,7 +29,7 @@
             </mat-form-field>
 
             <mat-form-field class="  mt-2 col-md-2 "
-              style="font-size: 10px ;border-radius: 8px;padding: 5px 5px 5px 10px;font-weight:bold" *ngIf="showjobs">
+              style="font-size: 10px ;border-radius: 8px;padding: 5px 5px 5px 10px;font-weight:bold" >
               <mat-select [(ngModel)]="searchcandidatetext" placeholder="Search Jobs">
                 <mat-option *ngFor="let item of jobslist" (click)="filteragain()" value="{{item.job_title}}">
                   {{item.job_title}}</mat-option>
@@ -55,7 +55,7 @@
               &nbsp;
               <button class="btn btn-sm "
                 style="background-color:#a64eed;border-radius:18px;color:#ffffff;display:inline-block;font-family:sans-serif;font-size:13px;font-weight:bold;line-height:16px;text-align:center;text-decoration:none;width:120px;-webkit-text-size-adjust:none;"
-                *ngIf="db.mp.export_excel_calls" help='download excel' (click)='gettracker()'>
+                 help='download excel' (click)='gettracker()'>
                 <span class="span1">Download</span>
                 <img class="img1 ml-2" src="../../assets/img/download.svg" height="16px">
               </button>
@@ -86,7 +86,7 @@
         <div class="clearfix"></div>
 
         <div class="box box-primary" id="#">
-          <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
+          <mat-progress-bar mode="indeterminate" ></mat-progress-bar>
 
           <div class="row">
 
@@ -912,11 +912,11 @@
 
 
 </div>
-<app-add-to-job [allids]='allids' [callids]='callids'></app-add-to-job>
+<!-- <app-add-to-job [allids]='allids' [callids]='callids'></app-add-to-job> -->
 <!-- <app-add-note (editnote)='editnot($event)'></app-add-note> -->
-<app-add-candidates></app-add-candidates>
+<!-- <app-add-candidates></app-add-candidates> -->
 <!-- <app-update-status [allstatusload]='allstatusload' [set_status_row]='status_row'></app-update-status> -->
 <!-- <app-activity [activities]="activities"></app-activity> -->
-<app-call [allids]='allids'></app-call>
+<!-- <app-call [allids]='allids'></app-call> -->
 
-<app-update-candidate [current_data]='currentData'></app-update-candidate>
+<!-- <app-update-candidate [current_data]='currentData'></app-update-candidate> -->
