@@ -23,7 +23,8 @@ import { ComponentsModule } from 'projects/component/src/app/components/componen
      MatInputModule,
      ComponentsModule,
      MatFormFieldModule,
-     MatSelectModule
+     MatSelectModule,
+     
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

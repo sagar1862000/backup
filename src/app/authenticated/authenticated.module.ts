@@ -19,6 +19,7 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
 // import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { UserService } from '../services/user.service';
+import { MatSelectModule } from '@angular/material/select';
 
 
 
@@ -46,7 +47,7 @@ import { UserService } from '../services/user.service';
     MatExpansionModule,
     MatInputModule,
     // FontAwesomeModule,
-  
+    MatSelectModule
     
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
