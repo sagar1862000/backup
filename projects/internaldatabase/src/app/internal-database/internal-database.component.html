@@ -1,6 +1,5 @@
 <app-add-candidates></app-add-candidates>
 <div class="main-content">
-
     <div class="container-fluid">
         <div class="row">
             <div class="col-12">
@@ -12,7 +11,7 @@
                                     <h6 class="card-title" style="color: black; font-weight: bold;"> <span
                                             *ngIf="advancesearch">Advance</span> <span
                                             *ngIf="booleansearch">Boolean</span> Search</h6>
-                                    <p class="card-category">Filter <span *ngIf="advancesearch">Advance</span> <span
+                                    <p class="card-category"> Filter <span *ngIf="advancesearch">Advance</span> <span
                                             *ngIf="booleansearch">Boolean</span> Search Details</p>
                                 </div>
 
@@ -80,7 +79,7 @@
                                                 <div class="form-group col-md-6">
                                                     <div class='col-md-9'>
                                                         <mat-select [(ngModel)]="salaryfrom" name="salaryfrom"
-                                                            placeholder="Salary From" (change)="updatemaxsalary()"
+                                                            placeholder="Salary From" (ngModelChange)="updatemaxsalary()"
                                                             appearance="fill">
                                                             <mat-option value='{{minimumSalarylac}}'
                                                                 *ngFor="let minimumSalarylac of  minimumSalaryOption">
@@ -104,11 +103,11 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row experianceDetails">
                                                 <div class="form-group col-md-6">
                                                     <div class='col-md-9'>
                                                         <mat-select [(ngModel)]="expfrom"
-                                                            (change)="updatemaxexperience()" name="expfrom"
+                                                            (ngModelChange)="updatemaxexperience()" name="expfrom"
                                                             placeholder="Experience From-">
                                                             <mat-option value="1">Fresher</mat-option>
                                                             <mat-option value='{{opt}}'
@@ -132,7 +131,7 @@
                                                 </div>
                                             </div>
 
-                                            <div class="row">
+                                            <div class="row locationdetails">
                                                 <div class="form-group col-md-6">
                                                     <div class='col-md-9'>
                                                         <mat-select [(ngModel)]="locationss" name="location"
