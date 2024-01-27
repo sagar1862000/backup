@@ -1,6 +1,5 @@
 import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-
 import { HiringManagerRoutingModule } from './hiring-manager-routing.module';
 import { HiringManagerComponent } from './hiring-manager.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -12,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { ComponentsModule } from 'projects/component/src/app/components/components.module';
 import { MasterService } from 'src/app/services/master.service';
 import { MatOptionModule } from '@angular/material/core';
+import { GridModule } from '../../../../grid/src/app/grid/grid.module';
 
 
 @NgModule({
@@ -30,7 +30,8 @@ import { MatOptionModule } from '@angular/material/core';
     // AgGridModule,
     ComponentsModule,
     MatToolbarModule,
-    MatOptionModule
+    MatOptionModule,
+    GridModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   providers:[MasterService]

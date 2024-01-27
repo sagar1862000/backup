@@ -22,7 +22,6 @@ import { GridModule } from '../../../../../projects/grid/src/app/grid/grid.modul
     MatDatepickerModule,
     FormsModule,
     GridModule
-    
   ]
 })
 export class CallDetailReportModule { }
