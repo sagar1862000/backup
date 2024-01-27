@@ -8,6 +8,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormsModule } from '@angular/forms';
 import { GridModule } from '../../../../../projects/grid/src/app/grid/grid.module'
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { GridModule } from '../../../../../projects/grid/src/app/grid/grid.modul
     MatSelectModule,
     MatDatepickerModule,
     FormsModule,
-    GridModule
+    GridModule,
+    MatInputModule
   ]
 })
 export class CallDetailReportModule { }
