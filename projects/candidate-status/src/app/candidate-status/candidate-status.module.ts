@@ -10,7 +10,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatOptionModule } from '@angular/material/core';
 import { BuildStatusRelationComponent } from './build-status-relation/build-status-relation.component';
-
+import { GridModule } from '../../../../grid/src/app/grid/grid.module'
 
 @NgModule({
   declarations: [
@@ -27,7 +27,7 @@ import { BuildStatusRelationComponent } from './build-status-relation/build-stat
     MatFormFieldModule,
     MatSelectModule,
     MatOptionModule,
-    
+    GridModule
 
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
