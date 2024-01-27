@@ -1,0 +1,222 @@
+<!-- <div class="table100 ver6 m-b-110  pane pane--table1"> -->
+    <div class="row col-12">
+        <div class="  table100 ver2 m-b-110 mt-5 ">
+      
+          <div class="table100 stickyheader">
+            <table class="tableResize  table100-head editthead  " data-vertable="ver6 " style="overflow: scroll; ">
+      
+              <thead class="" style="width: 100%; max-width: 100%;overflow: scroll">
+                <tr class=" ">
+                  <!-- <th class="column100 column2 px-4 color1" data-column="column2" *ngIf="db.mp.call_checkbox">
+                      <mat-checkbox
+                      type="checkbox" [(ngModel)]="masterSelected" class="example-margin" class="px-4" name="list_name" value="m1"
+                          (change)="checkUncheckAedittheadll()"  (ngModelChange)="changed1()"class="example-margin"></mat-checkbox>
+                    </th> -->
+                  <th class="color1">
+                    <b *ngIf="count != 0" class=" ml-4" style="color: #2d2d2d; font-size: 15px; margin-right: 0px; ">
+                      {{count}} Candidate selected</b>
+                  </th>
+                  <th class="cell100 column3 color1 mr-4 ">
+      
+                    <ul *ngIf="pager.pages && pager.pages.length" class="pagination pull-right">
+                      <li [ngClass]="{disabled:pager.currentPage === 1}" (click)="First()">
+                        <a class="page-link Last" (click)="setPage(0,pagesize,true)" help="First">
+                          <span aria-hidden="true">|&laquo; </span>
+                          <span class="sr-only">First</span></a>
+                      </li>
+                      <li *ngIf="pager.currentPage!=2" (click)="Previous()" [ngClass]="{disabled:pager.currentPage === 1}"
+                        help="Previous">
+                        <a style="padding-bottom: 8px;" (click)="setPage(pager.currentPage - 1,pagesize,true)">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                      </li>
+                      <li *ngIf="pager.currentPage==2" (click)="Previous()" [ngClass]="{disabled:pager.currentPage === 1}"
+                        help="Previous">
+                        <a style="padding-bottom: 6px;" (click)="setPage(0,pagesize,true)">
+                          <span aria-hidden="true">&laquo;</span>
+                          <span class="sr-only">Previous</span>
+                        </a>
+                      </li>
+      
+                      <li class="mx-0 my-0">
+                        <a style="padding-bottom: 8px;">{{pager.currentPage}} of {{pager.totalPages}} /{{gridcount}}</a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="Next()">
+                        <a style="padding-bottom: 6px;" class="page-link Last"
+                          (click)="setPage(pager.currentPage + 1,pagesize,true)" help="Next">
+                          <span aria-hidden="true">&raquo;</span>
+                          <span class="sr-only">Next</span>
+                        </a>
+                      </li>
+                      <li [ngClass]="{disabled:pager.currentPage === pager.totalPages}" (click)="Last()">
+                        <a style="padding-bottom: 6px;" class="page-link Last"
+                          (click)="setPage(pager.totalPages,pagesize,true)" help="Last">
+                          <span aria-hidden="true">&raquo;|</span>
+                          <span class="sr-only">Last</span>
+                        </a>
+                      </li>
+      
+                    </ul>
+                    <span>
+                      <div mat-button [matMenuTriggerFor]="PageWiseData" class="pull-right pointer  mt-3 ml-2 mt-4 mr-3"
+                        href="javascript:">
+                        <span class="material-button">
+                          Results Per Page {{pagesize}}
+                        </span>
+                      </div>
+                      <mat-menu #PageWiseData="matMenu">
+                        <button mat-menu-item (click)="setPage(pager.currentPage,10, true)"> 10 per page</button>
+                        <button mat-menu-item (click)="setPage(pager.currentPage,20, true)"> 20 per page</button>
+                        <button mat-menu-item (click)="setPage(pager.currentPage,50, true)"> 50 per page</button>
+                        <button mat-menu-item (click)="setPage(pager.currentPage,100, true)"> 100 per page</button>
+                        <button mat-menu-item (click)="setPage(pager.currentPage,200, true)"> 200 per page</button>
+                      </mat-menu>
+                    </span>
+                  </th>
+      
+      
+      
+                  <!-- <th class="cell100 column4 justify-content-end" style="width: 280px; margin-left: 0px; " >
+      
+      
+                    </th> -->
+                </tr>
+              </thead>
+            </table>
+          </div>
+      
+          <div class="table100-body js-pscroll" style="border:1px solid #e4e6ee; padding-left: 0px;padding-right: 0px;">
+            <!-- border: 1px solid #e4e6ee; -->
+            <table *ngIf="_data?.length>0" class="table-resizable table100 ver6 m-b-110  pane pane--table1"
+              style="overflow: scroll;border-radius:8px;">
+      
+              <thead class="tablehead splitter color" style=" border-bottom:1px solid black;font-weight:bold">
+                <tr class="row100 head">
+      
+                  <!-- <th  class="column100 column2" data-column="column2" *ngIf="db.mp.call_checkbox">
+                  <mat-checkbox id='pageselectcheckbox' (click)="SelectPageWise(dataforgrid, 'id')"
+                    [(ngModel)]="pagechanged" *ngIf="pagewiseselected" class="example-margin"
+                    [ngModelOptions]="{standalone: true}">
+                  </mat-checkbox>
+                </th> -->
+      
+                  <th class="column100 column2 px-4 color" data-column="column2">
+                    <mat-checkbox type="checkbox" [(ngModel)]="masterSelected" class="example-margin" class="px-4"
+                      name="list_name" value="m1" (change)="checkUncheckAll()" (ngModelChange)="changed1()"
+                      class="example-margin"></mat-checkbox>
+      
+      
+                  </th>
+                  <!-- <th>
+                      <button *ngIf="count != 0  && db.profile.app_id == 120" class="btn btn-sm btn-outline-secondary"
+                        (click)="exportAsXLSX()" help='download excel'>Export
+                        Candidate(s) </button>
+                    </th> -->
+                  <!-- <th  *ngFor="let entry of transformHeader1(_data[0])"   style="white-space: nowrap; color: #a64eed; font-weight: bold;font-size: larger;margin-left:4px ;" [innerHTML]="entry.button" class="button-header column100 column4   pt-2 pb-2 color"   data-column="column4" id="styleheaderbutton">
+                </th> -->
+                  <th class="column100 column3 py-2  px-4 color" data-column="column3"
+                    style="white-space: nowrap; font-weight:bolder ; font-size: larger;color: #a64eed;"
+                    *ngFor="let entry of transformHeader(_data[0]); " id="styleheaderbutton">
+                    <a *ngIf="desc_order" (click)='sortData(pager.currentPage,entry.key,"desc",pagesize)'>
+                      <!-- desc-->
+                      {{entry.key}}
+                    </a>
+                    <a *ngIf="asc_order" (click)="sortData(pager.currentPage,entry.key,'asc',pagesize)">
+                      <!-- asc -->
+                      {{entry.key}}
+                    </a>
+                    <a *ngIf="normal_order" (click)="sortData(pager.currentPage,entry.key,'',pagesize)">
+                      <!-- normal -->
+                      {{entry.key}}
+                    </a>
+                    <!-- {{entry.key }} -->
+      
+                  </th>
+      
+      
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of dataforgrid   ;let i = index" class="border_bottom" class="row100 "
+                  style="line-height: 0px;margin-top:50px;border-bottom:1px solid #e4e6ee;font-weight:normal ;">
+                  <!-- <td class="column100 column2" data-column="column2" >
+                  <mat-checkbox   (click)="selectionboxpagewise($event,entry,item)" *ngIf="pagewiseselected && item.selected1"
+                  value="{{item.id}}"
+                  [(ngModel)]="item.selected1" class="example-margin" [ngModelOptions]="{standalone: true}">
+                  </mat-checkbox>
+      
+                <mat-checkbox   (click)="selectionboxpagewise($event,entry,item)" *ngIf="!item.selected1" [(ngModel)]="item.selected1"
+                value="{{item.id}}"
+                class="example-margin" [ngModelOptions]="{standalone: true}">
+                </mat-checkbox>
+      
+                </td> -->
+                  <!-- alternative checkbox html -->
+                  <td class="column100 column2 px-4" data-column="column2">
+                    <mat-checkbox class="example-margin" type="checkbox" [(ngModel)]="item.isSelected" name="list_name"
+                      value="{{item.id}}" (ngModelChange)="changed()" (change)="isAllSelected(item)"
+                      class="example-margin"></mat-checkbox>
+      
+                    <!-- <mat-checkbox *ngIf="entry.type =='checkbox'" style="margin-top: 15px; margin-left: -15px;"
+                  type="checkbox" [(ngModel)]="entry.isSelected" name="list_name" value="{{entry.value}}"
+                  (change)="isSingleSelected(entry,item)">
+                </mat-checkbox> -->
+                  </td>
+      
+                  <!-- <ng-container *ngIf="isShown1" class="" > -->
+                  <div *ngIf="isShown1" class="">
+                    <td class="list-inline column3   rating-list" data-column="column3"
+                      style="white-space: nowrap;  color: rgb(228, 224, 224); overflow:hidden; display: inline-block;"
+                      *ngFor="let star of stars; let i= index">
+      
+                      <li style="white-space: nowrap;display: inline-block; overflow:hidden; " [value]="item.Average_Rating"
+                        [ngClass]="{'selected': (star<= item.Average_Rating)}" id={{item.id}}> ★</li>
+      
+      
+      
+                    </td>
+                  </div>
+                  <!-- </ng-container> -->
+      
+      
+                  <!-- style=" white-space: nowrap;  overflow:hidden;  font-weight: bold;" -->
+                  <td style="color:#444444" class=" bodyspace  column100 column3   px-4" data-column="column3"
+                    *ngFor="let entry of transformBody(item)" maxlength="10" id="{{item.id}}"
+                    (click)="onClick($event,entry,item)">
+                    <p [innerHTML]="entry.value " data-toggle="tooltip" data-placement="top"
+                      title="{{entry.value}}"> </p>
+                    <!-- class="text "  [innerHTML]="entry.button | safePipe" -->
+                  </td>
+                  <!-- onRowClicked($event,item,entry.clicktype,entry.value) -->
+                  <td *ngFor="let button of transformBodyButton(item)" (click)="onClick($event,button,item)">
+                    <button class="tooltip-test {{button.margin}}" title={{button.buttonname}}
+                      [innerHTML]="button.buttonname" class="button-13 " style="margin-bottom: 4px;  "></button>
+                  </td>
+                  <!-- onclick(button.buttonname,button.id,item) -->
+      
+                  <!-- <i class="fa fa-plus " aria-hidden="true"></i> -->
+      
+      
+                </tr>
+      
+      
+      
+              </tbody>
+      
+      
+      
+            </table>
+          </div>
+          <div *ngIf="_data && _data.length == 0">
+            <h3 class="text-danger ml-5" style="margin-left: 500px;">No Data Found</h3>
+      
+          </div>
+      
+      
+        </div>
+      
+      
+      
+      
+      </div>

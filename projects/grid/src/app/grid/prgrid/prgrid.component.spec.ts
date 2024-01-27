@@ -6,14 +6,10 @@ describe('PrgridComponent', () => {
   let component: PrgridComponent;
   let fixture: ComponentFixture<PrgridComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ PrgridComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [PrgridComponent]
+    });
     fixture = TestBed.createComponent(PrgridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

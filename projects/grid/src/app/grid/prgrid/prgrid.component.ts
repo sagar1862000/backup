@@ -16,8 +16,8 @@ import { ExcelService } from 'src/app/services/excel.service';
   templateUrl: './prgrid.component.html',
   styleUrls: ['./prgrid.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
-})
 
+})
 
 export class PrgridComponent implements OnInit {
   GetsendedData: any;
@@ -136,7 +136,6 @@ export class PrgridComponent implements OnInit {
   }
 
   constructor(public db: DbService, private router: Router, private excelService: ExcelService,) {
-
   }
 
 
@@ -220,7 +219,7 @@ export class PrgridComponent implements OnInit {
   emptyarray: any = [];
   keys: any;
   keysBd: any;
-  masterSelected: boolean;
+  masterSelected: any;
   parentselector: boolean;
 
   checkedList: any;
@@ -1545,4 +1544,3 @@ function evt(evt: any, data: any) {
   throw new Error('Function not implemented.');
 }
 
- 

@@ -6,14 +6,10 @@ describe('GridinternaldataComponent', () => {
   let component: GridinternaldataComponent;
   let fixture: ComponentFixture<GridinternaldataComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ GridinternaldataComponent ]
-    })
-    .compileComponents();
-  });
-
   beforeEach(() => {
+    TestBed.configureTestingModule({
+      declarations: [GridinternaldataComponent]
+    });
     fixture = TestBed.createComponent(GridinternaldataComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

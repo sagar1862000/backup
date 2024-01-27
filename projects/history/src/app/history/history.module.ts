@@ -30,6 +30,7 @@ import { ComponentsModule } from 'projects/component/src/app/components/componen
 import { BotGridModule } from 'bot-grid';
 import { BotGridInternalDataModule } from 'bot-grid-internal-data';
 import { MatDialogModule } from '@angular/material/dialog';
+import { GridModule } from '../../../../grid/src/app/grid/grid.module'
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { MatDialogModule } from '@angular/material/dialog';
     ComponentsModule,
     BotGridModule,
     BotGridInternalDataModule,
-    MatDialogModule
+    MatDialogModule,
+    GridModule
 
   ],
   providers:[MasterService],

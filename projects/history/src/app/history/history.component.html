@@ -152,21 +152,19 @@
                 <!-- <app-grid [data]='datas'></app-grid> -->
                 <!-- <app-prgrid  [data]="datas" (emitbuttondataToReport)="onRowClicked($event)" (gridReady)="onGridReady($event)"  [header]='DataDefinitions'
 (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true" ></app-prgrid> -->
-                <lib-bot-grid (emitbuttondataclick)="datafromprgridbuttondetails($event)" [data]="datas"
+                <app-prgrid (emitbuttondataclick)="datafromprgridbuttondetails($event)" [data]="datas"
                     (emitbuttondataToReport)="dataclick($event)" (gridReady)="onGridReady($event)"
                     [header]='DataDefinitions' (GridHeaderClickedTable)="datfromprgrid($event)" sendData="true">
-                </lib-bot-grid>
+                </app-prgrid>
 
             </div>
 
             <div class="excelformate col-lg-12">
-                <h1>grid start</h1>
 
-                <lib-bot-grid-internal-data [data]="datas" [header]="DataDefinitions"
+                <app-gridinternaldata [data]="datas" [header]="DataDefinitions"
                     (GridHeaderClicked)="datfromprgrid($event)" (GridRowClicked)="OnRowclicked($event)" sendData="true">
-                </lib-bot-grid-internal-data>
+                </app-gridinternaldata>
 
-                <h1>grid end</h1>
 
             </div>
 

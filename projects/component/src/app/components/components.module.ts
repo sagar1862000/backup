@@ -1,6 +1,5 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatMenuModule } from '@angular/material/menu';
-
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
@@ -21,8 +20,6 @@ import { CallComponent } from './call/call.component';
 import { ActivityComponent } from './activity/activity.component';
 import { UpdateStatusComponent } from './update-status/update-status.component';
 import { MatDialogModule } from '@angular/material/dialog';
-
-
 
 @NgModule({
 
