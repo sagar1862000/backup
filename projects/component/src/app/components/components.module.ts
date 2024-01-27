@@ -20,6 +20,7 @@ import { CallComponent } from './call/call.component';
 import { ActivityComponent } from './activity/activity.component';
 import { UpdateStatusComponent } from './update-status/update-status.component';
 import { MatDialogModule } from '@angular/material/dialog';
+import { NoDataFoundComponent } from './no-data-found/no-data-found.component'
 
 @NgModule({
 
@@ -40,11 +41,13 @@ import { MatDialogModule } from '@angular/material/dialog';
     CallComponent,
     AddCandidateComponent,
      AddToJobComponent, CallComponent, ActivityComponent, UpdateStatusComponent,
+     NoDataFoundComponent
+     
   ],
   exports: [
      AddNoteComponent,RouterModule, 
     AddCandidateComponent,AddToJobComponent, CallComponent,
-    ActivityComponent
+    ActivityComponent, NoDataFoundComponent
   ],
   providers: [ExcelService],
 

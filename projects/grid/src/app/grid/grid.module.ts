@@ -6,6 +6,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {MatInputModule} from '@angular/material/input';
 import {MatSelectModule} from '@angular/material/select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ComponentsModule } from 'projects/component/src/app/components/components.module';
 
 
 @NgModule({
@@ -19,8 +20,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     MatInputModule,
     MatSelectModule,
     FormsModule,
-    ReactiveFormsModule
-
+    ReactiveFormsModule,
+    ComponentsModule
   ],
   schemas:[CUSTOM_ELEMENTS_SCHEMA],
   exports:[ PrgridComponent,
