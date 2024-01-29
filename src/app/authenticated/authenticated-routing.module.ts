@@ -37,6 +37,7 @@ const routes: Routes = [
       { path: 'campaign', loadChildren: () => import('../../../projects/campaign/src/app/campaign/campaign.module').then(m => m.CampaignModule) },
       { path: 'message', loadChildren: () => import('../../../projects/message/src/app/message/message.module').then(m => m.MessageModule) },
       { path: 'email', loadChildren: () => import('../../../projects/email/src/app/email/email.module').then(m => m.EmailModule) },
+      { path: 'botflow', loadChildren: () => import('../../../projects/botflow/src/app/bot/bot.module').then(m => m.BotModule) },
 
 
       // { path: 'call-view', loadChildren: () => import('./pages/call-detail/candidate-call-view/candidate-call-view.module').then(m => m.CandidateCallViewModule) },

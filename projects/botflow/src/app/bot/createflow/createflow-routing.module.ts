@@ -1,7 +1,12 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { CreateflowComponent } from './createflow.component'
 
-const routes: Routes = [];
+const routes: Routes = [
+  {
+    path: '', component: CreateflowComponent,
+}
+];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],

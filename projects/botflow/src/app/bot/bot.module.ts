@@ -1,8 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BotRoutingModule } from './bot-routing.module';
 import { BotComponent } from './bot.component';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -11,7 +12,10 @@ import { BotComponent } from './bot.component';
   ],
   imports: [
     CommonModule,
-    BotRoutingModule
-  ]
+    BotRoutingModule,
+    RouterModule
+  ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+
 })
 export class BotModule { }
