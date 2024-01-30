@@ -14,7 +14,7 @@ const routes: Routes = [
   {
     path: '', component: AuthenticatedComponent,
     children: [
-
+      { path: 'dashboard', loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule) },
       { path: 'myjob', loadChildren: () => import('../../../projects/myjob/src/app/my-job/my-job.module').then(m => m.MyJobModule),},
       { path: 'history', loadChildren: () => import('../../../projects/history/src/app/history/history.module').then(m => m.HistoryModule) },
       { path: 'call-detail', loadChildren: () => import('../../../projects/calldetails/src/app/call-detail/call-detail.module').then(m => m.CallDetailModule) },
