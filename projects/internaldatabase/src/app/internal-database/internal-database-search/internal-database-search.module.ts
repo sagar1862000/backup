@@ -17,6 +17,7 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ComponentsModule } from 'projects/component/src/app/components/components.module';
 import { MasterService } from 'src/app/services/master.service';
+import { MatDialogModule } from '@angular/material/dialog'
 
 
 @NgModule({
@@ -41,6 +42,7 @@ import { MasterService } from 'src/app/services/master.service';
         MatRadioModule,
     MatButtonToggleModule, 
     MatTabsModule, 
+    MatDialogModule
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   providers:[MasterService]

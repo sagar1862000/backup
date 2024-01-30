@@ -1,9 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ViewChild  } from '@angular/core';
 import { DbService } from 'src/app/services/db.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map } from 'rxjs/internal/operators/map';
+import { MatDialog } from '@angular/material/dialog';
 
 declare var $: any;
+declare var window:any;
+
 
 @Component({
   selector: 'app-internal-database-search',
@@ -71,7 +74,7 @@ export class InternalDatabaseSearchComponent implements OnInit {
   setpage: any;
   startIndex: any;
   EndIndex: any;
-  constructor(public db: DbService, private route: ActivatedRoute, private router: Router) { }
+  constructor(public db: DbService, private route: ActivatedRoute, private router: Router, public dialog: MatDialog) { }
 
   ngOnInit() {
 
@@ -392,10 +395,8 @@ export class InternalDatabaseSearchComponent implements OnInit {
   }
 
 
+  openSearchDialog(templateRef: TemplateRef<any>) {
+    this.dialog.open(templateRef);
+  }
 
-  // clickbutton(){
-
-
-  // this.popup.show();
-  // }
 }
