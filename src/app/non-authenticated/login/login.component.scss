@@ -15,29 +15,25 @@ body {
 	width: 100%;
 	height: 100%;
 
-	// display: flex;
-	@media (max-width: $medium) {
-		flex-direction: column;
-	}
-
+	display: flex;
+	justify-content: center;
 	&__login-area {
 		overflow: hidden;
-		margin-bottom: 15%;
-		position: relative;
-		width: 63%;
-		margin-left: 18%;
+		// margin-bottom: 15%;
+		// position: relative;
+		width: fit-content;
+
 		padding-bottom: 15px;
 
-		@media (max-width: $small) {
-			width: 100%;
-			// margin-right: 10%;
-			margin-left: -10%;
+		// @media (max-width: $small) {
+		// 	width: 100%;
+		// 	margin-left: -10%;
 
-		}
+		// }
 
-		@media (min-width: $medium) and (max-width: $large) {
-			width: 45%;
-		}
+		// @media (min-width: $medium) and (max-width: $large) {
+		// 	width: 85%;
+		// }
 	}
 
 	&__form-input {
@@ -108,8 +104,8 @@ body {
 	&__form-btn {
 		cursor: pointer;
 		width: 100%;
-		height: 33px;
-		font-size: 17px;
+		height: auto;
+		font-size: 17px; 
 		border: 3px solid $default;
 		border-radius: 50px;
 		color: $black;
@@ -123,7 +119,14 @@ body {
 		}
 	}
 }
-
+#pass{
+	cursor: pointer;
+	color:#a64eed;
+}
+#pass:hover {
+	color: #7410c5; 
+	scale: 1.1;
+  }
 
 
 // * {
@@ -198,3 +201,38 @@ body {
 	display: table;
 	border-collapse: separate;
 }
+
+.form-rounded:focus{
+	box-shadow: 0 0 4px rgba(39, 43, 48, 0.5);
+}
+
+
+.input-group-addon:active{
+	box-shadow: 0 0 4px rgba(39, 43, 48, 0.7);
+}
+
+
+// change password css
+
+.form-container {
+	max-width: 400px;
+	margin: auto;
+	padding: 20px;
+  }
+  
+  .Changepassword {
+	width: 100%;
+  }
+  
+  .Changepasswordheading {
+	font-size: 1.5rem;
+	margin-bottom: 10px;
+  }
+  
+//   .error-messages {
+// 	margin-top: -5px;
+//   }
+  
+//   .error-message {
+// 	margin-top: -10px;
+//   }

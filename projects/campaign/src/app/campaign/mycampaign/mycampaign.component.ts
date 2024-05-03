@@ -21,12 +21,12 @@ export class MycampaignComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCampaign();
-
   }
 
   getCampaign(): void {
-    this.db.list('campaign/campaign/', null, (response): void => {
+    this.db.list('campaign_list/1', null, (response): void => {
       this.botData = response;
+      console.log('my data : ',this.botData);
     });
   }
 
@@ -71,19 +71,24 @@ export class MycampaignComponent implements OnInit {
   }
 
 
-  // onRowClicked(evt) {
-  //   debugger;
-  //   if (evt.entry.actionType !== undefined) {
-  //     const actionType = evt.entry.actionType;
-  //     switch (actionType) {
+  onRowClicked(evt:any) {
+    // debugger;
+    console.log('data : ',evt);
+    const myid=evt.data.id;
+    const id = window.btoa(myid);
+    debugger;
+    return this.router.navigate(['campaign/flow/'+ id])
+    // if (evt.entry.actionType !== undefined) {
+    //   const actionType = evt.entry.actionType;
+    //   switch (actionType) {
 
-  //       case 'flow':
-  //         const encoded = window.btoa(evt.data.id);
-  //         return this.router.navigate(['campaign/flow/',  encoded ]);
-  //     }
-  //   }
+    //     case 'flow':
+    //       const encoded = window.btoa(evt.data.id);
+    //       return this.router.navigate(['campaign/flow/',  encoded ]);
+    //   }
+    // }
 
-  // }
+  }
 
   onGridReady(params) {
     this.gridApi = params.api;

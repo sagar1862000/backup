@@ -7,16 +7,10 @@ declare var $: any;
 @Component({
   selector: 'app-internal-database',
   templateUrl: './internal-database.component.html',
-  styleUrls: ['./internal-database.component.scss']
+  styleUrls: ['./internal-database.component.scss'],
 })
-
-
-
 export class InternalDatabaseComponent implements OnInit {
-  constructor(public db: DbService, private router: Router) {
-  }
-
-
+  constructor(public db: DbService, private router: Router) {}
 
   static columnDefs: any;
   static columnDefsexcel: any;
@@ -39,24 +33,50 @@ export class InternalDatabaseComponent implements OnInit {
   smsselected: any = {};
   showInternaldatagrid = false;
   hideInternaldata = true;
-  hidecols = ['id', 'skillSet', 'country', 'state', 'city', 'phoneNo', 'mobile2',
-    'noticePeriod', 'nationality', 'visaType', 'remark', 'panNo', 'address',
-    'industryType', 'source', 'resume', 'cvhtml', 'app_id', 'ipAddress',
-    'cvstatus', 'naukri_url', 'data_source', 'customdata', 'created_at',
-    'iswalkin', 'interview_timing', 'iscareersite', 'already_called',
-    'updated_at', 'is_click_link', 'linkedin_leads', 'interview_avialibility', 'interviewed_in_past'
-    , 'date_time', 'job_id', 'isfilegenerated', 'selected'];
-
-
+  hidecols = [
+    'id',
+    'skillSet',
+    'country',
+    'state',
+    'city',
+    'phoneNo',
+    'mobile2',
+    'noticePeriod',
+    'nationality',
+    'visaType',
+    'remark',
+    'panNo',
+    'address',
+    'industryType',
+    'source',
+    'resume',
+    'cvhtml',
+    'app_id',
+    'ipAddress',
+    'cvstatus',
+    'naukri_url',
+    'data_source',
+    'customdata',
+    'created_at',
+    'iswalkin',
+    'interview_timing',
+    'iscareersite',
+    'already_called',
+    'updated_at',
+    'is_click_link',
+    'linkedin_leads',
+    'interview_avialibility',
+    'interviewed_in_past',
+    'date_time',
+    'job_id',
+    'isfilegenerated',
+    'selected',
+  ];
 
   candidate_filtered: any;
 
-
-
   totalItems = 0;
-  rowData = [
-
-  ];
+  rowData = [];
 
   bgColor = 'grey';
   bgColor1 = 'purple';
@@ -110,7 +130,6 @@ export class InternalDatabaseComponent implements OnInit {
   status = 'Enable';
   status1 = 'Enable';
 
-
   ngOnInit() {
     this.minimumSalaryOptionSet();
 
@@ -122,14 +141,10 @@ export class InternalDatabaseComponent implements OnInit {
     this.loadlocation();
   }
 
-
   minimumSalaryOptionSet(): void {
-
     for (let kk = 0; kk < 51; kk++) {
       this.minimumSalaryOption.push(kk);
     }
-
-
 
     this.minimumSalaryOptionink = [];
 
@@ -138,20 +153,16 @@ export class InternalDatabaseComponent implements OnInit {
       const jj = kk * ii;
 
       this.minimumSalaryOptionink.push(jj);
-
     }
 
     this.maximumSalaryOptionink = [];
-
 
     for (let kk = 0; kk < 10; kk++) {
       const ii = 10;
       const jj = kk * ii;
 
       this.maximumSalaryOptionink.push(jj);
-
     }
-
 
     this.minexperience = [];
     for (let jj = 1; jj < 31; jj++) {
@@ -159,10 +170,7 @@ export class InternalDatabaseComponent implements OnInit {
     }
   }
 
-
-
   updatemaxsalary(): void {
-
     let kk = 0;
     this.maxSalaryOption = [];
     kk = this.salaryfrom;
@@ -171,7 +179,6 @@ export class InternalDatabaseComponent implements OnInit {
     }
   }
   updatemaxexperience(): void {
-
     this.maxexperience = [];
     let j = 1;
     j = this.expfrom;
@@ -183,12 +190,10 @@ export class InternalDatabaseComponent implements OnInit {
     }
   }
   ShowgridExcle(): void {
-
     this.showexcelgrid = true;
     this.shownormalgrid = false;
   }
   ShowgridNormal(): void {
-
     this.showexcelgrid = false;
     this.shownormalgrid = true;
   }
@@ -200,14 +205,12 @@ export class InternalDatabaseComponent implements OnInit {
     //      closeonbackgroundclick: true, // if you click background will modal close?
     //      dismissmodalclass: 'close'    // the class of a button or element that will close an open modal
     //      });
-
   }
 
   loadlocation(): void {
     this.locationtype = 'location';
     this.location = [];
     this.db.list('location', null, (response): void => {
-
       const data = response;
       for (const j in data) {
         if (data[j]) {
@@ -215,10 +218,9 @@ export class InternalDatabaseComponent implements OnInit {
         }
       }
     });
-  } loadSearchAdvance(divVal: string): void {
-
+  }
+  loadSearchAdvance(divVal: string): void {
     if (divVal == this.currDiv1) {
-
       this.toggle1 = !this.toggle;
       this.status1 = this.toggle1 ? 'Disable' : 'Enable';
       this.toggle = !this.toggle;
@@ -230,23 +232,16 @@ export class InternalDatabaseComponent implements OnInit {
     this.hideInternaldata = true;
     this.showInternaldatagrid = false;
     this.showInternaldatagridboolean = false;
-
   }
   changeBackground(divVal: string): any {
-
     if (divVal == this.currDiv || divVal == this.currDiv1) {
-
       // return { 'color': 'white' };
-    }
-    else {
-
+    } else {
       // return { 'color': '#a64eed' };
       // return { 'color': 'black' };
     }
-
   }
   loadSearchBoolean(divVal: string): void {
-
     // this.toggle1 = !this.toggle1;
 
     if (divVal == this.currDiv) {
@@ -256,21 +251,17 @@ export class InternalDatabaseComponent implements OnInit {
       this.status = this.toggle ? 'Disable' : 'Enable';
     }
 
-
     // this.isOrange = !this.isOrange;
     // this.isOrange1 = !this.isOrange1;
-
 
     this.advancesearch = false;
     this.booleansearch = true;
     this.hideInternaldata = true;
     this.showInternaldatagrid = false;
     this.showInternaldatagridboolean = false;
-
   }
 
   public loadGridboolean(): void {
-
     const locations = this.locationss;
     let locationstr = '';
     let isfirstlocation = true;
@@ -282,13 +273,10 @@ export class InternalDatabaseComponent implements OnInit {
         if (isfirstlocation) {
           locationstr += locations[j].$ngOptionLabel;
           isfirstlocation = false;
-        }
-
-        else {
+        } else {
           locationstr += ',' + locations[j].$ngOptionLabel;
         }
-      }
-      else {
+      } else {
         locationstr += locations[j] + ',';
       }
       // }
@@ -302,28 +290,33 @@ export class InternalDatabaseComponent implements OnInit {
 
     this.locationcnd = locationstr;
 
-    if ((this.searchText === '' || this.searchText == 'undefined') && (this.locationcnd === '' || this.locationcnd === undefined) &&
-      (this.salaryfrom === null || this.salaryto === null) && (this.expfrom === null || this.expto === null)) {
+    if (
+      (this.searchText === '' || this.searchText == 'undefined') &&
+      (this.locationcnd === '' || this.locationcnd === undefined) &&
+      (this.salaryfrom === null || this.salaryto === null) &&
+      (this.expfrom === null || this.expto === null)
+    ) {
       this.db.addmessageandremove('Please Insert data to search');
       // this.db.showMessage('Please Insert data to search');
-
-    }
-    else {
-
+    } else {
       // this.loadbooleanInternalData();
 
-      const urlboolean = this.router.createUrlTree(['internaldatabaseboolean/booleansearch', { searchText: this.searchText, salaryfrom: this.salaryfrom, salaryto: this.salaryto, expfrom: this.expfrom, expto: this.expto, locationcnd: this.locationcnd }]);
+      const urlboolean = this.router.createUrlTree([
+        'internaldatabaseboolean/booleansearch',
+        {
+          searchText: this.searchText,
+          salaryfrom: this.salaryfrom,
+          salaryto: this.salaryto,
+          expfrom: this.expfrom,
+          expto: this.expto,
+          locationcnd: this.locationcnd,
+        },
+      ]);
       window.open(urlboolean.toString(), '_blank');
-
     }
-
   }
 
-
-
   public loadGrid(): void {
-
-
     const locations = this.locationss;
     let locationstr = '';
     let isfirstlocation = true;
@@ -334,13 +327,10 @@ export class InternalDatabaseComponent implements OnInit {
         if (isfirstlocation) {
           locationstr += locations[j].$ngOptionLabel;
           isfirstlocation = false;
-        }
-
-        else {
+        } else {
           locationstr += ',' + locations[j].$ngOptionLabel;
         }
-      }
-      else {
+      } else {
         locationstr += locations[j] + ',';
       }
       // }
@@ -353,25 +343,35 @@ export class InternalDatabaseComponent implements OnInit {
     }
     this.locationcnd = locationstr;
 
-    if ((this.andsearch === '') && (this.orsearch === '') &&
-      (this.locationcnd === '' || this.locationcnd === undefined) && (this.salaryfrom === null || this.salaryto === null)
-      && (this.expfrom === null || this.expto === null)) {
+    if (
+      this.andsearch === '' &&
+      this.orsearch === '' &&
+      (this.locationcnd === '' || this.locationcnd === undefined) &&
+      (this.salaryfrom === null || this.salaryto === null) &&
+      (this.expfrom === null || this.expto === null)
+    ) {
       // this.db.showMessage('Please Insert data to search');
       this.db.addmessageandremove('Please Insert data to search');
-    }
-
-    else {
-
-      const urladvance = this.router.createUrlTree(['internaldatabaseadvance/advancesearch', { orsearch: this.orsearch, andsearch: this.andsearch, locationcnd: this.locationcnd, salaryfrom: this.salaryfrom, salaryto: this.salaryto, expfrom: this.expfrom, expto: this.expto, startIndex: this.startIndex, EndIndex: this.EndIndex1, setpage: this.setpage, }]);
+    } else {
+      const urladvance = this.router.createUrlTree([
+        'internaldatabaseadvance/advancesearch',
+        {
+          orsearch: this.orsearch,
+          andsearch: this.andsearch,
+          locationcnd: this.locationcnd,
+          salaryfrom: this.salaryfrom,
+          salaryto: this.salaryto,
+          expfrom: this.expfrom,
+          expto: this.expto,
+          startIndex: this.startIndex,
+          EndIndex: this.EndIndex1,
+          setpage: this.setpage,
+        },
+      ]);
       window.open(urladvance.toString(), '_blank');
-
     }
   }
   openmodal(modalname) {
     $(modalname).appendTo('body').modal('show');
-
   }
-
-
 }
-

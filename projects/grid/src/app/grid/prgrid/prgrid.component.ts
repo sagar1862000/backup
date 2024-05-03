@@ -31,7 +31,6 @@ export class PrgridComponent implements OnInit {
   set CustomBtnText(data: string) {
     // //age
     if (data) {
-
       this._customBtnText = data;
     } else {
       this._customBtnText = 'Custom';
@@ -46,7 +45,6 @@ export class PrgridComponent implements OnInit {
 
       this.pager1 = this.db.getPager12(this._customdataNumber1.length);
 
-      // this.setPage1(1, 20);
 
 
     }
@@ -62,7 +60,6 @@ export class PrgridComponent implements OnInit {
 
   @Input()
   set hidecol(data: any) {
-    //
     if (data) {
 
       this._hidecol = data;
@@ -104,21 +101,33 @@ export class PrgridComponent implements OnInit {
       }
     }
   }
+  public Current_Page : number;
+  public Total_Page : any;
   @Input()
   set data(data: any) {
+    // console.log('here : ',data[0]);
+    this.Current_Page = 1;
+    // this.Total_Page = data[1];
+    // this._data = data[0];
+    // console.log('Checking : ',isArray(this._data),'Data : ',this._data);
+
 
     if (isArray(data)) {
-
-      this._data = data;
+      this._data = data[0];
+      this.Total_Page=data[1];
+      // console.log('Checking : ',isArray(this._data),'Data : ',this._data);
 
       // this.emitbuttondataToReport.emit({data:this._data})
+
       this.pager = this.db.getPager(this._data.length);
+      // this.pager = this.data[1]
 
       // this.setPage(1, 20);
       this.setPage(1, this.pagesize, false);
 
     }
   }
+
   @Input()
   set header(header: any) {
 
@@ -1086,10 +1095,11 @@ export class PrgridComponent implements OnInit {
   // }
 
 
-  onClick(evt, entry, item) {
-    debugger;
+  onClick(evt:any, entry:any, item:any) {
+    // console.log('show flow',item);
+    // debugger;
     this.onRowClicked.emit({ data: item, entry: entry, evt: evt });
-
+    // window.location.href = 'campaign/flow/52';
   }
 
 

@@ -74,7 +74,7 @@ import { GridModule } from '../../../../grid/src/app/grid/grid.module'
     BotGridModule,
     BotGridInternalDataModule,
     MatDialogModule,
-    GridModule
+    // GridModule
 
   ],
   providers:[MasterService],

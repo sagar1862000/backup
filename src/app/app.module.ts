@@ -28,6 +28,17 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTableModule } from '@angular/material/table';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+
+import {
+  MatDialog,
+  MAT_DIALOG_DATA,
+  MatDialogRef,
+  MatDialogTitle,
+  MatDialogContent,
+  MatDialogActions,
+  MatDialogClose,
+} from '@angular/material/dialog';
+import { CampaignFlowComponent } from 'projects/campaign/src/app/campaign/campaign-flow/campaign-flow.component';
 // import { ActivityComponent } from './components/activity/activity.component';
 // import { OverlayModule } from '@angular/cdk/overlay';
 // import { RouteReuseStrategy } from '@angular/router';
@@ -37,7 +48,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 @NgModule({
   declarations: [
     AppComponent,
-    // ActivityComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +70,6 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatDatepickerModule,
     MatButtonToggleModule,
     MatCardModule,
-    MatDialogModule,
     BrowserAnimationsModule,
     // NgSelectModule,
     MatExpansionModule,
@@ -69,9 +78,20 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     MatTableModule,
     MatBadgeModule,
     NgbModule,
-
+    MatFormFieldModule,
+    MatInputModule,
+    FormsModule,
+    MatButtonModule,
+    MatDialogModule
   ],
-  providers: [],
+  exports:[
+   
+  ],
+  providers: [
+    CampaignFlowComponent,
+    
+    
+  ],
   bootstrap: [AppComponent],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })

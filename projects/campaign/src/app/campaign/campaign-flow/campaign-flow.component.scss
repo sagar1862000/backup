@@ -1,3 +1,7 @@
+
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+// @import "~bootstrap/dist/css/bootstrap.min.css";
 .page-header {
   position: fixed;
   width: 95%;
@@ -15,7 +19,6 @@
   left: 0;
   right: 0;
   top: 100px;
-  // left:100px;
   bottom: 0;
   padding: 6px;
   box-sizing: border-box;
@@ -199,7 +202,7 @@ svg text#chk {
 
 .btn {
   padding-top: 10px;
-  background-image: url(../../../../../../src/assets/img/button/save.svg);
+  // background-image: url(../../../../../../src/assets/img/button/save.svg);
   /* 16px x 16px */
   background-color: transparent;
   /* make the button transparent */
@@ -217,7 +220,7 @@ svg text#chk {
 
 .btndelete {
   padding-top: 10px;
-  background-image: url(../../../../../../src/assets/img/button/Delete.svg);
+  // background-image: url(../../../../../../src/assets/img/button/Delete.svg);
   background-color: transparent;
   /* make the button transparent */
   background-repeat: no-repeat;
@@ -266,4 +269,43 @@ rect {
 
 .mat-button-toggle-checked {
   background-color: #a64eed;
+}
+
+
+
+::ng-deep mat-form-field select {
+  /* Apply styling to the select element */
+  border-radius: 4px;
+  padding: 20px;
+  /* Add other styles as needed */
+}
+
+::ng-deep mat-form-field option {
+  /* Apply styling to the options within the select element */
+  // background-color: #d8b9b9;
+  color: #333;
+  margin: 20px;
+  /* Add other styles as needed */
+}
+
+::ng-deep .custom-option {
+  // background-color: #d8b9b9;
+  color: #333;
+  margin: 20px;
+  padding: 20px;
+  /* Add other styles as needed */
+}
+
+.dropdown {
+  pointer-events: all;
+  position: absolute;
+  top: 86px;
+  display: flex;
+  flex-direction: column;
+  background-color: white;
+  border: 2px solid #c4c4c4;
+  border-radius: 6px;
+  box-shadow: 1px 1px 11px -6px rgba(0, 0, 0, 0.75);
+  padding: 12px;
+  transition: all ease 0.2s;
 }

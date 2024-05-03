@@ -12,11 +12,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { ComponentsModule } from 'projects/component/src/app/components/components.module';
-
+import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
+import { DialogConfig } from '@angular/cdk/dialog';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
-    CampaignFlowComponent
+    CampaignFlowComponent, 
   ],
   imports: [
     CommonModule,
@@ -24,7 +26,10 @@ import { ComponentsModule } from 'projects/component/src/app/components/componen
     CommonModule, FormsModule, MatButtonToggleModule, CKEditorModule, MatSelectModule, MatFormFieldModule, MatInputModule,
     MatDatepickerModule, MatIconModule, ComponentsModule,
     FormsModule,
-    ReactiveFormsModule
-  ]
+    ReactiveFormsModule,
+    MatDialogModule,
+    DragDropModule  
+  ],
+  providers:[DialogConfig]
 })
 export class CampaignFlowModule { }

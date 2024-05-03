@@ -1,4 +1,3 @@
-
 import { Injectable, OnChanges, OnInit } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
@@ -7,14 +6,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 // import 'bootstrap-notify';
 declare var $: any;
 
-
 type ICallback = (response: any) => void;
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DbService implements OnInit, OnChanges {
-
   // rooturi = 'http://192.168.3.23:8000/';
   // rooturi = 'http://192.168.4.15:8000/';
   // rooturi = 'http://192.168.4.21:8000/';
@@ -22,8 +19,10 @@ export class DbService implements OnInit, OnChanges {
   // rooturi = 'http://192.168.3.7:8000/';
   // rooturi = 'http://192.168.4.16:8000/';
   // rooturi = 'http://192.168.4.21:8000/';
-  rooturi = 'http://192.168.4.17:8000/';
-  
+  // rooturi = 'http://192.168.3.117:8000/'; Suraj Api
+  //  rooturi = 'http://192.168.0.106:8081/';  sir api
+  rooturi = 'http://192.168.151.33:8001/';   //deepanshu Api
+  // rooturi = 'https://api.botshreyasi.com/';
   // rooturi = 'http://192.168.51.219:8000/';
   // rooturi = 'http://192.168.4.14:8000/';
   ServiceURL = this.rooturi;
@@ -36,7 +35,7 @@ export class DbService implements OnInit, OnChanges {
   resumeparser: boolean = true;
   profile: any = {};
   clientsdepartment = '';
-  ajids:any;
+  ajids: any;
   ids: any = [];
   nodetype: any;
   storedpageno: any;
@@ -46,7 +45,6 @@ export class DbService implements OnInit, OnChanges {
   globaljobid = 0;
   call_id: any = [];
 
-
   public NodeType = {
     internaldatabase: 'internaldatabase',
     history: 'history',
@@ -54,39 +52,44 @@ export class DbService implements OnInit, OnChanges {
   };
   private selectedNodes = [];
 
-
-
   ngOnInit() {
-    this.mp = { 'resumeparser': this.resumeparser }
+    this.mp = { resumeparser: this.resumeparser };
 
     this.token = localStorage['token'];
   }
-
-  
 
   ngOnChanges() {
     // changes.prop contains the old and the new value...
   }
 
-
-  constructor(private http: HttpClient, private router: Router, private route: ActivatedRoute, private snackBar: MatSnackBar) {
-
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private route: ActivatedRoute,
+    private snackBar: MatSnackBar
+  ) {
     if (window.location.href.indexOf('https') === -1) {
       this.http_or_https = 'https';
     }
-    
 
     this.globaljobid = 0;
-
   }
 
   buildFormData(formData: any, data: any, parentKey?: any) {
-    if (data && typeof data === 'object' && !(data instanceof Date) && !(data instanceof File)) {
-      Object.keys(data).forEach(key => {
-        this.buildFormData(formData, data[key], parentKey ? `${parentKey}[${key}]` : key);
+    if (
+      data &&
+      typeof data === 'object' &&
+      !(data instanceof Date) &&
+      !(data instanceof File)
+    ) {
+      Object.keys(data).forEach((key) => {
+        this.buildFormData(
+          formData,
+          data[key],
+          parentKey ? `${parentKey}[${key}]` : key
+        );
       });
     } else {
-
       let value = data == null ? '' : data;
       if (typeof data === 'string') {
         if (value.indexOf('{') === -1) {
@@ -94,37 +97,31 @@ export class DbService implements OnInit, OnChanges {
         }
       }
       formData.append(parentKey, value);
-
     }
   }
-
 
   setToken(token: string, refresh: string): void {
     this.token = token;
     localStorage.setItem('token', this.token);
     localStorage.setItem('refresh', refresh);
-
   }
 
   addmessageandremove(message): void {
     this.showNotification(message);
   }
 
-
   //to get the previously
   public getPreviousUrl() {
-    this.previousUrl = this.router.url;;
+    this.previousUrl = this.router.url;
 
     return this.previousUrl;
   }
-
-
 
   //to hide the loader
   hideLoaderfunction(loader: any): void {
     setTimeout(() => {
       this.loaderprogressbar = false;
-    }, 1000);
+    }, 100);
   }
 
   // format the data while sending in payload
@@ -133,39 +130,48 @@ export class DbService implements OnInit, OnChanges {
 
     this.buildFormData(formData, data);
 
-
     return formData;
   }
 
   //to show loader function
   showloaderfunction(loader: any): void {
+    console.log('h');
     this.loaderprogressbar = true;
   }
 
   //get the ip address
   getIpAddress(): any {
-    this.http.get('https://api.ipify.org/?format=json').subscribe((res: any) => {
-      const ipAddress = res.ip;
-      // console.log(ipAddress);
-      return ipAddress;
-    });
+    this.http
+      .get('https://api.ipify.org/?format=json')
+      .subscribe((res: any) => {
+        const ipAddress = res.ip;
+        // console.log(ipAddress);
+        return ipAddress;
+      });
   }
 
-
   // post api to call the post method when its not authenticated
-  post(url: string, data: any, success?: ICallback, fail?: ICallback, loader?: any) {
+  post(
+    url: string,
+    data: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?: any
+  ) {
     //  success('avc');
+    console.log('h');
     this.showloaderfunction(loader);
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url;
     }
     const req = {
       method: 'POST',
-      url: fullurl
+      url: fullurl,
     };
     const headersfull = new HttpHeaders();
-    headersfull.append('Content-Type', 'application/x-www-form-urlencoded')
+    headersfull
+      .append('Content-Type', 'application/x-www-form-urlencoded')
       .append('X-Forwarded-For', this.getIpAddress());
     // post data missing(here you pass email and password)
     const body = new FormData();
@@ -175,31 +181,28 @@ export class DbService implements OnInit, OnChanges {
         body.append(i, data[i]);
       }
     }
-    this.http.post(req.url, body, { headers: headersfull })
-      .subscribe(
-        res => {
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        err => {
-          debugger;
-          this.showMessage(err);
-          if (fail !== undefined) {
-            fail(err);
-          }
+    this.http.post(req.url, body, { headers: headersfull }).subscribe(
+      (res) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
         }
-      );
-
+      },
+      (err) => {
+        debugger;
+        this.showMessage(err);
+        if (fail !== undefined) {
+          fail(err);
+        }
+      }
+    );
   }
 
   public isObject(val: any) {
-    return (typeof val === 'object');
+    return typeof val === 'object';
   }
 
   public showNotification(message: any, timer?: any, from?: any, align?: any) {
-
     if (timer == null || timer === undefined) {
       timer = 3000;
     }
@@ -217,11 +220,12 @@ export class DbService implements OnInit, OnChanges {
     const color = 4; // Math.floor((Math.random() * 4) + 1);
 
     // $.notify("You have successfully created a plotting.", "success");
-    $.notify({
-      // message1:alert("hello"),
-      icon: 'notifications',
-      message,
-    },
+    $.notify(
+      {
+        // message1:alert("hello"),
+        icon: 'notifications',
+        message,
+      },
       {
         type: type[color],
         timer,
@@ -230,26 +234,35 @@ export class DbService implements OnInit, OnChanges {
           align,
         },
 
-        template: '<div style="z-index:99999!important;" data-notify="container" ' +
+        template:
+          '<div style="z-index:99999!important;" data-notify="container" ' +
           'class="col-xl-4 col-lg-4 col-11 zindex col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
           '<button mat-button  type="button" aria-hidden="true" class="close mat-button" ' +
           ' data-notify="dismiss">  <i class="material-icons">close</i></button>' +
           '<i class="material-icons" data-notify="icon">notifications</i> ' +
           '<span data-notify="title">{1}</span> ' +
-          '<span data-notify="message">' + message + '</span>' +
+          '<span data-notify="message">' +
+          message +
+          '</span>' +
           '<div class="progress" data-notify="progressbar">' +
           '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" ' +
           'aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
           '</div>' +
           '<a href="{3}" target="{4}" data-notify="url"></a>' +
-          '</div>'
-      });
-
+          '</div>',
+      }
+    );
   }
 
-
-  public showMessage(message: any, action?: string, durationMS?: number): void {
-debugger;
+  public showMessage(
+    message: any,
+    action?: string,
+    durationMS?: number,
+    loader?: any
+  ): void {
+    debugger;
+    this.showloaderfunction(loader);
+    this.hideLoaderfunction(loader);
     if (this.isObject(message) && message.status === 0) {
       message = 'Please check your internet.';
     } else if (this.isObject(message) && message.error && message.error.msg) {
@@ -258,13 +271,19 @@ debugger;
     } else if (this.isObject(message) && message.error && message.error.error) {
       message = message.error.error;
       this.showNotification(message);
-    }
-    else if (message.status === 401 && message.error.error == 'invalid_credentials') {
+    } else if (
+      message.status === 401 &&
+      message.error.error == 'invalid_credentials'
+    ) {
       message = 'Please Enter Valid Credentials';
-    }
-    else if (message.status === 429) {
+    } else if (message.status === 429) {
       message = message.error.error;
-    } else if (this.isObject(message) && message.error && message.error.errors && message.error.errors.non_field_errors) {
+    } else if (
+      this.isObject(message) &&
+      message.error &&
+      message.error.errors &&
+      message.error.errors.non_field_errors
+    ) {
       message = message.error.errors.non_field_errors;
       const messages = [];
       for (const k in message) {
@@ -272,13 +291,11 @@ debugger;
           this.showNotification(message);
         }
       }
-    }
-    else if (this.isObject(message) && message.status === 401) {
+    } else if (this.isObject(message) && message.status === 401) {
       message = 'Please authenticate to access secured resource.';
     } else if (this.isObject(message) && message.status >= 500) {
       message = 'Error Occured';
-    }
-     else if (this.isObject(message) && message.status === 422) {
+    } else if (this.isObject(message) && message.status === 422) {
       message = message.error;
       const messages = [];
       for (const k in message) {
@@ -286,13 +303,9 @@ debugger;
           this.showNotification(message[k]);
         }
         // messages.push(message[k].toString());
-
       }
       message = 'Please Fill values';
-
-
-    }
-    else if (this.isObject(message) && message.status === 400) {
+    } else if (this.isObject(message) && message.status === 400) {
       message = message.error;
       const messages = [];
       for (const k in message) {
@@ -300,11 +313,8 @@ debugger;
           this.showNotification(message[k]);
         }
         // messages.push(message[k].toString());
-
       }
       message = 'Please Fill Valid Details';
-
-
     }
 
     if (action === undefined) {
@@ -312,14 +322,13 @@ debugger;
     }
 
     if (durationMS === undefined) {
-      durationMS = 3000;
+      durationMS = 1000;
     }
     const snackBarRef = this.snackBar.open(message, action, {
       duration: durationMS,
       verticalPosition: 'bottom',
       horizontalPosition: 'left',
     });
-
 
     // $rootScope.universal_errors = [];
     // if (response.status == 422) {
@@ -330,23 +339,25 @@ debugger;
     //   }
     //   $('#errorMessage').modal('show');
     // }
-
   }
 
-
   goToLogin(response: any): any {
-
     localStorage.removeItem('token');
     localStorage.removeItem('refresh');
     if (response && response && response.msg) {
       alert(response.msg);
     }
-    if (this.CurrentURL === undefined || this.CurrentURL === '') {
-      this.router.navigate(['login']);
-    } else {
-      this.router.navigate(['login']);
-      // window.top.location.href = this.LoginURL + '?returnurl=' + this.CurrentURL;
-    }
+
+    // Commented by sagar
+
+    // if (this.CurrentURL === undefined || this.CurrentURL === '') {
+    //   this.router.navigate(['login']);
+    // } else {
+    //   this.router.navigate(['login']);
+    // }
+
+    // Commented by sagar
+
     // this.SETUrl = this.router['location']._platformLocation.location.search;
     // this.SETUrl = (this.SETUrl + '').replace('?returnurl=', '');
     // if (this.SETUrl === undefined || this.SETUrl === '' || this.SETUrl === "null") {
@@ -360,10 +371,14 @@ debugger;
     // }
   }
 
-
   //method to call get api after authentication
-  list(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?: any): any {
-
+  list(
+    url: string,
+    data?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?: any
+  ): any {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === -1) {
@@ -371,7 +386,7 @@ debugger;
     }
     const req = {
       method: 'get',
-      url: fullurl
+      url: fullurl,
     };
 
     if (data === undefined || data === null) {
@@ -381,25 +396,30 @@ debugger;
 
     const headersfull = new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'Bearer ' + token
+      Authorization: 'Bearer ' + token,
     });
 
     const requestOptions = { headers: headersfull, params: data };
 
-    this.http.get(req.url, requestOptions)  // Pass requestOptions as the second parameter
+    this.http
+      .get(req.url, requestOptions) // Pass requestOptions as the second parameter
 
       .subscribe(
-        res => {
+        (res) => {
           this.hideLoaderfunction(loader);
           if (success !== undefined) {
             success(res);
           }
         },
-        response => {
+        (response) => {
           this.hideLoaderfunction(loader);
           this.showMessage(response);
-          if (response.status === 401 || response.status === 422 ||
-            (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
+          if (
+            response.status === 401 ||
+            response.status === 422 ||
+            (response.hasOwnProperty('error') &&
+              response.error === 'token_not_provided')
+          ) {
             this.goToLogin(response);
           } else {
             if (fail !== undefined) {
@@ -409,7 +429,6 @@ debugger;
         }
       );
   }
-
 
   getToken(): any {
     if (localStorage['refresh']) {
@@ -421,69 +440,67 @@ debugger;
     }
   }
 
-//time formats
+  //time formats
 
-toYYMMDD(date: any) {
-  let dd = date.getDate();
+  toYYMMDD(date: any) {
+    let dd = date.getDate();
 
-  let mm = date.getMonth() + 1;
-  const yyyy = date.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd;
+    let mm = date.getMonth() + 1;
+    const yyyy = date.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    return yyyy + '-' + mm + '-' + dd;
   }
+  toMMDDYY(date: any) {
+    let dd = date.getDate();
 
-  if (mm < 10) {
-    mm = '0' + mm;
+    let mm = date.getMonth() + 1;
+    const yyyy = date.getFullYear();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    return mm + '-' + dd + '-' + yyyy;
   }
-  return yyyy + '-' + mm + '-' + dd;
-}
-toMMDDYY(date: any) {
-  let dd = date.getDate();
+  toYYMMDDTT(date: any) {
+    let dd = date.getDate();
 
-  let mm = date.getMonth() + 1;
-  const yyyy = date.getFullYear();
-  if (dd < 10) {
-    dd = '0' + dd;
+    let mm = date.getMonth() + 1;
+    const yyyy = date.getFullYear();
+    const h = date.getHours();
+    const mi = date.getMinutes();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
+
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    return yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + mi;
   }
+  toTT(date: any) {
+    let dd = date.getDate();
+    let mm = date.getMonth() + 1;
+    const yyyy = date.getFullYear();
+    const h = date.getHours();
+    const mi = date.getMinutes();
+    if (dd < 10) {
+      dd = '0' + dd;
+    }
 
-  if (mm < 10) {
-    mm = '0' + mm;
+    if (mm < 10) {
+      mm = '0' + mm;
+    }
+    return h + ':' + mi;
   }
-  return mm + '-' + dd + '-' + yyyy;
-}
-toYYMMDDTT(date: any) {
-  let dd = date.getDate();
-
-  let mm = date.getMonth() + 1;
-  const yyyy = date.getFullYear();
-  const h = date.getHours();
-  const mi = date.getMinutes();
-  if (dd < 10) {
-    dd = '0' + dd;
-  }
-
-  if (mm < 10) {
-    mm = '0' + mm;
-  }
-  return yyyy + '-' + mm + '-' + dd + ' ' + h + ':' + mi;
-}
-toTT(date: any) {
-  let dd = date.getDate();
-  let mm = date.getMonth() + 1;
-  const yyyy = date.getFullYear();
-  const h = date.getHours();
-  const mi = date.getMinutes();
-  if (dd < 10) {
-    dd = '0' + dd;
-  }
-
-  if (mm < 10) {
-    mm = '0' + mm;
-  }
-  return h + ':' + mi;
-}
-
-
 
   checkLoginOrNot(): void {
     return;
@@ -497,60 +514,61 @@ toTT(date: any) {
     // }));
   }
 
-
-
-  getdata(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?): any {
-
-
+  getdata(
+    url: string,
+    data?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?
+  ): any {
     //  success('avc');
 
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url;
     }
     const req = {
       method: 'get',
-      url: fullurl
+      url: fullurl,
     };
     if (data === undefined || data === null) {
       data = {};
     }
     const token = this.getToken();
-    const headersfull = new HttpHeaders()
-      .append('Authorization', "Bearer " + token);
+    const headersfull = new HttpHeaders().append(
+      'Authorization',
+      'Bearer ' + token
+    );
 
     // headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
 
-    this.http.get(req.url, { headers: headersfull, params: data })
-      .subscribe(
-        res => {
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        response => {
-          this.showMessage(response);
+    this.http.get(req.url, { headers: headersfull, params: data }).subscribe(
+      (res) => {
+        if (success !== undefined) {
+          success(res);
+        }
+      },
+      (response) => {
+        this.showMessage(response);
 
-          if (response.status === 401 || response.status === 422 ||
-            (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
-
-            this.goToLogin(response);
-
-          } else {
-            if (fail !== undefined) {
-
-              fail(response);
-            }
+        if (
+          response.status === 401 ||
+          response.status === 422 ||
+          (response.hasOwnProperty('error') &&
+            response.error === 'token_not_provided')
+        ) {
+          this.goToLogin(response);
+        } else {
+          if (fail !== undefined) {
+            fail(response);
           }
         }
-      );
-
+      }
+    );
   }
 
-
   extractIDsData(data, id?): any {
-
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -563,26 +581,23 @@ toTT(date: any) {
     }
 
     return ids1;
-
   }
-
-
 
   textTospeech(textdata): void {
     // var audio = null;
     this.list('textspeech', { text: textdata }, (response): void => {
-
       let audio = new Audio();
-      audio.currentTime = 0
+      audio.currentTime = 0;
       audio.load();
       // audio.src = "http://localhost:8000/recroding/" + response.audio;
-      audio.src = 'https://api.passivereferral.com/apicontentpassivereferral/python/ats_tts/recordings/' + response.audio;
+      audio.src =
+        'https://api.passivereferral.com/apicontentpassivereferral/python/ats_tts/recordings/' +
+        response.audio;
       audio.load();
       audio.play();
-      audio.currentTime = 0
+      audio.currentTime = 0;
 
       // // audio.duration;
-
 
       // let audio = new Audio('https://api.passivereferral.com/apicontentpassivereferral/python/ats_tts/recordings/' + response.audio)
       // audio.play()
@@ -590,9 +605,14 @@ toTT(date: any) {
     });
   }
 
-
-
-  show(url: string, id?: any, success?: ICallback, fail?: ICallback, loader?: any, data?: any) {
+  show(
+    url: string,
+    id?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?: any,
+    data?: any
+  ) {
     this.showloaderfunction(loader);
     let fullurl = url;
     if (url.indexOf('http') === -1) {
@@ -604,51 +624,59 @@ toTT(date: any) {
       .append('Content-Type', 'application/json')
       .append('Authorization', 'Bearer ' + token);
 
-    this.http.patch(fullurl, data, { headers: headersfull })
-      .subscribe(
-        (res: any) => {
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        (error: any) => {
-          this.hideLoaderfunction(loader);
-          this.showMessage(error);
-          if (error.status === 401 || (error.error && error.error === 'token_not_provided')) {
-            this.goToLogin(error);
-          } else {
-            if (fail !== undefined) {
-              fail(error);
-            }
+    this.http.patch(fullurl, data, { headers: headersfull }).subscribe(
+      (res: any) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
+        }
+      },
+      (error: any) => {
+        this.hideLoaderfunction(loader);
+        this.showMessage(error);
+        if (
+          error.status === 401 ||
+          (error.error && error.error === 'token_not_provided')
+        ) {
+          this.goToLogin(error);
+        } else {
+          if (fail !== undefined) {
+            fail(error);
           }
         }
-      );
+      }
+    );
   }
 
-  update(url: string, id?: any, data?: any, success?: ICallback, fail?: ICallback, loader?: any) {
-
-
+  update(
+    url: string,
+    id?: any,
+    data?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?: any
+  ) {
     //  success('avc');
-
 
     this.showloaderfunction(loader);
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url + id + '/';
     }
 
     const req = {
-      method: 'post',
-      url: fullurl
+      method: 'put',
+      url: fullurl,
     };
     if (data === undefined) {
       data = {};
     }
 
     const token = this.getToken();
-    const headersfull = new HttpHeaders()
-      .append('Authorization', "Bearer " + token)
+    const headersfull = new HttpHeaders().append(
+      'Authorization',
+      'Bearer ' + token
+    );
 
     // .append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
@@ -656,91 +684,99 @@ toTT(date: any) {
 
     body = this.jsonToFormData(data);
 
-    this.http.put(req.url, body, { headers: headersfull })
-      .subscribe(
-        res => {
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        response => {
-          this.hideLoaderfunction(loader);
-          this.showMessage(response);
+    this.http.put(req.url, body, { headers: headersfull }).subscribe(
+      (res) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
+        }
+      },
+      (response) => {
+        this.hideLoaderfunction(loader);
+        this.showMessage(response);
 
-          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
-
-            this.goToLogin(response);
-
-          } else {
-            if (fail !== undefined) {
-
-              fail(response);
-            }
+        if (
+          response.status === 401 ||
+          (response.hasOwnProperty('error') &&
+            response.error === 'token_not_provided')
+        ) {
+          this.goToLogin(response);
+        } else {
+          if (fail !== undefined) {
+            fail(response);
           }
         }
-      );
-
+      }
+    );
   }
 
-  store(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?: any): any {
-
+  store(
+    url: string,
+    data?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?: any
+  ): any {
     debugger;
-    //  success('avc');
+    // success('avc');
 
     this.showloaderfunction(loader);
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url;
     }
 
     const req = {
       method: 'post',
-      url: fullurl
+      url: fullurl,
     };
     if (data === undefined) {
       data = {};
     }
 
     const token = this.getToken();
-    const headersfull = new HttpHeaders()
-      .append('Authorization', "Bearer " + token);
+    const headersfull = new HttpHeaders().append(
+      'Authorization',
+      'Bearer ' + token
+    );
 
     // headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
     let body = new FormData();
     body = this.jsonToFormData(data);
-    this.http.post(req.url, body, { headers: headersfull })
-      .subscribe(
-        res => {
+    this.http.post(req.url, body, { headers: headersfull }).subscribe(
+      (res) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
+        }
+      },
 
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
+      (response) => {
+        this.hideLoaderfunction(loader);
+        this.showMessage(response);
 
-        response => {
-
-          this.hideLoaderfunction(loader);
-          this.showMessage(response);
-
-          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
-            this.goToLogin(response);
-          } else {
-            if (fail !== undefined) {
-              fail(response);
-            }
+        if (
+          response.status === 401 ||
+          (response.hasOwnProperty('error') &&
+            response.error === 'token_not_provided')
+        ) {
+          this.goToLogin(response);
+        } else {
+          if (fail !== undefined) {
+            fail(response);
           }
         }
-      );
-
+      }
+    );
   }
 
-
-
-  extractSelectedSingleIds(obj, selected = 'selected', key = 'id', ajid = 'ajid'): any {
-
+  extractSelectedSingleIds(
+    obj,
+    selected = 'selected',
+    key = 'id',
+    ajid = 'ajid'
+  ): any {
     const selectedonebyone = [];
     for (const i in obj) {
       if (obj[i][selected] === true) {
@@ -751,8 +787,12 @@ toTT(date: any) {
     this.ajids = selectedonebyone;
     return this.ajids;
   }
-  extractallselectedids(obj, selected = 'selected', key = 'id', ajid = 'ajid'): any {
-
+  extractallselectedids(
+    obj,
+    selected = 'selected',
+    key = 'id',
+    ajid = 'ajid'
+  ): any {
     const selectedids = [];
     for (const i in obj) {
       if (obj[i][selected] === true) {
@@ -765,7 +805,6 @@ toTT(date: any) {
   }
 
   SelectedSingleIds(obj: any, selected = 'selected', key = 'id'): any {
-
     const selectedonebyone = [];
     for (const i in obj) {
       if (obj[i][selected] === true) {
@@ -780,10 +819,7 @@ toTT(date: any) {
     return this.ids;
   }
 
-
-  
   getIDs(nodetype?, id?): any {
-
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -798,12 +834,9 @@ toTT(date: any) {
     }
 
     return ids;
-
   }
 
-
   extractCallId(data, call_id?): any {
-
     if (call_id === null || call_id === undefined) {
       call_id = 'call_id';
     }
@@ -817,11 +850,9 @@ toTT(date: any) {
     return ids;
   }
 
-
   setSelectedNodeType(type?: any): void {
     this.nodetype = type;
   }
-
 
   public showDialog(messsage, title?) {
     if (title === null || title === undefined) {
@@ -832,15 +863,12 @@ toTT(date: any) {
     $('#messagebody').html(messsage);
   }
 
-
   ConvertToFormData(obj, form, namespace) {
-
     const fd = form || new FormData();
     let formKey;
 
     for (const property in obj) {
       if (obj.hasOwnProperty(property)) {
-
         if (namespace) {
           formKey = namespace + '[' + property + ']';
         } else {
@@ -849,21 +877,19 @@ toTT(date: any) {
 
         // if the property is an object, but not a File,
         // use recursivity.
-        if (typeof obj[property] === 'object' && !(obj[property] instanceof File)) {
-
+        if (
+          typeof obj[property] === 'object' &&
+          !(obj[property] instanceof File)
+        ) {
           this.ConvertToFormData(obj[property], fd, property);
-
         } else {
-
           // if it's a string or a File object
           fd.append(formKey, obj[property]);
         }
-
       }
     }
 
     return fd;
-
 
     /*
         const body = new FormData();
@@ -895,20 +921,23 @@ toTT(date: any) {
         return body;*/
   }
 
-  destroy(url: string, id?: any, success?: ICallback, fail?: ICallback, loader?): any {
-
-
+  destroy(
+    url: string,
+    id?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?
+  ): any {
     //  success('avc');
-
 
     this.showloaderfunction(loader);
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url + id + '/';
     }
     const req = {
       method: 'post',
-      url: fullurl
+      url: fullurl,
     };
     let data;
     if (data === undefined) {
@@ -917,92 +946,107 @@ toTT(date: any) {
     const token = this.getToken();
     const headersfull = new HttpHeaders()
       // headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
-      .append('Authorization', "Bearer " + token);
+      .append('Authorization', 'Bearer ' + token);
 
     // post data missing(here you pass email and password)
     const body = this.ConvertToFormData(data, '', '');
 
-    this.http.delete(req.url, { headers: headersfull })
-      .subscribe(
-        res => {
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        response => {
-          this.hideLoaderfunction(loader);
-          this.showMessage(response);
+    this.http.delete(req.url, { headers: headersfull }).subscribe(
+      (res) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
+        }
+      },
+      (response) => {
+        this.hideLoaderfunction(loader);
+        this.showMessage(response);
 
-          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
-
-            this.goToLogin(response);
-
-          } else {
-            if (fail !== undefined) {
-
-              fail(response);
-            }
+        if (
+          response.status === 401 ||
+          (response.hasOwnProperty('error') &&
+            response.error === 'token_not_provided')
+        ) {
+          this.goToLogin(response);
+        } else {
+          if (fail !== undefined) {
+            fail(response);
           }
         }
-      );
-
+      }
+    );
   }
 
-  upload(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?): any {
+  upload(
+    url: string,
+    data?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?
+  ): any {
     this.showloaderfunction(loader);
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url;
     }
     const req = {
       method: 'post',
-      url: fullurl
+      url: fullurl,
     };
     if (data === undefined) {
       data = {};
     }
     const token = this.getToken();
-    const headersfull = new HttpHeaders()
-      .append('Authorization', "Bearer " + token);
+    const headersfull = new HttpHeaders().append(
+      'Authorization',
+      'Bearer ' + token
+    );
 
     let body = new FormData();
 
     body = this.jsonToFormData(data);
-    this.http.post(req.url, body, { headers: headersfull })
-      .subscribe(
-        res => {
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        response => {
-          this.hideLoaderfunction(loader);
-          this.showMessage(response);
+    this.http.post(req.url, body, { headers: headersfull }).subscribe(
+      (res) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
+        }
+      },
+      (response) => {
+        this.hideLoaderfunction(loader);
+        this.showMessage(response);
 
-          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
-            this.goToLogin(response);
-          } else {
-            if (fail !== undefined) {
-
-              fail(response);
-            }
+        if (
+          response.status === 401 ||
+          (response.hasOwnProperty('error') &&
+            response.error === 'token_not_provided')
+        ) {
+          this.goToLogin(response);
+        } else {
+          if (fail !== undefined) {
+            fail(response);
           }
         }
-      );
-
+      }
+    );
   }
 
-  storeupload(url: string, data?: any, success?: ICallback, fail?: ICallback, loader?: any, fileToUpload?: any[]): any {
+  storeupload(
+    url: string,
+    data?: any,
+    success?: ICallback,
+    fail?: ICallback,
+    loader?: any,
+    fileToUpload?: any[]
+  ): any {
     this.showloaderfunction(loader);
     let fullurl = url;
-    if (url.indexOf('http') === - 1) {
+    if (url.indexOf('http') === -1) {
       fullurl = this.ServiceURL + url;
     }
     const req = {
       method: 'post',
-      url: fullurl
+      url: fullurl,
     };
     if (data === undefined || data === null) {
       data = {};
@@ -1010,8 +1054,10 @@ toTT(date: any) {
 
     const token = this.getToken();
 
-    const headersfull = new HttpHeaders()
-      .append('Authorization', "Bearer " + token);
+    const headersfull = new HttpHeaders().append(
+      'Authorization',
+      'Bearer ' + token
+    );
 
     // headersfull.append('Content-Type', 'application/x-www-form-urlencoded');
     // post data missing(here you pass email and password)
@@ -1021,46 +1067,40 @@ toTT(date: any) {
     if (fileToUpload != null) {
       for (const i in fileToUpload) {
         if (fileToUpload[i]) {
-
-
           let filekey = 'file';
           if (fileToUpload[i].filekey) {
-
             filekey = fileToUpload[i].filekey;
-
           }
 
           body.append(filekey, fileToUpload[i].file, fileToUpload[i].file.name);
-
         }
-
       }
     }
-    this.http.post(req.url, body, { headers: headersfull })
-      .subscribe(
-        res => {
+    this.http.post(req.url, body, { headers: headersfull }).subscribe(
+      (res) => {
+        this.hideLoaderfunction(loader);
+        if (success !== undefined) {
+          success(res);
+        }
+      },
+      (response) => {
+        this.hideLoaderfunction(loader);
+        this.showMessage(response);
 
-          this.hideLoaderfunction(loader);
-          if (success !== undefined) {
-            success(res);
-          }
-        },
-        response => {
-          this.hideLoaderfunction(loader);
-          this.showMessage(response);
-
-          if (response.status === 401 || (response.hasOwnProperty('error') && response.error === 'token_not_provided')) {
-            this.goToLogin(response);
-          } else {
-            if (fail !== undefined) {
-              fail(response);
-            }
+        if (
+          response.status === 401 ||
+          (response.hasOwnProperty('error') &&
+            response.error === 'token_not_provided')
+        ) {
+          this.goToLogin(response);
+        } else {
+          if (fail !== undefined) {
+            fail(response);
           }
         }
-      );
-
+      }
+    );
   }
-
 
   SelectedCheckbox(obj, selected = 'selected', key = 'id'): any {
     const selectedmanager = [];
@@ -1073,8 +1113,10 @@ toTT(date: any) {
   }
 
   getPager12(
-
-    totalItems: number, currentPage: number = 1, pageSize: number = 4) {
+    totalItems: number,
+    currentPage: number = 1,
+    pageSize: number = 4
+  ) {
     // calculate total pages
     const totalPages = Math.ceil(totalItems / pageSize);
 
@@ -1110,7 +1152,9 @@ toTT(date: any) {
 
     // create an array of pages to ng-repeat in the pager control
 
-    const pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => + i);
+    const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
+      (i) => +i
+    );
 
     // return object with all pager properties required by the view
     return {
@@ -1122,7 +1166,7 @@ toTT(date: any) {
       endPage,
       startIndex,
       endIndex,
-      pages
+      pages,
     };
   }
 
@@ -1140,7 +1184,6 @@ toTT(date: any) {
       startPage = 1;
       endPage = totalPages;
     } else {
-
       // more than 10 total pages so calculate start and end pages
 
       if (this.storedpageno <= 2) {
@@ -1165,7 +1208,9 @@ toTT(date: any) {
     const endIndex = Math.min(startIndex + pageSize, totalItems);
     debugger;
     // create an array of pages to ng-repeat in the pager control
-    const pages = Array.from(Array((endPage + 1) - startPage).keys()).map(i => + i);
+    const pages = Array.from(Array(endPage + 1 - startPage).keys()).map(
+      (i) => +i
+    );
     debugger;
     // return object with all pager properties required by the view
     return {
@@ -1177,9 +1222,8 @@ toTT(date: any) {
       endPage,
       startIndex,
       endIndex,
-      pages
+      pages,
     };
-
   }
 
   allselectedids(obj: any, selected = 'selected', key = 'id'): any {
@@ -1198,7 +1242,7 @@ toTT(date: any) {
     let selectedcheckbox = '';
     for (const i in obj) {
       if (obj[i]) {
-        selectedcheckbox += (obj[i][key]) + ',';
+        selectedcheckbox += obj[i][key] + ',';
       }
     }
     return selectedcheckbox.substring(0, selectedcheckbox.lastIndexOf(','));
@@ -1209,7 +1253,7 @@ toTT(date: any) {
     let selectedcheckbox = '';
     for (const i in obj) {
       if (obj[i]) {
-        selectedcheckbox += (obj[i][key]) + ',';
+        selectedcheckbox += obj[i][key] + ',';
       }
     }
     return selectedcheckbox.substring(0, selectedcheckbox.lastIndexOf(','));
@@ -1217,7 +1261,6 @@ toTT(date: any) {
   }
 
   extractCallIDData(data, id?): any {
-
     if (id === null || id === undefined) {
       id = 'id';
     }
@@ -1234,11 +1277,9 @@ toTT(date: any) {
     // return ids1;
 
     return this.ids12;
-
   }
 
   sl(): void {
     // $rootScope.ShowLoader = true;
   }
-
 }

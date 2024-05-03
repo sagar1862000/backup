@@ -53,6 +53,8 @@ export class InternalDatabaseSearchComponent implements OnInit {
     { headerName: 'candidateProfile', field: 'candidate_name', type: 'iconimagelarge', iconname: 'akar-icons_whatsapp-fill.svg', style: 'font-weight: bold; font-size:15px;', class: 'pull-right', tag: 'span', print: 'headingright', size: 'pull-right' },
     { headerName: 'Skill Set:', field: 'skillSet', type: 'heardertext', style: 'font-size:15px; margin-left:-4%;', class: 'pull-left col-md-11', tag: 'span', print: 'bodybottom', size: 'row', headertag: 'span', headerclass: 'col-md-1', headerstyle: 'font-weight: bold; color:#a64eed' },
   ];
+
+  
   employeeId: any;
   state$: any;
   limitstartIndex: any = 0;
