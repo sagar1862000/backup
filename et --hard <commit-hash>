@@ -1,0 +1,272 @@
+[33mcommit 981a8abc1f39e35ed366ecb722dc7966e32e2e37[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 23:59:52 2024 +0530
+
+    first commit
+
+[33mcommit e6166b450efc767cfb5e2faef65bdd7a5807b918[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 23:45:49 2024 +0530
+
+    Stop tracking src directory
+
+[33mcommit 2f2a8f67cf9120ded2452a9287196698ca669937[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 23:43:44 2024 +0530
+
+    Stop tracking src directory
+
+[33mcommit 5aee9b4e71c7e390f8a6be75c15badec75e3b032[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 23:33:11 2024 +0530
+
+    first commit
+
+[33mcommit 1a42621f6bb41a9e3ff43e0fee3e9e18fd5ee030[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 23:22:48 2024 +0530
+
+    first commit
+
+[33mcommit 09d2fd0fa1c7eeb2b72c6977ab10fdef2c819909[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 18:31:18 2024 +0530
+
+    after ignoring projects folder
+
+[33mcommit 7f5719cc6402c63204d857018c6a828a48795895[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Thu May 23 18:27:19 2024 +0530
+
+    first commit
+
+[33mcommit 5a22fd7e8cef95a7a261021843dffb541d5d2ded[m
+Author: BOT Shreyasi <Sagar Sharma>
+Date:   Fri May 3 21:08:37 2024 +0530
+
+    first commit
+
+[33mcommit ad14afaa5679f4ae76dba391335a250f531abe96[m[33m ([m[1;31morigin/bilateral[m[33m)[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 30 17:47:11 2024 +0530
+
+    test
+
+[33mcommit 48d45d07182442bbe38dc367201ddbfdbc2a91af[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 30 17:32:30 2024 +0530
+
+    dashboard module added
+
+[33mcommit 31ecc38f9b1b39ad299ca6eafca82d8acd5d9360[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 30 16:29:31 2024 +0530
+
+    internal database search corrected
+
+[33mcommit a6939a48425fb4b608680cd22abc8dc2ca72c274[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 30 12:26:52 2024 +0530
+
+    paths corrected
+
+[33mcommit ec19c6af36bc2eefc67d8e0b61ab60b224c40daa[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 16:26:50 2024 +0530
+
+    new changes added
+
+[33mcommit 1cdc108e53d209845ecd356b2db80c77a47191fe[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 16:20:19 2024 +0530
+
+    bot flow codes added
+
+[33mcommit bd437ba609e76a43a931ff426616f34a8f5cfbf0[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 15:18:50 2024 +0530
+
+    botflow added
+
+[33mcommit 768122590a139e27aa104141dcec1fd0a541af9b[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 13:52:40 2024 +0530
+
+    email proj is completed except email editor as it is not installing
+
+[33mcommit 1099e227c51d2119320b5283d832278e307ee267[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 12:45:59 2024 +0530
+
+    email project created
+
+[33mcommit be55178c3983ab3be4756e19e0230488add15323[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 12:17:14 2024 +0530
+
+    message project codes are pushed
+
+[33mcommit 0f2cb28f697b6615970b717b0262e97bac9fbd50[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Mon Jan 29 10:59:09 2024 +0530
+
+    message project created
+
+[33mcommit 50367a6850b322216a897540d1b05a3de2fef6ab[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 27 16:48:06 2024 +0530
+
+    call detail report issue solved
+
+[33mcommit e3e2139533cfae46931cbff28a9ab644939595bf[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 27 15:45:33 2024 +0530
+
+    hiring manager grid implemented
+
+[33mcommit 37f047e2f6141ba8c84e1cb37260cabaab5fe006[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 27 13:50:25 2024 +0530
+
+    call details report changes added
+
+[33mcommit f543bc6dd611e27364e9df87ba67f25c5c9e044d[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 27 13:44:44 2024 +0530
+
+    candiadte status grid implemented
+
+[33mcommit d0b898cf9ed53b0da08100a547abfaa2bfc90773[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 27 13:28:29 2024 +0530
+
+    few changes added
+
+[33mcommit 40d1132f3da67fd72611de9c4c97fa8361e78a13[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 27 12:54:27 2024 +0530
+
+    initial grids are developed
+
+[33mcommit da92b7b63f80d7c760363373e521422a4bca4036[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Thu Jan 25 11:14:52 2024 +0530
+
+    chnages added
+
+[33mcommit 6592bbdc31171ae3566eb4298add74df17bb06dd[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 18:05:53 2024 +0530
+
+    test
+
+[33mcommit f3d39d0d35c717b9f72b7905e69db6fd19c14b1e[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 15:49:57 2024 +0530
+
+    test
+
+[33mcommit d8e3a0e58be9ff84f9a555e666413c3b6f681876[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 15:30:32 2024 +0530
+
+    bugs application removed
+
+[33mcommit c38b163be1d7c4a0c2dd16bad8634728c0f31227[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 13:42:02 2024 +0530
+
+    campaign project is implemented except prgrid
+
+[33mcommit c42a1f633d2040ca0fb18008988ae2fd89ec7b7a[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 13:16:31 2024 +0530
+
+    work in progress campaign project
+
+[33mcommit 75c515e3a45a24d8e357d8b3f096d8ca11e8bf7f[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 11:09:37 2024 +0530
+
+    test changes
+
+[33mcommit aed47dd57a6474e476afd0d086fb05b864a66054[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 24 10:39:52 2024 +0530
+
+    ngif removed from call details component
+
+[33mcommit d4ff3e7d7bc4aa7f7b13475797ab5a0df9f089b7[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 23 13:19:03 2024 +0530
+
+    spaces remove test
+
+[33mcommit cfa9701e069546c23ed9b20288f48ba72e97e378[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 23 13:06:14 2024 +0530
+
+    add-candidates implemented
+
+[33mcommit ece35c815ddde53cae582c37b39a00483fcd7f4c[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 23 12:30:53 2024 +0530
+
+    mailer chnages added
+
+[33mcommit 138a55096b6c76332b9125be187da5ed3c8e777f[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 23 11:35:02 2024 +0530
+
+    add to job candidates implemented
+
+[33mcommit 1b2eb7e24a395b1afcb368804979fa1e5a72e75b[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Fri Jan 19 16:41:22 2024 +0530
+
+    call components issues resolved by intgrating mat dialog
+
+[33mcommit ba204e02de6745c8b2ed75a871672fd7fd81db26[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Fri Jan 19 12:30:26 2024 +0530
+
+    filter button in history project issue resolved
+
+[33mcommit fa00df83712b1178563acee9da32e2e83e2e0b79[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 17 18:26:44 2024 +0530
+
+    message popup issuesresolved
+
+[33mcommit f5f8ac2244eff7fa66222683745268d297f7ab6f[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 17 15:40:37 2024 +0530
+
+    internaldatabase search implemented
+
+[33mcommit c15055ba3ea09f25cc802fe6aa68026a457282fb[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 17 12:05:08 2024 +0530
+
+    hiring-manager and create new hiring implemented
+
+[33mcommit a182d549b6db8d56aeb87c2227c4328efa2ba5ab[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Wed Jan 17 11:25:19 2024 +0530
+
+    hiring-manager and create-new-hiring is implemented just create new hiring page some ui issues and in hiring-manager grid issues are remaining
+
+[33mcommit df12ef6be1662f634954feae043f52c361a52d34[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Tue Jan 16 17:32:41 2024 +0530
+
+    call details page
+
+[33mcommit 0c7f330dd03d03698c5c3455266e17d98f3fd31e[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi.com>
+Date:   Sat Jan 13 12:27:54 2024 +0530
+
+    logout module added in non-authenticated module
+
+[33mcommit 14ec6e399f72e03833567cf5ad07802a5f78be1c[m
+Author: Tuhin Bhowmick <tuhin.b@botshreyasi

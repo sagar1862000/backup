@@ -1,0 +1,1346 @@
+<div class="main-content" style="position:relative;">
+    <div class="container-fluid">
+        <div class="card" style="height: auto;">
+            <div class="col-md-12 row" style=" margin-top: 20px">
+                <div class="col-md-2" style=" margin-top: 5px;">
+                    <input type="text" autocomplete="off" class="form-control" id='candidatessearch'
+                        [(ngModel)]="searchcandidate" (change)="filterbycandidate()" placeholder="Search Candidates">
+
+                </div>
+                <div class="col-sm-1 mt-2">
+                    <button class="btn  btn-outline-secondary btn-sm btn-default" (click)="filterbyJob()" type="button">
+                        Search
+                    </button>
+                </div>
+
+                <div class="col-md-2" style="margin-top: -10px;" *ngIf="alljobclient && db.mp.page_client">
+                    <ng-select [(ngModel)]="Client_ids" (change)='clientjobs()' placeholder="Search Client">
+                        <ng-option *ngFor="let x of clients" [value]="x.id"
+                            help="{{x.billingName}}">{{x.billingName}}</ng-option>
+                    </ng-select>
+                    <!-- <ng-select [(ngModel)]="Client_ids" (change)='bindJobs()' *ngIf="myjobclient" placeholder="Search client">
+            <ng-option *ngFor="let x of clients" [value]="x.id">{{x.billingName}}</ng-option>
+          </ng-select> -->
+                </div>
+
+                <div class="col-md-2" style="margin-top: -10px;" *ngIf="alljobdepartment && db.mp.page_departments">
+                    <ng-select [(ngModel)]="Client_ids" (change)='departmentjobs()' placeholder="Search Department">
+                        <ng-option *ngFor="let x of departmentslist" [value]="x.id"
+                            help="{{x.department}}">{{x.department}}
+                        </ng-option>
+                    </ng-select>
+                </div>
+
+                <div class="col-md-2" style="margin-top: -10px;" *ngIf="showjobs">
+                    <ng-select [(ngModel)]="searchcandidatetext" placeholder="Search Jobs" (change)="filteragain()">
+                        <ng-option *ngFor="let item of jobslist"
+                            value="{{item.job_title}}">{{item.job_title}}</ng-option>
+                    </ng-select>
+                </div>
+
+                <div class="col-sm-2 col-md-2 pull-right" style="margin-left: 10px; ">
+                    <button *ngIf="!db.profile.isvendor" class="btn btn-raised pull-right btn-sm btn-outline-secondary"
+                        [routerLink]="['/new-job']"><i class="material-icons">add_to_photos</i>Add New Job</button>
+                </div>
+
+                <!-- <mat-button-toggle-group class="col-md-2 pull-right" style="margin-top:0.6rem; height: 30px;" appearance="legacy"
+          *ngIf='db.mp.prometheusallpermission' name="fontStyle" aria-label="Font Style">
+          <mat-button-toggle value="bold" (click)="bindJobs();" title="click here for show all jobs">All Jobs
+          </mat-button-toggle>
+          <mat-button-toggle value="italic" (click)="bindJob();" title="click here for show your jobs">My jobs
+            
+            
+            <div>
+              <mat-select n="Owner" [(ngModel)]="recruiterjobs" class="col-sm-1">
+                <mat-option (click)="bindJob()" value="{{db.profile.id}}">Self</mat-option>
+                <mat-option (click)="bindJob()" value="{{x.id}}" *ngFor="let x of managers">{{x.name}}</mat-option>
+              </mat-select>
+            </div>
+          </mat-button-toggle>
+        </mat-button-toggle-group> -->
+                <div class="col-sm-2 col-md-2 pull-right" style="margin-left: 10px; ">
+
+                    <mat-button-toggle-group>
+                        <mat-button-toggle *ngIf='db.mp.prometheusallpermission' (click)="bindJobs();"
+                            title="click here for show all jobs">All Jobs</mat-button-toggle>
+                        <mat-button-toggle *ngIf='db.mp.prometheusteampermission' (click)="bindJob();"
+                            title="click here for show your jobs">My jobs</mat-button-toggle>
+                        <mat-button-toggle *ngIf='db.mp.prometheusmypjobermission' (click)="bindJobTeam();"
+                            title="click here for show Team jobs">My Team jobs</mat-button-toggle>
+                    </mat-button-toggle-group>
+
+                    <div class="col-sm-2 col-md-2 pull-right" style="margin-left: 10px; ">
+
+                    </div>
+                </div>
+
+                <!-- Assist content -->
+                <div class=" row">
+
+                    <div *ngIf='jobslist.length==0 && isfilter==false' class="col-md-12">
+
+                        <div class="alert alert-danger alert-dismissible">
+                            <a class="close" data-bs-dismiss="alert" aria-label="close">&times;</a>
+                            <i class="fa fa-exclamation-triangle"></i> <strong>Hi there !</strong> You neither created
+                            nor assigned any job yet, to start working.
+
+                            <span *ngIf="db.mp.add_new_job_store"> Please <a href="#/newjob"
+                                    class="btn  btn-raised btn-outline btn-default">click
+                                    here</a> to add job .</span>
+                            <span *ngIf="db.mp.add_new_job_store">Please contact your manager.</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:20px;" class="col-md-12 mx-3">
+
+                        <div class="row">
+                            <ul class="nav nav-tabs showloader pull-left col-md-7">
+                                <li *ngIf="!db.profile.isvendor"><a data-toggle="tab"
+                                        (click)='changefilter("Active","job_status")'
+                                        class="btn btn-outline-primary hightlighted_keyword btn-sm">Active</a></li>
+                                <li *ngIf="!db.profile.isvendor"><a data-toggle="tab"
+                                        (click)='changefilter("Hold","job_status")'
+                                        class="btn btn-outline-primary hightlighted_keyword btn-sm">Hold</a></li>
+                                <li *ngIf="!db.profile.isvendor"><a data-toggle="tab"
+                                        (click)='changefilter("Closed","job_status")'
+                                        class="btn  btn-outline-primary hightlighted_keyword btn-sm">Closed</a></li>
+                                <li *ngIf="!db.profile.isvendor"><a data-toggle="tab"
+                                        (click)='changefilter(1,"website")'
+                                        class="btn btn-outline-primary hightlighted_keyword btn-sm">Visible on
+                                        Website</a></li>
+
+                                <li *ngIf="!db.profile.isvendor"><a data-toggle="tab"
+                                        style="background:#ddf295; color:#251e22;"
+                                        (click)='changefilter("Interview","interview")'
+                                        class="btn btn-outline-primary hightlighted_keyword btn-sm">Interview</a></li>
+
+                                <li><a data-toggle="tab" (click)='changefilter("All","job_status")'
+                                        class="btn btn-outline-primary btn-sm">All</a></li>
+                                <li><a data-toggle="tab" (click)='changefilter("Tagged","tagged")'
+                                        class="btn btn-outline-primary btn-sm">Tagged</a></li>
+                                <!-- <li style="margin-top: -4px;">
+              <button type="button" class="btn btn-sm btn-raised  btn-primary" (click)='assignjobClick()'
+              style="margin-top: 9px;" *ngIf='db.mp.btn_assign_job_to_recruiter'>Assign Job</button>
+            </li> -->
+                                <li style="margin-top: -6px;">
+                                    <button type="button" class="btn btn-outline-primary btn-sm btn-raised"
+                                        (click)="loadvendor()" style="margin-top: 6px;"
+                                        *ngIf='db.mp.btn_assign_job_to_vendor'>Assign Job to Vendor</button>
+                                </li>
+                                <li style="margin-top: -4px;">
+                                    <button type="button" class="btn btn-outline-primary btn-sm btn-raised"
+                                        data-toggle="modal" (click)="openaddvendor()" data-target="#addvendor"
+                                        style="margin-top: 4px;" *ngIf='db.mp.btn_add_vendor'>Add Vendor</button>
+                                </li>
+
+                            </ul>
+                            <ul class="col-md-5">
+                                <li style="margin-top: -8px; text-align: right;">
+                                    <pagination-controls *ngIf="iscomputerMenu()" previousLabel="Previous"
+                                        nextLabel="Next" screenReaderPaginationLabel="Pagination"
+                                        screenReaderPageLabel="page" screenReaderCurrentLabel="You're on page"
+                                        class="pull-right my-pagination" (pageChange)="p = $event">
+                                    </pagination-controls>
+                                    <div class="col-md-3" *ngIf="isMobileMenu()">
+                                        <pagination-controls previousLabel="Previous" nextLabel="Next"
+                                            screenReaderPaginationLabel="Pagination" screenReaderPageLabel="page"
+                                            screenReaderCurrentLabel="You're on page" class="my-pagination"
+                                            (pageChange)="p = $event">
+                                        </pagination-controls>
+                                    </div>
+
+                                </li>
+                            </ul>
+                            <!-- <hr>
+        <div class="col-sm-3">
+
+        </div> -->
+                        </div>
+
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="box box-primary" id="#">
+
+                            <mat-progress-bar mode="indeterminate" *ngIf="isLoadingJobs"></mat-progress-bar>
+                            <div class="row" *ngIf="iscomputerMenu()">
+                                <div class="col-md-12">
+                                    <div class="card" style="border: 1px solid grey; height: auto;"
+                                        (click)="selectdeselect($event,item)"
+                                        *ngFor="let item of jobslist;  let i = index">
+                                        <div class="card-header card-header-{{item.selected?'info':'none'}}"
+                                            style="margin-top: 0px; height: auto;" title="{{item.Assign_Recruter}}">
+                                            <h4 class="card-title">
+                                                <a class="title_in" href="/editjob/{{item.id}}"
+                                                    ___stopclick="showJob(item.id, $event)"
+                                                    title="{{item.Assign_Recruter}}">
+                                                    <span class="hightlighted_keyword" style="color:darkblue">
+                                                        {{item.job_title}}</span> &nbsp;
+                                                </a>
+                                                <span itemprop="title" class="title_in" style="margin-right:2px;">
+                                                    <span style="color: black;">( Job ID :
+                                                        {{item.category_code}}{{item.id}})</span> &nbsp;
+                                                    <span itemtype="#" help='Client'
+                                                        style="color: black;">{{item.ClientName}} </span>
+                                                    <span itemtype="#" help='Department'
+                                                        style="color: black;">{{item.DepartmentName}} </span>
+
+
+                                                    <!-- departmentsdata  -->
+
+                                                </span>
+                                            </h4>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <div class="card-category"
+                                                style="display: flex; width:auto;  padding:0; justify-content: space-between;">
+                                                <div>
+
+                                                    <span style="color: grey; ">Location:{{item.location}}</span>
+                                                    <span
+                                                        style="margin-left:10px; color: grey;">Experience:{{item.minimumExperience}}-{{item.maximumExperience}}Years,</span>
+                                                    <span
+                                                        style="margin-left:10px; color: grey; ">Salary:{{item.minimumSalary/100000}}-{{item.maximumSalary/100000}}
+                                                        Lakh</span>
+                                                    <!-- <span>Experience:{{item.location}}</span> -->
+                                                    <span style='padding-left:10px; display:inline-block;'
+                                                        *ngIf="!db.mp.hide_referral_bonus">
+                                                        <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                                                        *ngIf='db.mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                                                        class="selectapproved{{item.is_approved_by_manager}}"
+                                                        help="Approved by manager">
+                                                        <i class="fa fa-check"></i>
+                                                    </span>
+
+                                                </div>
+
+                                                <div>
+                                                    <span class="pull-right socialdiv" (mouseenter)="enter(i)"
+                                                        (mouseleave)="leave(i)" itemtype="#">
+                                                        <a mat-mini-fab class="icousers" id="iconbackground"
+                                                            help="Change Job Status">
+                                                            <span matPrefix
+                                                                style="position: absolute; margin-left: -3px;">
+                                                                <mat-icon class="icones">notifications_active
+                                                                </mat-icon>
+                                                            </span>
+                                                            <mat-select [(ngModel)]="job_status"
+                                                                (change)="myjobActivity('undifined')">
+                                                                <mat-option (click)="myjobActivity(item)"
+                                                                    value="Hold">Hold</mat-option>
+                                                                <mat-option (click)="myjobActivity(item)"
+                                                                    value="Active">Active</mat-option>
+                                                                <mat-option (click)="myjobActivity(item)"
+                                                                    value="Closed">Closed</mat-option>
+                                                            </mat-select>
+
+                                                        </a>
+
+                                                        <!-- <button mat-button [matMenuTriggerFor]="jobActivity" class="btn btn-sm btn-outline-secondary icousers"
+              data-toggle="modal" help='Add Candidate' id="iconbackground"><i class="fa fa-users icones"></i></button> -->
+
+                                                        &nbsp;
+
+                                                        <a mat-mini-fab class="icousers" id="iconbackground"
+                                                            *ngIf="!db.profile.isvendor" title="View Releted Candidates"
+                                                            href="javascript:" (click)="viewreletedjobs(item)"
+                                                            data-toggle="modal" data-target="#viewrelatedjobs"
+                                                            style="position:relative; padding:0;">
+                                                            <mat-icon class="icones">message</mat-icon>
+                                                        </a>
+
+                                                        &nbsp;
+
+                                                        <a mat-mini-fab class="icousers" id="iconbackground"
+                                                            *ngIf="!db.profile.isvendor" title="Assign to recruiter"
+                                                            href="javascript:" (click)="assignjobClick()">
+                                                            <i class="fa fa-share-square-o icones"></i>
+                                                        </a> &nbsp;
+                                                        <!--<a   *ngIf='mp.btn_approve_job_by_manager' class="select{{item.is_approved_by_manager}}" help="approved" href="javascript:"-->
+
+                                                        <!-- <a mat-mini-fab id="iconbackground" *ngIf="!db.profile.isvendor || db.mp.btn_approve_job_by_manager"
+                  title="Approve by Manager" href="javascript:" (click)="is_approved_by_manager(item)">
+                  <i class="fa fa-check icones"></i>
+                </a>&nbsp; -->
+
+                                                        <a mat-mini-fab color="white" title="Tag" href="javascript:"
+                                                            (click)="tag(item);"
+                                                            [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}">
+
+                                                            <i class="fa fa-tags icones"></i>
+                                                        </a>&nbsp;
+                                                        <a mat-mini-fab class="" id="iconbackground"
+                                                            *ngIf="!db.profile.isvendor" href="javascript:"
+                                                            (click)="showjd(item)" title="Show JD"
+                                                            style='color:black; background:#ffffbe;'>
+                                                            <i class="fa fa-bolt icones"></i>
+                                                        </a> &nbsp;
+                                                        <a mat-mini-fab id="iconbackground"
+                                                            *ngIf='item.visibleonwebsite==1' class=""
+                                                            href="{{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}"
+                                                            target="_blank" style='color:red; background:white;'
+                                                            title='Visible on Website'>
+                                                            <i class="fa fa-eye icones"></i>
+                                                        </a>
+
+                                                        <a mat-mini-fab data-toggle="modal" id="iconbackground"
+                                                            *ngIf="db.mp.btn_take_internal_refeference"
+                                                            data-target="#internalreference" href="javascript:"
+                                                            (click)="GetInHourseReference(item.id, $event)"
+                                                            class="text-danger" title='get reference internal'
+                                                            title='get reference internal'>
+                                                            <i class="fa fa-bullhorn  icones"></i>
+                                                        </a> &nbsp;
+                                                        <a mat-mini-fab href="" data-toggle="modal" id="iconbackground"
+                                                            data-target="#uploadexcel"
+                                                            (click)="openmodal('#uploadexcel')" target="_blank"
+                                                            class="pull-right text-aqua"
+                                                            *ngIf="db.mp.btn_upload_cv_myjobs">
+                                                            <i title='Add Candidate' class="fa fa-upload icones"></i>
+                                                        </a> &nbsp;
+
+                                                        <!-- <a mat-mini-fab class="facebook" *ngIf="!db.profile.isvendor" id="iconbackground"
+                      href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}/{{item.id}}/{{item.app_id}}/00&text={{item.job_title}}"
+                      target="_blank">
+                      <i class="fa fa-facebook icones"></i>
+                    </a> &nbsp; -->
+                                                        <a mat-mini-fab title="Copy Link" class="Other"
+                                                            *ngIf="!db.profile.isvendor" id="iconbackground"
+                                                            (click)="copyText(item.id,item.app_id,db.profile.id)">
+                                                            <i class="fa fa-clone icones"></i></a>&nbsp;
+                                                        <a class="twitter" mat-mini-fab *ngIf="!db.profile.isvendor"
+                                                            id="iconbackground"
+                                                            href="https://twitter.com/share?url={{$urlapply}}/{{item.id}}/{{item.app_id}}/{{db.profile.id}}/twitter"
+                                                            target="_blank" title="twitter">
+                                                            <i class="fa fa-twitter icones "></i>
+                                                        </a> &nbsp;
+
+                                                        <a class="linkedin" mat-mini-fab *ngIf="!db.profile.isvendor"
+                                                            title="linkedin" id="iconbackground"
+                                                            href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}/{{item.id}}/{{item.app_id}}/{{db.profile.id}}/linkedin"
+                                                            target="_blank">
+                                                            <i class="fa fa-linkedin icones"></i>
+                                                        </a> &nbsp;
+                                                    </span>
+                                                </div>
+                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                            <div class="member-social pull-right col-md-4 shareparent"
+                                                style="text-align: right;">
+
+
+
+
+                                            </div>
+
+                                            <div class="col-md-12" style="margin-top: 20px; display: flex;">
+                                                <div class='row buttonwithnumber '
+                                                    style="position:relative; margin-left:auto; padding:0; width:119%;">
+
+                                                    <button mat-raised-button color="secondary"
+                                                        matBadge="{{item.allcandidate}}" matBadgePosition="after"
+                                                        matBadgeColor="primary" class="btn btn-outline btn-sm"
+                                                        (click)="filterdrbytab('My Candidates', 'all', item)"
+                                                        data-toggle="modal" data-target="#candidatesall"
+                                                        id="matBadgebutton">All
+                                                    </button>
+
+                                                    <button type="button" mat-raised-button color="secondary"
+                                                        matBadge="{{item.underreview}}" matBadgePosition="after"
+                                                        matBadgeColor="primary" class="btn btn-outline btn-sm"
+                                                        (click)="filterdrbytab('My Candidates', 'Under Review', item)"
+                                                        data-toggle="modal" data-target="#candidatesall"
+                                                        id="matBadgebutton">In Review/Referrals
+
+                                                    </button>
+                                                    <button mat-raised-button color="secondary"
+                                                        matBadge="{{item.inprocess}}" matBadgePosition="after"
+                                                        matBadgeColor="primary" type="button"
+                                                        class="btnnew2 btn btn-outline btn-sm"
+                                                        (click)="filterdrbytab('My Candidates', 'In Process', item)"
+                                                        data-toggle="modal" data-target="#candidatesall"
+                                                        id="matBadgebutton">In process
+
+                                                    </button>
+                                                    <button mat-raised-button color="secondary"
+                                                        matBadge="{{item.candidates_interview_count}}"
+                                                        matBadgePosition="after" matBadgeColor="primary" type="button"
+                                                        class="btnnew5 btn btn-outline btn-sm"
+                                                        (click)="filterdrbytab('My Candidates', 'isinterview', item)"
+                                                        data-toggle="modal" data-target="#candidatesall"
+                                                        id="matBadgebutton">Interview
+
+                                                    </button>
+                                                    <button mat-raised-button color="secondary"
+                                                        matBadge="{{item.selectedcandidate}}" matBadgePosition="after"
+                                                        matBadgeColor="primary" type="button"
+                                                        class=" btnnew3 btn btn-outline btn-sm "
+                                                        (click)="filterdrbytab('My Candidates', 'Selected', item)"
+                                                        data-toggle="modal" data-target="#candidatesall"
+                                                        id="matBadgebutton"> Selected
+
+                                                    </button>
+                                                    <button mat-raised-button color="secondary"
+                                                        matBadge="{{item.rejected}}" matBadgePosition="after"
+                                                        matBadgeColor="primary" type="button"
+                                                        class=" btnnew4 btn btn-outline btn-sm"
+                                                        (click)="filterdrbytab('My Candidates', 'Rejected', item)"
+                                                        data-toggle="modal" data-target="#candidatesall"
+                                                        id="matBadgebutton">Rejected
+
+                                                    </button>
+
+                                                </div>
+                                                <div>
+                                                    <span style="color: green;clear: both;
+                                                display: inline-block;
+                                                overflow: hidden;
+                                                white-space: nowrap; margin-top: 10px;"><em
+                                                            style="color: black;">Created At:</em>&nbsp;
+                                                        {{item.CreatedDate}}</span>
+                                                </div>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row" *ngIf="isMobileMenu()">
+                                <div class="col-md-12">
+                                    <div class="card" style="border: 1px solid grey; height: auto;"
+                                        (click)="selectdeselect($event,item)"
+                                        *ngFor="let item of jobslist ;  let i = index">
+                                        <div class="card-header card-header-{{item.selected?'info':'none'}}"
+                                            style="margin-top: 0px; height: auto;" title="{{item.Assign_Recruter}}">
+                                            <h6 class="card-title">
+                                                <a class="title_in" href="/editjob/{{item.id}}"
+                                                    ___stopclick="showJob(item.id, $event)"
+                                                    title="{{item.Assign_Recruter}}">
+                                                    <span class="hightlighted_keyword" style="color:darkblue">
+                                                        {{item.job_title}}</span> &nbsp;
+                                                </a>
+                                                <span itemprop="title" class="title_in" style="margin-right:2px;">
+                                                    <span style="color: black;">( Job ID :
+                                                        {{item.category_code}}{{item.id}})</span> &nbsp;
+                                                    <span itemtype="#" help='Client'
+                                                        style="color: black;">{{item.ClientName}} </span>
+
+                                                </span>
+                                            </h6>
+                                            <p class="card-category">
+
+
+                                                <span style="color: grey;">Location:{{item.location}}</span>
+                                                <span
+                                                    style="margin-left:10px; color: grey;">Experience:{{item.minimumExperience}}-{{item.maximumExperience}}Years,</span>
+                                                <span
+                                                    style="margin-left:10px; color: grey;">Salary:{{item.minimumSalary/100000}}-{{item.maximumSalary/100000}}
+                                                    Lakh</span>
+                                                <!-- <span>Experience:{{item.location}}</span> -->
+                                                <span style='padding-left:10px; display:inline-block;'
+                                                    *ngIf="!db.mp.hide_referral_bonus">
+                                                    <i class='fa fa-inr'></i> {{item.referralBonus}} </span> <span
+                                                    *ngIf='db.mp.btn_approve_job_by_manager || item.is_approved_by_manager=="0"'
+                                                    class="selectapproved{{item.is_approved_by_manager}}"
+                                                    title="Approved by manager">
+                                                    <i class="fa fa-check"></i>
+                                                </span>
+
+
+
+
+                                            </p>
+
+
+
+                                            <!-- <div class="member-social pull-right col-md-4 shareparent" style="text-align: right;">
+
+                  <br>
+                  <span style="color: green;"><em style="color: black;">Created At:</em>&nbsp;
+                    {{item.CreatedDate}}</span>
+
+
+                </div> -->
+
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <div class="row">
+                                                        <div class="col-8 col-sm-8">
+                                                            <div class='row buttonwithnumber'>
+
+                                                                <button mat-raised-button color="primary"
+                                                                    matBadge="{{item.allcandidate}}"
+                                                                    matBadgePosition="after" matBadgeColor="accent"
+                                                                    class="btn btn-sm"
+                                                                    (click)="filterdrbytab('My Candidates', 'all', item)"
+                                                                    data-toggle="modal" data-target="#candidatesall">All
+                                                                </button>
+
+                                                                <button mat-raised-button color="primary"
+                                                                    matBadge="{{item.inprocess}}"
+                                                                    matBadgePosition="after" matBadgeColor="accent"
+                                                                    type="button" class="btnnew2 btn btn-sm"
+                                                                    (click)="filterdrbytab('My Candidates', 'In Process', item)"
+                                                                    data-toggle="modal" data-target="#candidatesall">In
+                                                                    process
+
+                                                                </button>
+                                                                <button mat-raised-button color="primary"
+                                                                    matBadge="{{item.candidates_interview_count}}"
+                                                                    matBadgePosition="after" matBadgeColor="accent"
+                                                                    type="button" class="btnnew5 btn btn-sm"
+                                                                    (click)="filterdrbytab('My Candidates', 'isinterview', item)"
+                                                                    data-toggle="modal"
+                                                                    data-target="#candidatesall">Interview
+
+                                                                </button>
+                                                                <button mat-raised-button color="primary"
+                                                                    matBadge="{{item.selectedcandidate}}"
+                                                                    matBadgePosition="after" matBadgeColor="accent"
+                                                                    type="button" class=" btnnew3 btn btn-sm "
+                                                                    (click)="filterdrbytab('My Candidates', 'Selected', item)"
+                                                                    data-toggle="modal" data-target="#candidatesall">
+                                                                    Selected
+
+                                                                </button>
+                                                                <button mat-raised-button color="primary"
+                                                                    matBadge="{{item.rejected}}"
+                                                                    matBadgePosition="after" matBadgeColor="accent"
+                                                                    type="button" class=" btnnew4 btn btn-sm"
+                                                                    (click)="filterdrbytab('My Candidates', 'Rejected', item)"
+                                                                    data-toggle="modal"
+                                                                    data-target="#candidatesall">Rejected
+
+                                                                </button>
+
+                                                                <button type="button" mat-raised-button color="primary"
+                                                                    matBadge="{{item.underreview}}"
+                                                                    matBadgePosition="after" matBadgeColor="accent"
+                                                                    class="btn btn-sm"
+                                                                    (click)="filterdrbytab('My Candidates', 'Under Review', item)"
+                                                                    data-toggle="modal" data-target="#candidatesall">In
+                                                                    Review/Referrals
+
+                                                                </button>
+                                                            </div>
+
+                                                        </div>
+
+                                                        <div class="pull-right col-4 col-sm-4">
+                                                            <div class="row">
+                                                                <div class="col-sm-12">
+                                                                    <div class="row">
+                                                                        <div class="col-6 col-sm-6 pull-left ">
+                                                                            <span class=" socialdiv"
+                                                                                (mouseenter)="enter(i)"
+                                                                                (mouseleave)="leave(i)" itemtype="#">
+                                                                                <a mat-mini-fab class="icousers"
+                                                                                    id="iconbackground"
+                                                                                    title="Change Job Status">
+                                                                                    <span matPrefix
+                                                                                        style="position: absolute;">
+                                                                                        <mat-icon
+                                                                                            style="margin-left: -2px; margin-top: -2px;"
+                                                                                            class="icones">
+                                                                                            notifications_active
+                                                                                        </mat-icon>
+                                                                                    </span>
+                                                                                    <mat-select [(ngModel)]="job_status"
+                                                                                        (change)="myjobActivity('undifined')">
+                                                                                        <mat-option
+                                                                                            (click)="myjobActivity(item)"
+                                                                                            value="Hold">Hold</mat-option>
+                                                                                        <mat-option
+                                                                                            (click)="myjobActivity(item)"
+                                                                                            value="Active">Active</mat-option>
+                                                                                        <mat-option
+                                                                                            (click)="myjobActivity(item)"
+                                                                                            value="Closed">Closed</mat-option>
+                                                                                    </mat-select>
+
+                                                                                </a>
+
+                                                                                <a mat-mini-fab class="icousers"
+                                                                                    id="iconbackground"
+                                                                                    *ngIf="!db.profile.isvendor"
+                                                                                    title="View Releted Candidates"
+                                                                                    href="javascript:"
+                                                                                    (click)="viewreletedjobs(item)"
+                                                                                    data-toggle="modal"
+                                                                                    data-target="#viewrelatedjobs">
+                                                                                    <mat-icon
+                                                                                        class="icones">message</mat-icon>
+                                                                                </a>
+
+
+                                                                                <a mat-mini-fab class="icousers"
+                                                                                    id="iconbackground"
+                                                                                    *ngIf="!db.profile.isvendor"
+                                                                                    title="Assign to recruiter"
+                                                                                    href="javascript:"
+                                                                                    (click)="assignjobClick()">
+                                                                                    <i
+                                                                                        class="fa fa-share-square-o icones"></i>
+                                                                                </a>
+
+                                                                                <a mat-mini-fab color="white"
+                                                                                    title="Tag" href="javascript:"
+                                                                                    (click)="tag(item);"
+                                                                                    [ngClass]="{'test': item.tagged==='11','redClass' :item.tagged =='11'}">
+
+                                                                                    <i class="fa fa-tags icones"></i>
+                                                                                </a>
+                                                                                <a mat-mini-fab class=""
+                                                                                    id="iconbackground"
+                                                                                    *ngIf="!db.profile.isvendor"
+                                                                                    href="javascript:"
+                                                                                    (click)="showjd(item)"
+                                                                                    help="Show JD"
+                                                                                    style='color:black; background:#ffffbe;'>
+                                                                                    <i class="fa fa-bolt icones"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                        <div class="col-6 col-sm-6">
+                                                                            <span class="socialdiv"
+                                                                                (mouseenter)="enter(i)"
+                                                                                (mouseleave)="leave(i)" itemtype="#">
+                                                                                <a mat-mini-fab id="iconbackground"
+                                                                                    *ngIf='item.visibleonwebsite==1'
+                                                                                    class=""
+                                                                                    href="{{$url}}/{{item.slug}}/{{item.id}}/{{db.profile.id}}"
+                                                                                    target="_blank"
+                                                                                    style='color:red; background:white;'
+                                                                                    title='Visible on Website'>
+                                                                                    <i class="fa fa-eye icones"></i>
+                                                                                </a>
+
+                                                                                <a mat-mini-fab data-toggle="modal"
+                                                                                    id="iconbackground"
+                                                                                    *ngIf="db.mp.btn_take_internal_refeference"
+                                                                                    data-target="#internalreference"
+                                                                                    href="javascript:"
+                                                                                    (click)="GetInHourseReference(item.id, $event)"
+                                                                                    class="text-danger"
+                                                                                    help='get reference internal'
+                                                                                    title='get reference internal'>
+                                                                                    <i
+                                                                                        class="fa fa-bullhorn  icones"></i>
+                                                                                </a>
+                                                                                <a mat-mini-fab href=""
+                                                                                    data-toggle="modal"
+                                                                                    id="iconbackground"
+                                                                                    data-target="#uploadexcel"
+                                                                                    target="_blank" class="text-aqua"
+                                                                                    *ngIf="db.mp.btn_upload_cv_myjobs">
+                                                                                    <i help='Add Candidate'
+                                                                                        class="fa fa-upload icones"></i>
+                                                                                </a>
+
+                                                                                <a mat-mini-fab class="facebook"
+                                                                                    *ngIf="!db.profile.isvendor"
+                                                                                    id="iconbackground"
+                                                                                    href="https://www.facebook.com/sharer/sharer.php?u={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                                                                                    target="_blank">
+                                                                                    <i class="fa fa-facebook icones"
+                                                                                        titkle="facebook"></i>
+                                                                                </a>
+
+                                                                                <a class="twitter" mat-mini-fab
+                                                                                    *ngIf="!db.profile.isvendor"
+                                                                                    id="iconbackground"
+                                                                                    href="https://twitter.com/share?url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&text={{item.job_title}}"
+                                                                                    target="_blank">
+                                                                                    <i class="fa fa-twitter icones "
+                                                                                        title="twitter"></i>
+                                                                                </a>
+
+                                                                                <a class="linkedin" mat-mini-fab
+                                                                                    *ngIf="!db.profile.isvendor"
+                                                                                    id="iconbackground" title="linkedin"
+                                                                                    href="https://www.linkedin.com/shareArticle?mini=true&url={{$urlapply}}/{{item.slug}}/{{item.id}}/00&title={{item.job_title}}&summary={{item.job_title}}&source=sadf"
+                                                                                    target="_blank">
+                                                                                    <i
+                                                                                        class="fa fa-linkedin icones"></i>
+                                                                                </a>
+                                                                            </span>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="member-social pull-right col-md-4 shareparent"
+                                                style="text-align: right;">
+
+                                                <br>
+                                                <span style="color: green;"><em style="color: black;">Created
+                                                        At:</em>&nbsp;
+                                                    {{item.CreatedDate}}</span>
+
+
+                                            </div>
+
+
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+
+                            <mat-card [hidden]='jobslist.length>0||isLoadingJobs'>
+                                No Data Found
+                            </mat-card>
+
+
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="clearfix"></div>
+
+                    </div>
+
+                    <div class="col-12">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+                                            tabindex="-1" id="vendor" class="modal fade">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button aria-hidden="true" data-bs-dismiss="modal" class="close"
+                                                            type="button">×</button>
+
+                                                    </div>
+                                                    <div class="box box-primary">
+                                                        <div class="box-header">
+                                                            <i class="ion ion-clipboard"></i>
+
+                                                            <h3 class="box-title text-center">Assign Job to Vendor</h3>
+
+
+                                                        </div>
+
+                                                        <div class="box-body">
+                                                            <input type="text" autocomplete="off"
+                                                                [(ngModel)]="vendorSearch" class="form-control"
+                                                                placeholder="Search" ngDefaultControl />
+
+                                                            <div class="card-body table-responsive">
+                                                                <table class="table table-hover">
+
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="referral">
+                                                                                <div class="clearfix"
+                                                                                    style="clear:both;"></div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4"
+                                                                                        style="margin-top:0px;"
+                                                                                        *ngFor="let vendor of vendors"
+                                                                                        ngDefaultControl>
+                                                                                        <label><input class=""
+                                                                                                type="checkbox"
+                                                                                                [(ngModel)]="vendor.selected">{{vendor.name}}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+
+                                                            <!-- <ul class="todo-list">
+
+                          <li *ngFor="let vendor of vendors |sort:'name'|FilterPipe:'name':vendorSearch"
+                            ngDefaultControl>
+                            <input type="checkbox" [(ngModel)]="vendor.selected" ngDefaultControl>
+                            <span class="text"> {{vendor.name}}</span>
+                          </li>
+                        </ul> -->
+                                                        </div>
+                                                        <!-- /.box-body -->
+                                                        <div class="box-footer clearfix no-border">
+                                                            <button type="button"
+                                                                class="btn  btn-raised btn-default pull-right"
+                                                                (click)="assignjobtovendor()"> Assign Job</button>
+                                                            <button type="button"
+                                                                class="btn  btn-raised btn-default pull-right"
+                                                                (click)="unassignjobtovendor()"
+                                                                title="selected vendor will be removed from job">Un-Assign
+                                                                Job</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+                                            tabindex="-1" id="myModal-4" class="modal fade">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <button aria-hidden="true" data-bs-dismiss="modal"
+                                                            class="close btn btn-block" type="button">×</button>
+
+                                                    </div>
+                                                    <div class="box box-primary">
+                                                        <div class="box-header">
+                                                            <i class="ion ion-clipboard"></i>
+
+                                                            <h3 class="box-title text-center">Assign Job</h3>
+
+                                                        </div>
+                                                        <!-- /.box-header -->
+
+                                                        <div class="box-body">
+                                                            <input type="text" autocomplete="off"
+                                                                [(ngModel)]="managerSearch" class="form-control"
+                                                                placeholder="Search" ngDefaultControl />
+                                                            <!-- <div class="clearfix" style="clear:both;"></div>
+
+                          <div class="col-md-4" style="margin-top:0px;"
+                          *ngFor="let manager of managers|sort:'name'|FilterPipe:'name':managerSearch"
+                          ngDefaultControl>
+                          <label><input class="" type="checkbox" [(ngModel)]="manager.selected">{{manager.name}} </label>
+                        </div> -->
+                                                            <div class="card-body table-responsive">
+                                                                <table class="table table-hover">
+
+                                                                    <tbody>
+                                                                        <tr>
+                                                                            <td class="referral">
+                                                                                <div class="clearfix"
+                                                                                    style="clear:both;"></div>
+                                                                                <div class="row">
+                                                                                    <div class="col-md-4"
+                                                                                        style="margin-top:0px;"
+                                                                                        *ngFor="let manager of USR.managers"
+                                                                                        ngDefaultControl>
+                                                                                        <label><input class=""
+                                                                                                type="checkbox"
+                                                                                                [(ngModel)]="manager.selected">{{manager.name}}
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </td>
+                                                                        </tr>
+                                                                    </tbody>
+                                                                </table>
+                                                            </div>
+                                                            <!-- <ul class="todo-list">
+                          {{selectedmanager}}
+                          <li *ngFor="let manager of managers|sort:'name'|FilterPipe:'name':managerSearch"
+                            ngDefaultControl>
+                            <input type="checkbox" [(ngModel)]="manager.selected">
+                            <span class="text"> {{manager.name}}</span>
+
+
+                          </li>
+                        </ul> -->
+                                                        </div>
+                                                        <!-- /.box-body -->
+                                                        <div class="box-footer clearfix no-border">
+                                                            <!-- <button type="button" class="btn  btn-raised btn-default pull-right" (click)="assignjob()">
+                          Assign Job</button> -->
+                                                            <div
+                                                                class="btn  btn-raised  btn btn-outline-primary pull-right">
+                                                                <span>Assign Job</span>
+                                                                <div style="margin-top: -20px;">
+                                                                    <mat-select n="Owner" [(ngModel)]="AssignDate"
+                                                                        (change)="assignjob()">
+                                                                        <mat-option (click)="assignjob()"
+                                                                            value="OneDay">Assign For One
+                                                                            Day</mat-option>
+                                                                        <mat-option (click)="assignjob()"
+                                                                            value="TowDay">Assign For Two
+                                                                            Day</mat-option>
+                                                                        <mat-option (click)="assignjob()"
+                                                                            value="always">permanently
+                                                                            assign</mat-option>
+                                                                    </mat-select>
+                                                                </div>
+                                                            </div> &nbsp;
+                                                            <button type="button"
+                                                                class="btn  btn-raised btn btn-outline-primary pull-right"
+                                                                (click)="unassignjob()"
+                                                                title="Selected recruiter will be removed from selected job !!">
+                                                                Unassigned Job</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+
+                                        <!--unassigned pop up for vendors or recruiters-->
+                                        <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+                                            tabindex="-1" id="myModal-5" class="modal fade">
+                                            <div class="modal-dialog modal-lg">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h3 class="box-title text-center">Assign Job</h3>
+                                                        <button aria-hidden="true" data-bs-dismiss="modal" class="close"
+                                                            type="button">×</button>
+
+                                                    </div>
+                                                    <div class="box box-primary">
+
+
+                                                        <div class="box-body">
+
+                                                            <ul class="todo-list" style="list-style: none;">
+                                                                {{selectedmanager}}
+                                                                <li *ngFor="let manager of managers">
+
+
+                                                                    <!-- drag handle -->
+
+                                                                    <!-- checkbox <input type="checkbox" ng-checked="selectedmanagerlist.indexOf(manager.id)>-1" [(ngModel)]="selectedmanager" ng-change="selectedmanagerlistset(manager.id)" value="{{manager.id}}"> -->
+
+                                                                    <input type="checkbox"
+                                                                        [(ngModel)]="manager.selected" ngDefaultControl>
+
+
+                                                                    <!-- todo text -->
+                                                                    <span class="text"> {{manager.name}}</span>
+                                                                    <!-- Emphasis label -->
+
+
+                                                                </li>
+
+
+
+
+                                                            </ul>
+                                                        </div>
+                                                        <!-- /.box-body -->
+                                                        <div class="box-footer clearfix no-border">
+                                                            <button type="button"
+                                                                class="btn  btn-raised btn-default pull-right"
+                                                                (click)="assignjob()">
+                                                                Assign Job</button>
+                                                            <button type="button"
+                                                                class="btn  btn-raised btn-default pull-right"
+                                                                (click)="unassignjob()">
+                                                                Unassigned Job</button>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!--end unassigned job-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- End Assist Content -->
+
+
+
+
+                <!-- All Candidate -->
+                <div class="modal fade" id="internalreference" role="dialog">
+                    <div class="modal-dialog modal-md">
+
+
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h6 class="modal-title">Get Reference</h6> <button type="button" class="close"
+                                    data-bs-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+
+                                <div (click)="changechecked(department)" *ngFor="let department of  departments">
+                                    <label>
+                                        <i *ngIf="department.selected" class="fa fa-check-square-o "
+                                            style="color:green;"></i>
+                                        <i [hidden]="department.selected" class="text-green fa fa-square-o"></i>
+                                        {{department.department}}</label>
+
+                                </div>
+                                <div class="form-group">
+                                    <label for="prmSubject">Subject:</label>
+                                    <input type="text" autocomplete="off" [(ngModel)]='prmSubject' class="form-control"
+                                        id="prmSubject" ngDefaultControl>
+                                </div>
+                                <div class="form-group">
+                                    <label for="prmMessagge">Message:</label>
+                                    <textarea [(ngModel)]='prmMessagge' contenteditable class="form-control"
+                                        id="prmMessagge" ngDefaultControl></textarea>
+                                </div>
+
+                                <input type="button" (click)="getinternalreferrence()" value="submit"
+                                    class="btn  btn-raised btn-success">
+
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- All End Candidate-->
+
+
+                <!-- Assign Job -->
+                <div id="showcvs" class="modal fade " role="dialog">
+                    <div class="modal-dialog modal-lg" style="width:100%;">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button aria-hidden="true" data-bs-dismiss="modal" class="close"
+                                    type="button">×</button>
+                                <h6 class="modal-title">CVS</h6>
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <form class="table-responsive" id="cvformdata">
+
+                                        <table class="table table-bordered">
+                                            <tr *ngFor="let cv of cvslists">
+                                                <td *ngIf='cv.statusofsubmit'></td>
+                                                <th>CV</th>
+                                                <th>CANDIDATE NAME</th>
+                                                <th>MOBILE NO</th>
+                                                <th>EMAIL</th>
+                                                <th>RELEVANT EXPERIANCE</th>
+                                                <th>QUALIFICATION</th>
+                                                <th>CURRENT SALARY</th>
+
+                                                <th>LOCATION</th>
+                                                <th>PREFERRED LOCATION</th>
+                                                <th>CURRENT DESIGNATION</th>
+                                                <th>CURRENT ORGANIZATION</th>
+
+                                                <th>EXPECTED CTC</th>
+                                                <th>NOTICE PERIOD</th>
+                                                <th>OVERALL EXPERIANCE</th>
+                                                <th>Job Id</th>
+                                                <!-- <th *ngFor="[(key, value) in cv.extradata]" *ngIf="key != 'file'">{{key|capsname}}</th> -->
+
+                                            </tr>
+                                            <tr class="rowtr" *ngFor="let cv of cvslists">
+                                                <td *ngIf='cv.statusofsubmit'>
+                                                    <i *ngIf='cv.statusofsubmit == "done"'
+                                                        class="fa fa-check text-success"></i>
+                                                    <i *ngIf='cv.statusofsubmit == "fail"'
+                                                        class="fa fa-close text-danger"></i>
+                                                </td>
+                                                <!-- angular 11 stop -->
+                                                <!-- <td>
+                      <a style='width:50px; height:40px' class="fa fa-upload"
+                        (change)="cvformdatapost($event.target.files)" data-toggle="modal"
+                        class="button btn  btn-raised btn-info" ngf-select [(ngModel)]="cv.file" ngf-max-size="20MB">
+                        <i class="fa fa-upload"></i>
+                      </a>
+                    </td> -->
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="candidate_name"
+                                                        value="{{cv.candidate_name}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="mobile_no"
+                                                        value="{{cv.mobile_no}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        ng-disabled="true" style="min-width:90px;" key="email"
+                                                        value="{{cv.email}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="relevant_experiance"
+                                                        value="{{cv.relevant_experiance}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="qualification"
+                                                        value="{{cv.qualification}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="current_salary"
+                                                        value="{{cv.current_salary}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="location" value="{{cv.location}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="preferred_location"
+                                                        value="{{cv.preferred_location}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="current_designation"
+                                                        value="{{cv.current_designation}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="current_organization"
+                                                        value="{{cv.current_organization}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="expected_ctc"
+                                                        value="{{cv.expected_ctc}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="notice_period"
+                                                        value="{{cv.notice_period}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="overall_experiance"
+                                                        value="{{cv.overall_experiance}}">
+                                                </td>
+                                                <td>
+                                                    <input type="text" autocomplete="off" class="form-control key "
+                                                        style="min-width:90px;" key="jobid" value="{{cv.jobid}}">
+                                                </td>
+                                                <!-- <td *ngFor="let (key, value) of cv.extradata">
+                            <input type="text" autocomplete="off"  class="form-control key " ng-disabled="key == 'email'" ng-if="key != 'file'" style="min-width:90px;" key="{{key}}"
+                                   value="{{value}}">
+                        </td> -->
+                                            </tr>
+                                        </table>
+                                    </form>
+                                    <div class="col-md-3 col-md-offset-9">
+                                        <div class="form-group ">
+                                            <input type="submit" class="form-control btn  btn-raised btn-info "
+                                                (click)="cvformdatapost()" id="submitcvs" value="Submit Cvs" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
+
+
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h6 class="modal-title">Submit cv to panel</h6>
+                                <button aria-hidden="true" data-bs-dismiss="modal" class="close"
+                                    type="button">×</button>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-horizontal" role="form">
+
+
+                                            <div class="form-group">
+                                                <label class="col-md-3 ">Email:</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" autocomplete="off" class="form-control e m"
+                                                        n="Email" [(ngModel)]="cv_to_panel.email" ngDefaultControl />
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 ">Subject:</label>
+                                                <div class="col-md-9">
+                                                    <input type="text" autocomplete="off" class="form-control e"
+                                                        n="Subject" [(ngModel)]="cv_to_panel.subject"
+                                                        ngDefaultControl />
+
+
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-md-3 ">Comment:</label>
+                                                <div class="col-md-9">
+                                                    <textarea class="form-control e" n="Comment"
+                                                        [(ngModel)]="cv_to_panel.comment" ngDefaultControl>
+                                                  </textarea>
+
+
+                                                </div>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <button type="submit"
+                                                    class="btn  btn-raised btn-block btn-primary validatebutton"
+                                                    validate tar="#submit_cv_to_panel_status"
+                                                    (click)="sendCvToPanel(1)">send</button>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+                <div id="viewjobDescription" class="modal fade" role="dialog" *ngFor="let item of jobslist">
+                    <div class="modal-dialog modal-lg">
+                        <div class="modal-content">
+                            <div class="modal-header">
+
+                                <h6 class="modal-title">
+                                    <!---    <strong>{{itemone.job_title}}</strong> -->
+                                    Description
+                                </h6>
+                                <button type="button" class="close" data-bs-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                {{itemone.jobDescription}}
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+                </div>
+
+                <div class="modal" id="addvendor" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                    aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h3 class="center">Add Vendor</h3>
+
+
+
+                                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+
+                            </div>
+                            <div class="modal-body">
+                                <div class="row">
+
+
+                                    <div class="col-md-6"> Name
+
+                                        <input type="text" autocomplete="off" [(ngModel)]="vendornew.name"
+                                            class="form-control e" n="Name" ngDefaultControl />
+
+
+                                    </div>
+
+                                    <div class="col-md-6">Email
+
+                                        <input type="text" autocomplete="off" autocomplete="off"
+                                            [(ngModel)]="vendornew.email" class="form-control e m" n="Email"
+                                            ngDefaultControl />
+                                    </div>
+
+
+
+
+                                </div>
+                                <br>
+
+
+                                <div class="row">
+
+
+                                    <div class="col-md-6"> Mobile Number
+                                        <input type="text" autocomplete="off" [(ngModel)]="vendornew.mobileNo"
+                                            class="form-control n e" n="Mobile Number" ngDefaultControl />
+                                    </div>
+                                    <div class="col-md-6">Address
+                                        <input type="text" autocomplete="off" [(ngModel)]="vendornew.address"
+                                            class="form-control e" n="Address" ngDefaultControl />
+                                    </div>
+
+
+
+
+                                </div>
+                                <br>
+
+
+                                <div class="row">
+                                    <div class="form-group col-12">
+
+                                        <button type="submit" class="btn  btn-raised btn-primary" tar="#addUser"
+                                            (click)="vendorsave()">Save</button>
+
+                                    </div>
+
+
+
+
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+                <!-- Assign End Job-->
+
+            </div>
+        </div>
+        <!-- Button trigger modal -->
+
+        <!-- Modal -->

@@ -1,0 +1,65 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .sidebar {
+    width: 210px;
+    background-color: #f3f3f3;
+    height: 83vh;
+    padding: 20px;
+  }
+  
+  .profile {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .profile-icon {
+    background-color: purple;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+  }
+  
+  .star-icon {
+    margin-right: 5px;
+  }
+  
+  .team-score {
+    font-weight: bold;
+  }
+  
+  .menu {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .menu-item {
+    padding: 10px 15px;
+    text-decoration: none;
+    color: black;
+    border-left: 5px solid transparent;
+    margin-bottom: 5px;
+  }
+  
+  .menu-item.active,
+  .menu-item:hover {
+    border-left-color: purple;
+    background-color: #e0e0e0;
+  }
+
+  .editable-text {
+    border: none;
+    outline: none;
+    font-family: inherit;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    width: 100px;
+  }

@@ -1,0 +1,78 @@
+<!-- <h1>Helloaaaaa</h1> -->
+
+<div class="form-container">
+  <div class="toolbar">
+    <h2 style="margin-left: 20px">New Job</h2>
+    <div class="buttons">
+      <button id="launch" (click)="PostData()">
+        <i class="fa fa-cube" style="margin-right: 5px"></i>Launch
+      </button>
+      <button id="save">
+        <i class="fa fa-save" style="margin-right: 5px"></i>Save
+      </button>
+      <button id="cancel">
+        <i class="fa fa-times" style="margin-right: 5px"></i>Cancel
+      </button>
+    </div>
+  </div>
+
+  <div class="container" style="display: flex">
+    <div class="column" style="flex: 5; margin-top: 10px">
+      <div class="form-group">
+        <label for="name">Journey Name *</label>
+        <input
+          [(ngModel)]="JourneyName"
+          type="text"
+          id="name"
+          placeholder=""
+          style="width: 50%"
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="customTextarea">Description</label>
+        <textarea
+          [(ngModel)]="Description"
+          id="customTextarea"
+          class="custom-textarea"
+          rows="6"
+        ></textarea>
+      </div>
+    </div>
+
+    <div class="column" style="flex: 2; margin-left: 15px; margin-top: 2px">
+      <div class="form-group">
+        <label style="font-weight: 545; margin: 10px" for="category"
+          >Category</label
+        >
+        <select
+          [(ngModel)]="Journeytpe"
+          id="category"
+          style="background-color: white"
+        >
+          <option value="" disabled selected>Select Type</option>
+          <option value="walkIn">Walk-In</option>
+          <option value="drive">Drive</option>
+          <option value="Customize">Customize</option>
+        </select>
+      </div>
+
+      <div class="form-group toggle">
+        <label style="font-weight: 545; margin: 10px">Allow contacts to restart the campaign</label>
+        <div style="margin: 10px">
+          <button class="red-button" [ngClass]="{ 'active': !allowRestart }" (click)="toggleAllowRestart(false)">No</button>
+          <button class="green-button" [ngClass]="{ 'active': allowRestart }" (click)="toggleAllowRestart(true)">Yes</button>
+        </div>
+      </div>
+      
+      <div class="form-group toggle">
+        <label style="font-weight: 545; margin: 10px">Published</label>
+        <div style="margin: 10px">
+          <button class="red-button" [ngClass]="{ 'active': !isPublished }" (click)="togglePublished(false)">No</button>
+          <button class="green-button" [ngClass]="{ 'active': isPublished }" (click)="togglePublished(true)">Yes</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</div>

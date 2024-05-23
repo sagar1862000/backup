@@ -1,0 +1,41 @@
+<div class="form-container">
+    <div class="form-top">
+        <span class="form-head">Create User Roles</span>
+        <!-- <i class="fa-regular fa-window-maximize maximizeicon" routerLink="/add-new-candidate" title="Maximize Screen"></i> -->
+        <i routerLink="/managerole" class="fa-solid fa-xmark" title="Close"></i>
+    </div>
+    <form #usersForm="ngForm" inputmode="myForm">
+        <div class="form-group">
+            <mat-form-field class="custom-input">
+              <mat-label>Role Name:</mat-label>
+              <input matInput [(ngModel)]="role_name" name="display_name" placeholder="Enter Name">
+            </mat-form-field>
+          </div>
+
+
+        <div class="form-group">
+            <mat-form-field >
+                <mat-label for="role_category">Role category:</mat-label>
+                <mat-select [(ngModel)]="role_category" name="role_category" placeholder="Please Select" required>
+                    <mat-option [value]="1">1</mat-option>
+                    <mat-option [value]="2">2</mat-option>
+                    <mat-option [value]="3">3</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+
+        <div class="form-group">
+            <mat-form-field>
+                <mat-label>Can Redistribute Power:</mat-label>
+                <mat-select [(ngModel)]="can_distribute_power" name="can_distribute_power" placeholder="Please Select" required>
+                    <mat-option value="Yes">Yes</mat-option>
+                    <mat-option value="No">No</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <button class="submitbtn" (click)="onButtonSubmit()" type="submit">Submit</button>
+    </form>
+
+</div>

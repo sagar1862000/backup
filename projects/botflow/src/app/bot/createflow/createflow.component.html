@@ -1,0 +1,358 @@
+<div class="page-header">
+    <div class="box-layout">
+      <div class="col-xs-5 col-sm-6 col-md-5 va-m">
+        <h3 class="pull-left">New Bot Flow</h3>
+        <div class="col-xs-2 text-right pull-left">
+        </div>
+      </div>
+      <div class="col-xs-7 col-sm-6 col-md-12 va-m">
+        <div class="toolbar text-right" id="toolbar">
+          <div class="toolbar-bundle-buttons pull-left"></div>
+          <div class="toolbar-form-buttons pull-right">
+            <div class="toolbar text-right" id="toolbar">
+  
+              <div class="toolbar-bundle-buttons pull-left"></div>
+              <div class="toolbar-form-buttons pull-right">
+  
+                <div class="btn-group toolbar-standard hidden-xs hidden-sm ">
+                  <div class="toolbox mr-4">
+                    <mat-button-toggle-group #group="matButtonToggleGroup">
+                      <mat-button-toggle value="center" aria-label="Text align center" mat-icon-button (click)="onPan()"
+                        aria-label="Pan">
+                        <mat-icon>pan_tool</mat-icon>
+                      </mat-button-toggle>
+                      <mat-button-toggle value="left" aria-label="Text align left" (click)="onZoomIn()"
+                        aria-label="ZoomIn">
+                        <!-- <mat-icon>format_align_left</mat-icon> -->
+                        <mat-icon>zoom_in</mat-icon>
+                      </mat-button-toggle>
+  
+                      <mat-button-toggle value="center" aria-label="Text align center" mat-icon-button
+                        (click)="onZoomOut()" aria-label="ZoomOut">
+                        <mat-icon>zoom_out</mat-icon>
+                      </mat-button-toggle>
+  
+                    </mat-button-toggle-group>
+                  </div>
+                  <button type="button" class="btn btn-outline-danger btn-cancel btn-copy"
+                    id="flow_buttons_cancel_toolbar" (click)="getList()">
+                    <i class="fa fa-times text-danger "></i>
+                    Cancel</button>
+  
+                  <button type="button" class="btn btn-outline-success btn-apply btn-copy" id="flow_buttons_apply_toolbar"
+                    (click)="saveflow()">
+                    <i class="fa fa-check text-success "></i>
+                    Apply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+  
+      </div>
+  
+    </div>
+  </div>
+  
+  
+  
+  <div #chart class="container">
+    <h1>{{root.display_name}}</h1>
+    <svg xmlns="http://www.w3.org/2000/svg" [attr.width]="WIDTH" [attr.height]="HEIGHT" [attr.viewBox]="viewBox"
+      class="chart">
+      <path d="M10 10" />
+      <g *ngFor="let e of chartElementList">
+  
+        <path *ngIf="e.connection  && e.item.display_name" [attr.d]="e.connection" [style.stroke]="e.item.color"
+          class="connection" />
+        <!-- (click)="onClick(e.item)" -->
+        <rect class="item" [class.selected]="e.item.id===selected.id" [style.stroke]="e.item.color"
+          [style.fill]="e.item.color" [style.fillOpacity]="1 / (e.item.level + 1)" [attr.x]="e.x - ELEMENT_WIDTH/2"
+          [attr.y]="e.y - ELEMENT_HEIGHT/2" [attr.width]="ELEMENT_WIDTH" [attr.height]="ELEMENT_HEIGHT" rx="6"
+          (pointerdown)="downHandleNodeLayer($event, e)" (mousemove)="clickHandleNodeLayer(e)" (mouseenter)="mouseover(e)"
+          ry="6" *ngIf="e.item.display_name">
+        </rect>
+        <!-- *ngIf="hideedit" -->
+        <svg *ngIf="e.item.display_name && e.item.display_name!='Send Call'" (click)="onClick(e.item)" width="24" height="15" [attr.x]="e.x "
+          [attr.y]="e.y - 25" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#3F77B3" />
+  
+          <path id="change"
+            d="M17.6569 6.34311C18.4379 7.12416 18.4379 8.39049 17.6569 9.17154L10.2704 16.558C9.95004 16.8784 9.54859 17.1057 9.10901 17.2156L6.81801 17.7883C6.45182 17.8799 6.12013 17.5482 6.21167 17.182L6.78442 14.891C6.89432 14.4514 7.12161 14.05 7.44201 13.7296L14.8285 6.34311C15.6095 5.56206 16.8759 5.56206 17.6569 6.34311ZM14.1213 8.46432L8.14912 14.4367C7.95688 14.6289 7.8205 14.8698 7.75457 15.1335L7.38393 16.6161L8.86648 16.2454C9.13022 16.1795 9.37109 16.0431 9.56333 15.8509L15.5353 9.87832L14.1213 8.46432ZM15.5356 7.05022L14.8283 7.75732L16.2423 9.17132L16.9498 8.46443C17.3403 8.07391 17.3403 7.44074 16.9498 7.05022C16.5593 6.65969 15.9261 6.65969 15.5356 7.05022Z"
+            fill="#d5d5d5" />
+        </svg>
+        <!-- *ngIf="hidedelete" -->
+        <svg *ngIf="e.item.display_name && e.item.display_name!='Send Call'" width="24" (click)="onDelete(e.item)" height="15" viewBox="0 0 24 24" [attr.x]="e.x + 15"
+          [attr.y]="e.y - 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#EA5D55" />
+          <path
+            d="M12.9403 12L17.1403 7.80667C17.2658 7.68113 17.3363 7.51087 17.3363 7.33333C17.3363 7.1558 17.2658 6.98554 17.1403 6.86C17.0148 6.73447 16.8445 6.66394 16.667 6.66394C16.4894 6.66394 16.3192 6.73447 16.1936 6.86L12.0003 11.06L7.80695 6.86C7.68142 6.73447 7.51115 6.66394 7.33362 6.66394C7.15608 6.66394 6.98582 6.73447 6.86028 6.86C6.73475 6.98554 6.66422 7.1558 6.66422 7.33333C6.66422 7.51087 6.73475 7.68113 6.86028 7.80667L11.0603 12L6.86028 16.1933C6.7978 16.2553 6.7482 16.329 6.71436 16.4103C6.68051 16.4915 6.66309 16.5787 6.66309 16.6667C6.66309 16.7547 6.68051 16.8418 6.71436 16.9231C6.7482 17.0043 6.7978 17.078 6.86028 17.14C6.92226 17.2025 6.99599 17.2521 7.07723 17.2859C7.15847 17.3198 7.24561 17.3372 7.33362 17.3372C7.42163 17.3372 7.50876 17.3198 7.59 17.2859C7.67124 17.2521 7.74498 17.2025 7.80695 17.14L12.0003 12.94L16.1936 17.14C16.2556 17.2025 16.3293 17.2521 16.4106 17.2859C16.4918 17.3198 16.5789 17.3372 16.667 17.3372C16.755 17.3372 16.8421 17.3198 16.9233 17.2859C17.0046 17.2521 17.0783 17.2025 17.1403 17.14C17.2028 17.078 17.2524 17.0043 17.2862 16.9231C17.3201 16.8418 17.3375 16.7547 17.3375 16.6667C17.3375 16.5787 17.3201 16.4915 17.2862 16.4103C17.2524 16.329 17.2028 16.2553 17.1403 16.1933L12.9403 12Z"
+            fill="white" />
+        </svg>
+        <text [attr.x]="e.x" [attr.y]="e.y" class="item-text cursor"
+          (click)="onClick(e.item)">{{e.item.display_name}}</text>
+        <!-- <text [attr.x]="e.x - 9" [attr.y]="e.y + 25" class="chk cursor" *ngIf="e.item.event_type"
+                  (click)="AddEvent(e.item)">&#x2795;</text> -->
+        <!-- hideadd -->
+        <svg [attr.x]="e.x - 9" [attr.y]="e.y + 10" class="chk cursor" *ngIf="e.item.event_type && e.item.display_name "
+          (click)="AddEvent(e.item)" width="24" height="15" viewBox="0 0 24 24" fill="none"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="12" fill="#D5D5D5" />
+          <path d="M15.544 13.36H12.44V16.656H10.832V13.36H7.744V11.896H10.832V8.616H12.44V11.896H15.544V13.36Z"
+            fill="#444444" />
+        </svg>
+      </g>
+    </svg>
+  
+    <!-- <div class="toolbox" style="position: absolute;right: 250px;">
+          <button mat-icon-button (click)="onZoomIn()" aria-label="ZoomIn">
+              <mat-icon>zoom_in</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onZoomOut()" aria-label="ZoomOut">
+              <mat-icon>zoom_out</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onPan()" aria-label="Pan">
+              <mat-icon>pan_tool</mat-icon>
+          </button>
+      </div> -->
+  </div>
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <span style="background-image: url(../../../assets/img/button/Delete.svg);">
+  </span>
+  <div class="modal modalopen fade" id="exampleModalCenter" *ngIf="selected.event_type" tabindex="-1" role="dialog"
+    aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content " style="background-color:#f8f9fa">
+        <div class="modal-header"
+          style="background-color: #ebe3f8;padding-bottom: 0px;padding-left: 0px;padding-right: 0px;">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-md-8">
+  
+                <mat-form-field class="w-100">
+                  <mat-label>Event Type</mat-label>
+                  <input type="text" autocomplete="off"  name="event_type" disabled matInput [(ngModel)]="selected.event_type">
+                </mat-form-field>
+              </div>
+              <div class="col-md-4">
+  
+                <h2 style="text-align: center;margin-top:14px">Level</h2>
+                <input type="text" autocomplete="off" 
+                  style="position: absolute; left: 115px; top: 17px; height: 27px; width: 27px; background-color: #a64eed; border-radius: 45%; text-align: center; display: inline-block;"
+                  name="level" disabled matInput [(ngModel)]="selected.level">
+  
+              </div>
+            </div>
+          </div>
+  
+  
+        </div>
+        <div class="modal-body">
+  
+          <div class="container-fluid">
+            <div class="row">
+  
+  
+  
+  
+              <div class="col-md-12">
+  
+                <div *ngIf="selected.event_type == 'action'">
+  
+                  <div class="container-fluid" style="padding:0 ;">
+                    <div class="row">
+                      <form [formGroup]="form">
+                        <div class="col-md-12">
+  
+                          <mat-form-field>
+                            <mat-label>Action Name</mat-label>
+                            <mat-select matNativeControl id="action" name="action" [(ngModel)]="selected.type_id">
+                              <mat-option [value]="action.id" *ngFor="let action of allactions"
+                                (click)="gettypeID(selected,action.id)">
+                                {{action.action_displayname}} ({{action.id}})</mat-option>
+                            </mat-select>
+  
+  
+                          </mat-form-field>
+  
+                        </div>
+                        <!-- <div class="col-md-12 d-flex justify-content-between">
+  
+                          <svg width="24" height="15" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="12" cy="12" r="12" fill="#3F77B3" />
+  
+                            <path id="change"
+                              d="M17.6569 6.34311C18.4379 7.12416 18.4379 8.39049 17.6569 9.17154L10.2704 16.558C9.95004 16.8784 9.54859 17.1057 9.10901 17.2156L6.81801 17.7883C6.45182 17.8799 6.12013 17.5482 6.21167 17.182L6.78442 14.891C6.89432 14.4514 7.12161 14.05 7.44201 13.7296L14.8285 6.34311C15.6095 5.56206 16.8759 5.56206 17.6569 6.34311ZM14.1213 8.46432L8.14912 14.4367C7.95688 14.6289 7.8205 14.8698 7.75457 15.1335L7.38393 16.6161L8.86648 16.2454C9.13022 16.1795 9.37109 16.0431 9.56333 15.8509L15.5353 9.87832L14.1213 8.46432ZM15.5356 7.05022L14.8283 7.75732L16.2423 9.17132L16.9498 8.46443C17.3403 8.07391 17.3403 7.44074 16.9498 7.05022C16.5593 6.65969 15.9261 6.65969 15.5356 7.05022Z"
+                              fill="#d5d5d5" />
+                          </svg>
+                        </div> -->
+                        <div *ngIf="actions">
+                          <div class="col-md-12">
+                            <mat-form-field *ngIf="actions.responses">
+                              <mat-label>Response</mat-label>
+                              <textarea name="response" matInput formControlName="fieldA"
+                                rows="5">{{actions.responses}}</textarea>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-12">
+                            <mat-form-field *ngIf="actions.fallback_response">
+                              <mat-label>fallback response</mat-label>
+                              <textarea name="response" matInput
+                                formControlName="fieldB">{{actions.fallback_response}}</textarea>
+                            </mat-form-field>
+                          </div>
+                          <div class="col-md-12">
+                            <mat-form-field *ngIf="actions.validation_response">
+                              <mat-label>Validation Response</mat-label>
+                              <textarea name="response" placeholder='actions.validation_response' matInput
+                                formControlName="fieldC">{{actions.validation_response}}</textarea>
+                            </mat-form-field>
+                          </div>
+  
+                          <div class="col-md-12">
+                            <mat-form-field *ngIf="actions.chat_reponse">
+                              <mat-label>Chat Response</mat-label>
+                              <textarea name="response" matInput placeholder='actions.chat_reponse'
+                                formControlName="fieldD">{{actions.chat_reponse}}</textarea>
+                            </mat-form-field>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+                  <!-- <button type="button" (click)="reInit()">Disable Form after (re)init</button>
+                        <br /> -->
+                  <!-- <br /> -->
+  
+                </div>
+              </div>
+  
+  
+              <div class="col-md-12">
+                <div *ngIf="selected.event_type == 'intent'">
+                  <mat-form-field>
+                    <mat-label>Intent Name</mat-label>
+                    <mat-select matNativeControl id="action" name="action" [(ngModel)]="selected.type_id">
+                      <mat-option [value]="intent.id" *ngFor="let intent of allintent"
+                        (click)="gettypeID(selected,intent.id)">
+                        {{intent.display_name}} ({{intent.id}})</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+  
+  
+                </div>
+  
+              </div>
+  
+              <div class="col-md-12">
+                <div *ngIf="selected.event_type == 'slot'">
+                  <!-- {{slot.display_name}}  -->
+                  <mat-form-field>
+                    <mat-label>Slot Name</mat-label>
+                    <mat-select matNativeControl id="action" name="action" [(ngModel)]="selected.type_id">
+                      <mat-option [value]="slot.id" *ngFor="let slot of allslot" (click)="gettypeID(selected,slot.id)">
+                        {{slot.display_name}} ({{slot.id}})</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+  
+                </div>
+  
+  
+              </div>
+  
+            </div>
+          </div>
+  
+  
+  
+        </div>
+        <div class="modal-footer mx-auto d-block">
+          <!-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> -->
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+          <button class="btn " style="background-color: #a64eed;width:130px;border-radius: 19px;" (click)="Save()">
+            Save</button>
+  
+  
+          <button class="btn btndelete " style="background-color: #a64eed;width:130px;border-radius: 19px;"
+            (click)="onDelete(selected)">Delete</button>
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
+  
+  <div class="modal" id="AddEventRounds" tabindex="-1" role="dialog">
+    <div class="modal-dialog " role="document">
+      <div class="modal-content ">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-6 " *ngIf="selected.event_type == 'slot' || selected.event_type == 'action'">
+              <div class="containerexpand " id="315" style="width:auto">
+                <div class="card mt-4" style="height: 263px;">
+                  <div style="display: inline; background: #ffff00; height: 40px; border-radius: 4px;"
+                    class="Desicion card-header"> Intent </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0" style="font-size: 14px;">
+                      Please decide what the bot should do if the above intent is detected
+                    </blockquote>
+  
+                  </div>
+  
+                </div>
+                <button type="button" class="ml-4 col-md-4 btn btn-sm btn-outline-warning"
+                  style="position:absolute;left:50px;top:-50px" (click)="AddnewEvent('intent','#388E3C')">Select</button>
+              </div>
+            </div>
+  
+            <div class="col-md-6" *ngIf="selected.event_type == 'intent'" style="position:absolute;left:50px">
+              <div style="width:auto" class="" id="480" style="width:auto">
+                <div class="card mt-4 hideit" style="height: 263px;">
+                  <div style="display: inline; background: #00FF00; height: 40px; border-radius: 4px;"
+                    class="Action card-header"> Action </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0" style="font-size: 14px;">
+                      Please decide what the bot should do if the above condition is satisfied
+                    </blockquote>
+  
+                  </div>
+  
+                </div>
+                <button type="button" (click)="AddnewEvent('action','#4527A0')"
+                  class="ml-4  btn btn-sm  col-md-4  btn-outline-warning"
+                  style="position:absolute;left:50px;top:-50px">Select</button>
+              </div>
+            </div>
+  
+            <div class="col-md-6" *ngIf="selected.event_type == 'slot' || selected.event_type == 'action'">
+              <div class="containerexpand  mt-2" style="width:auto" id="565">
+                <div class="card mt-4" style="height: 263px;">
+                  <div style="display: inline; background: #ffff00; height: 40px; border-radius: 4px;"
+                    class="Desicion card-header"> Slot </div>
+                  <div class="card-body">
+                    <blockquote class="blockquote mb-0" style="font-size: 14px;">
+                      Please select what information the bot needs to extract and save
+                    </blockquote>
+                  </div>
+                </div>
+                <button type="button" class="ml-4 btn col-md-4 mb-4 btn-sm btn-outline-warning"
+                  style="position:absolute;left:50px;top:-50px" (click)="AddnewEvent('slot','#EF6C00')">Select</button>
+              </div>
+            </div>
+  
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

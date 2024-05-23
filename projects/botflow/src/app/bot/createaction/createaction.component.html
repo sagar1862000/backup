@@ -1,0 +1,83 @@
+<div class="container ">
+    <!-- <div class="col-md-2">
+      <mat-form-field>
+        <mat-label>Language:</mat-label>
+        <mat-select matNativeControl id="action" name="action">
+          <mat-option>
+            Hindi</mat-option>
+          <mat-option>
+            English</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div> -->
+  
+    <div class="row mt-2">
+  
+      <div *ngFor="let action of allactions" [ngClass]="grid ? 'col-6' : 'col-12'">
+  
+        <div class="container-fluid  mt-4">
+          <div class="row  border " style="background-color:#ebe3f8; border-radius: 10px;">
+  
+            <div class="col-md-12 border-bottom px-3" style="background-color:#f8f9fa">
+  
+              <mat-form-field>
+                <mat-label>Display Name:</mat-label>
+                <input name="response" matInput [(ngModel)]="action.action_displayname">
+              </mat-form-field>
+            </div>
+            <div class="col-md-12 mt-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Action Name</mat-label>
+                <mat-select matNativeControl id="action" name="action" [(ngModel)]="action.action">
+                  <mat-option [value]="action.action">
+                    {{action.action}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12 mt-3">
+  
+              <mat-form-field *ngIf="action.responses" appearance="outline">
+                <mat-label>Response</mat-label>
+                <textarea name="response" matInput rows="5" [(ngModel)]="action.responses">{{action.responses}}</textarea>
+              </mat-form-field>
+  
+            </div>
+            <div class="col-md-12 mt-3">
+              <mat-form-field *ngIf="action.fallback_response" appearance="outline">
+                <mat-label>fallback response</mat-label>
+                <textarea name="response" matInput
+                  [(ngModel)]="action.fallback_response">{{action.fallback_response}}</textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12 mt-3">
+              <mat-form-field *ngIf="action.chat_reponse" appearance="outline">
+                <mat-label>Chat Response</mat-label>
+                <textarea name="response" matInput [(ngModel)]="action.chat_reponse">{{action.chat_reponse}}</textarea>
+              </mat-form-field>
+            </div>
+            <div class="col-md-12 mt-3">
+              <mat-form-field>
+                <mat-label>Chat Button</mat-label>
+  
+                <input name="response" matInput disabled [value]="action.buttontype">
+  
+              </mat-form-field>
+  
+              <button mat-mini-fab color="accent" class="action-button mb-3" aria-label="add">
+                <mat-icon>add</mat-icon>
+              </button>
+            </div>
+  
+  
+          </div>
+        </div>
+  
+  
+      </div>
+    </div>
+  
+  
+  
+  
+  </div>
+  <button (click)="onclickaction()">Save</button>

@@ -1,0 +1,43 @@
+<mat-toolbar class="header">
+    <ul class=" nav  showloader float-start " style="padding-left: 0px;">
+        <div class="" style="position:relative;">
+            <ul class=" mr-4 float-none ">
+
+                <button (mouseout)="isCreateTemplate = false" (mouseover)="isCreateTemplate = true ;" type="button"
+                    style="margin-left:10px" href="javascript:" title='Add to Job' (click)="goToChild('create-new')"
+                    data-target='#addtojob' data-toggle='modal' class="btn btn-sm btn-labeled ">
+                    <span class="btn-label" id="iconbackground">
+                        <!-- <i class="glyphicon glyphicon-ok"></i> -->
+                        <img [@rotatedState]='state' *ngIf="isCreateTemplate"
+                            src="../../assets/img/historyicon/onhover/Add_to_job.svg" />
+                        <img *ngIf="!isCreateTemplate" src="../../assets/img/historyicon/Add_to_job.svg" />
+                        <!-- <img  src= "../../assets/img/historyicon/Call.svg"  /> -->
+                    </span>Create Template</button>
+
+                <button (mouseout)="is_Refresh = false" (mouseover)="is_Refresh = true" type="button"
+                    style="margin-left:10px;" title='Refresh Page' (click)="LoadTemplates()"
+                    class="btn btn-sm btn-labeled ">
+                    <span class="btn-label" id="iconbackground">
+                        <i class="glyphicon glyphicon-ok"></i>
+                        <img [@rotatedState]='state' *ngIf="is_Refresh"
+                            src="../../assets/img/historyicon/onhover/Refresh_hover.svg" />
+                        <img *ngIf="!is_Refresh" src="../../assets/img/historyicon/Refresh.svg" />
+                    </span>Refresh
+                </button>
+            </ul>
+        </div>
+    </ul>
+</mat-toolbar>
+
+
+<div class="layout">
+    <div class="content">
+        <app-prgrid [data]="message_templates" [header]='DataDefinitionsGrid'
+            (onHeaderClicked)="DatFromPRGridTableHeader($event)" (onRowClicked)="onRowClicked($event)">
+        </app-prgrid>
+    </div>
+    <div class="fixed-sidebar">
+        <router-outlet></router-outlet>
+        <mat-icon (click)="onCloseChild()">close</mat-icon>
+    </div>
+</div>

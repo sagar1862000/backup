@@ -1,0 +1,37 @@
+/node_modules
+# node_modules
+# projects
+/src
+/editorconfig
+/angular.json
+/package-lock.json
+/package.json
+/README.md
+/tsconfig.app.json
+/tsconfig.json
+/tsconfig.spec.json
+
+
+
+# projects
+        projects/calldetails
+        projects/botflow/
+        projects/candidate-call-report/
+        projects/candidate-profile/
+        projects/candidate-status/
+        projects/charts/
+        projects/component/
+        projects/control/
+        projects/email/
+        projects/grid/
+        projects/hiring-manager/
+        projects/history/
+        projects/internaldatabase/
+        projects/journey/
+        projects/managerole/
+        projects/message/
+        projects/myjob/
+        projects/newjob/
+        projects/profile/
+        projects/reports/
+        projects/settings/
