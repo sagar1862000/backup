@@ -1,0 +1,70 @@
+<div class="content-body">
+  <div class="page-header">
+    <div class="box-layout">
+      <div class="col-xs-5 col-sm-6 col-md-5">
+        <h2 class="pull-left" style="margin-left: 20px;">Campaigns</h2>
+      </div>
+      <div class="col-xs-7 col-sm-6 col-md-12">
+        <div class="toolbar text-right" id="toolbar">
+          <div class="std-toolbar btn-group">
+            <a
+              class="btn btn-default btn-outline-default"
+              routerLink="../campaign/new"
+              data-toggle="ajax"
+              >
+                <button
+                type="button"
+                class="btn btn-primary"
+                style="margin: 10px"
+              >
+                <i class="">Create New Campaign</i> 
+              </button>
+            </a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default bdr-t-wdh-0 mb-0" style="margin-left: 60px">
+    <!-- <table class="table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Campaign Name</th>
+                <th scope="col">campaign id</th>
+              </tr>
+            </thead>
+            <tbody let >
+              <tr>
+                <th scope="row">1</th>
+                <td>Mark</td>
+                <td>Otto</td>
+              </tr>
+              <tr>
+                <th scope="row">2</th>
+                <td>Jacob</td>
+                <td>Thornton</td>
+              </tr>
+              <tr>
+                <th scope="row">3</th>
+                <td>Larry</td>
+                <td>the Bird</td>
+              </tr>
+            </tbody>
+        </table> -->
+
+    <!-- <app-prgrid [data]="botData" [header]='DataDefinitionsGrid'
+            (onHeaderClicked)="DatFromPRGridTableHeader($event)">
+        </app-prgrid> -->
+
+    <app-prgrid
+      [data]="botData"
+      [header]="DataDefinitionsGrid"
+      (onHeaderClicked)="DatFromPRGridTableHeader($event)"
+      (onRowClicked)="onRowClicked($event)"
+    >
+    </app-prgrid>
+  </div>
+</div>

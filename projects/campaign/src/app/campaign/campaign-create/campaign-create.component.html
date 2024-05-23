@@ -1,0 +1,91 @@
+<div class="page-header">
+  <div class="box-layout">
+    <div class="col d-flex align-items-center justify-content-center">
+      <h1
+        class="page-title text-black text-center py-3 mb-4"
+        style="
+          margin: 20px;
+          font-size: 30px;
+          font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS',
+          sans-serif;
+        "
+      >
+        New Campaign
+      </h1>
+    </div>
+
+    <div
+      class="col-xs-12 col-sm-6 col-md-6 d-flex align-items-center justify-content-center"
+    >
+      <div class="toolbar text-center" id="toolbar">
+        <div class="toolbar-form-buttons">
+          <div class="btn-group toolbar-standard">
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="launchflow()"
+              style="margin: 10px"
+            >
+              <i class="fa fa-cube"></i> Launch Flow Builder
+            </button>
+            <button
+              type="button"
+              class="btn btn-danger"
+              (click)="onclickcancel()"
+              style="margin: 10px"
+            >
+              <i class="fa fa-times"></i> Cancel
+            </button>
+            <button
+              type="button"
+              class="btn btn-success"
+              (click)="onclickSaveAndClose()"
+              style="margin: 10px"
+            >
+              <i class="fa fa-save"></i> Save & Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex" style="margin-top: 30px; margin-left: 65px">
+      <div class="col-md-9 rounded">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="form-group">
+              <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Name:</mat-label>
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="text"
+                  n="campaign Name"
+                  id="campaign_name"
+                  [(ngModel)]="campaign.campaign_name"
+                  required
+                  placeholder="Campaign Name"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-12">
+            <div class="form-group">
+              <strong> Description:</strong>
+              <div>
+                <ckeditor
+                  [editor]="Editor"
+                  rows="20"
+                  [(ngModel)]="campaign.description"
+                  placeholder="Campaign Description"
+                ></ckeditor>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
