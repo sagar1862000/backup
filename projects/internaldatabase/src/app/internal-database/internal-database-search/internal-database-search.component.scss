@@ -1,18 +1,183 @@
 button {
-
-    font-family: Arial, Helvetica, sans-serif;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
-.closedialog {
-    font-size: 1.32rem; 
-    position: absolute;
-    right: 0.625rem; 
-    color: #f44336;
-    padding-top: 20px;
-    padding-right: 15px;
+// .closedialog {
+//     font-size: 1.32rem;
+//     position: absolute;
+//     right: 0.625rem;
+//     color: #f44336;
+//     padding-top: 20px;
+//     padding-right: 15px;
 
-    &:hover {
-      color: red;
-      cursor: pointer;
-    }
-  }
+//     &:hover {
+//       color: red;
+//       cursor: pointer;
+//     }
+//   }
+
+//   .example-container {
+//   width: 500px;
+//   height: 300px;
+//   border: 1px solid rgba(0, 0, 0, 0.5);
+// }
+
+// .example-sidenav-content {
+//   display: flex;
+//   height: 100%;
+//   align-items: center;
+//   justify-content: center;
+// }
+
+// .example-sidenav {
+//   padding: 20px;
+// }
+
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.example-is-mobile .example-toolbar {
+  position: fixed;
+  z-index: 2;
+}
+
+h1.example-app-name {
+  margin-left: 8px;
+}
+
+.example-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+    causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  flex: 1;
+}
+
+.example-is-mobile .example-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+     `<body>` to be our scrolling element for mobile layouts. */
+  flex: 1 0 auto;
+}
+
+// :host ::ng-deep .mat-mdc-text-field-wrapper {
+//   // height: 20px;
+//   // flex: auto;
+// }
+
+:host ::ng-deep .mdc-text-field--filled {
+  //  height: 45px;
+   border-radius: 6px;
+  // flex: auto;
+  // border: 2px solid red;
+}
+
+:host ::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: 16px;
+}
+
+:host ::ng-deep .mat-drawer-container{
+  background-color: white;
+}
+
+.mat-drawer-content{
+  margin-top: 0px;
+}
+
+.example-container[_ngcontent-ng-c4190051187] {
+  margin-top: 10px;
+}
+
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: var(--mdc-filled-text-field-container-color);
+  width: 250px !important
+}
+
+
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+  background-color: white;
+}
+
+:host ::ng-deep .form-group .ng-star-inserted {
+  display: flex;
+  justify-content: flex-start;
+  /* padding-right: 60%; */
+  /* height: 50px; */
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+:host ::ng-deep .form-group .ng-star-inserted {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 10px;
+  margin-bottom: 13px;
+  padding-left: 4px;
+  width: 243px;
+  margin-left: 4px;
+  // border: 0.1px solid black;
+}
+// :host ::ng-deep .ng-star-inserted {
+//   border-bottom: 0.1px solid black;
+// }
+
+// :host ::ng-deep .ng-star-inserted{
+// height: 55px;
+// }
+
+// sorting styling
+.sort-container {
+  display: flex;
+  align-items: center;
+  margin-left: 33px;
+  display: flex;
+  justify-content: start;
+}
+
+.sort-label {
+  font-size: 18px;
+  color: #333;
+  margin-right: 10px;
+}
+
+.sort-select {
+  padding: 10px;
+  border-radius: 25px;
+  border: 1px solid #a64eed;
+  background-color: #fff;
+  color: #555;
+  font-size: 10px;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+  height: 30px;
+  padding-bottom: 8px;
+}
+
+.sort-select:focus {
+  outline: none;
+  border-color: #7457d4;
+  box-shadow: 0 0 5px rgba(116, 87, 212, 0.5);
+}
+
+.sort-select option {
+  background-color: #fff;
+  color: #555;
+}
+
+.sort-select option:hover {
+  background-color: #f8f8f8;
+}
+:host ::ng-deep .mat-mdc-text-field-wrapper {
+  width: 100%;
+  // margin-right: 340px;
+  margin-top: 16px;
+  height: 46px;
+  border-bottom: none;
+}
+:host ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+ background-color: white;
+}

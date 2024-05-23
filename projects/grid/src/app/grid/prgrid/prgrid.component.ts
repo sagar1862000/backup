@@ -113,13 +113,14 @@ export class PrgridComponent implements OnInit {
 
 
     if (isArray(data)) {
+      debugger;
       this._data = data[0];
       this.Total_Page=data[1];
       // console.log('Checking : ',isArray(this._data),'Data : ',this._data);
 
       // this.emitbuttondataToReport.emit({data:this._data})
 
-      this.pager = this.db.getPager(this._data.length);
+      this.pager = this.db.getPager(this._data?.length);
       // this.pager = this.data[1]
 
       // this.setPage(1, 20);
@@ -1202,7 +1203,7 @@ export class PrgridComponent implements OnInit {
 
   // funtion dynamically getting the field data for the  checkbox
   transformbodycheck(value) {
-
+    debugger
     const keysCK = [];
     const keyck1 = [];
     for (const key in value) {

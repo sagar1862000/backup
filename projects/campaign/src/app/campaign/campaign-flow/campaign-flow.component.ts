@@ -28,6 +28,7 @@ import { Point } from 'src/app/Models/_models/PointChart';
 import { CampaignFlowItem } from 'src/app/Models/_models/CampaignFlowItem';
 // import { CdkDragEnd, CdkDragStart, CdkDragMove } from '@angular/cdk/drag-drop';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { CampaignserviceService } from '../../campaignservice.service';
 import {
   FormBuilder,
   FormGroup,
@@ -41,7 +42,7 @@ import {
   UntypedFormBuilder,
   UntypedFormControl,
   UntypedFormGroup,
-} from '@angular/forms';
+} from '@angular/forms';    // console.log('mymessage2 : ' , this.journeyType);
 import { CdkDrag } from '@angular/cdk/drag-drop';
 import axios from 'axios';
 import { DialogConfig } from '@angular/cdk/dialog';
@@ -175,6 +176,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
   Bot_data: any;
   temp_sec: boolean = false;
   constructor(
+    private CampaignDB:CampaignserviceService,
     private route: ActivatedRoute,
     private repo: RepoService,
     public db: DbService,
@@ -220,19 +222,19 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
     });
     try {
       const globalData1 = await this.httpClient
-        .get<any>('http://192.168.151.33:8001/fetch_channels', { headers })
+        .get<any>('http://192.168.4.14:8002/fetch_channels', { headers })
         .toPromise();
       const globalData2 = await this.httpClient
-        .get<any>('http://192.168.151.33:8001/sendSMS', { headers })
+        .get<any>('http://192.168.4.14:8002/sendSMS', { headers })
         .toPromise();
       const globalData3 = await this.httpClient
-        .get<any>('http://192.168.151.33:8001/sendBotName', { headers })
+        .get<any>('http://192.168.4.14:8002/sendBotName', { headers })
         .toPromise();
       const globalData4 = await this.httpClient
-        .get<any>('http://192.168.151.33:8001/sendEmail', { headers })
+        .get<any>('http://192.168.4.14:8002/sendEmail', { headers })
         .toPromise();
       const globalData5 = await this.httpClient
-        .get<any>('http://192.168.151.33:8001/candidate_statuses', { headers })
+        .get<any>('http://192.168.4.14:8002/candidate_statuses', { headers })
         .toPromise();
       debugger;
       this.channelNames = globalData1;
@@ -379,7 +381,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
     this.CampaignChartElementList;
   }
 
-  tabToggle(index) {
+  tabToggle(index:any) {
     debugger;
     if (index == 'immediate') {
       this.trigger_interval = 0;
@@ -559,8 +561,6 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
       this.flowdataid = paramMap.get('id');
       debugger;
       if (this.flowdataid) {
-        // const encoded = window.btoa(this.flowdataid);
-
         this.decoded = window.atob(this.flowdataid);
         this.id = Number(this.decoded);
       }
@@ -572,27 +572,27 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
   }
 
   getIntentFlow(): void {
-    this.db.list('intentflow/', { bot_id: this.id }, (response): void => {
+    this.CampaignDB.list('intentflow/', { bot_id: this.id }, (response): void => {
       this.allintent = response;
     });
   }
 
   getSlot(): void {
-    this.db.list('slotflow/', { bot_id: this.id }, (response): void => {
+    this.CampaignDB.list('slotflow/', { bot_id: this.id }, (response): void => {
       this.allslot = response;
     });
   }
 
   getmessagetemplate(): void {
-    this.db.list('getemailtemplatecampaign/', null, (response): void => {
+    this.CampaignDB.list('getemailtemplatecampaign/', null, (response): void => {
       this.emailtemplatesCampaign = response;
     });
 
-    this.db.list('getmessagetemplatecampaign/', null, (response): void => {
+    this.CampaignDB.list('getmessagetemplatecampaign/', null, (response): void => {
       this.messagetemplatesCampaign = response;
     });
 
-    this.db.list('getbots/', null, (response): void => {
+    this.CampaignDB.list('getbots/', null, (response): void => {
       this.bots = response;
     });
   }
@@ -822,9 +822,8 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
 
   getList(): void {
     this.decoded;
-
     if (this.decoded) {
-      this.db.list('campaign/flow/', { id: this.decoded }, (response): void => {
+      this.CampaignDB.list('campaign/flow/', { id: this.decoded }, (response): void => {
         if (!response) {
           alert('working');
         }
@@ -896,7 +895,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
 
   getCandidateStatus(): void {
     this.allstatusload = 1;
-    this.db.list(
+    this.CampaignDB.list(
       'candidate-status/relations/' + 0,
       { allstatus: this.allstatusload },
       (response): void => {
@@ -907,7 +906,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
 
   getcampaignChannels(): void {
     this.allstatusload = 1;
-    this.db.list('fetch_channels', null, (response): void => {
+    this.CampaignDB.list('fetch_channels', null, (response): void => {
       debugger;
       this.campaignChannels = response;
     });
@@ -928,7 +927,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
         break;
         if (apiPath) {
           // Send request to send
-          this.db.list(apiPath, filter, (response): void => {
+          this.CampaignDB.list(apiPath, filter, (response): void => {
             this.campaignChannelsData = response;
           });
         }
@@ -999,7 +998,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
     let apiPath = 'sms/sms-templates/'; // Find Email template
     let filter = null;
     this.is_sms_templates = true;
-    this.db.list(apiPath, filter, (response): void => {
+    this.CampaignDB.list(apiPath, filter, (response): void => {
       this.sms_template = response;
     });
   }
@@ -1008,7 +1007,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
     let apiPath = 'email/email-templates/'; // Find Email template
     let filter = null;
     this.is_email_templates = true;
-    this.db.list(apiPath, filter, (response): void => {
+    this.CampaignDB.list(apiPath, filter, (response): void => {
       this.email_template = response;
     });
   }
@@ -1018,7 +1017,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
     let apiPath = 'bot/bot-details/'; // Find Email template
     let filter = null;
     this.is_bot_data = true;
-    this.db.list(apiPath, filter, (response): void => {
+    this.CampaignDB.list(apiPath, filter, (response): void => {
       this.Bot_data = response;
     });
   }
@@ -1049,7 +1048,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
   onDelete(data:any) {
     if (data) {
       if (confirm('Do you want to delete it permanently')) {
-        this.db.destroy('campaign/flow/', data, (response): void => {
+        this.CampaignDB.destroy('campaign/flow/', data, (response): void => {
           this.getList();
           $('#modalopen').appendTo('body').modal('hide');
         });
@@ -1128,7 +1127,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
     //     console.error('Error making POST request:', error);
     //   });
 
-    this.db.store(
+    this.CampaignDB.store(
       'save_campaign_event',
       // 'campaign/flow/',
       this.selected,
@@ -1140,7 +1139,6 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
           this.CloseModal('#action-model');
         }
         this.getList();
-
         // $('#AddEventRounds').appendTo('body').modal('hide');
         // $('#modalopen').appendTo('body').modal('show');
         // this.CloseModal('#event-model');
@@ -1152,7 +1150,7 @@ export class CampaignFlowComponent implements OnInit, AfterViewInit {
   UpdateConditionFlow(): void {
     console.log('Details : ', this.selected);
     debugger;
-    this.db.update(
+    this.CampaignDB.update(
       'campaign/flow/',
       this.selected.id,
       this.selected,

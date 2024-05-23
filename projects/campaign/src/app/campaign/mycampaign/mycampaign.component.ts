@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DbService } from 'src/app/services/db.service';
+import { CampaignserviceService } from '../../campaignservice.service';
 
 @Component({
   selector: 'app-mycampaign',
@@ -17,14 +18,16 @@ export class MycampaignComponent implements OnInit {
   botData: any = [];
   gridApi: any;
   gridColumnApi: any;
-  constructor(private db: DbService, public router: Router) { }
+  constructor(private db: DbService, public router: Router,private CampaignDb:CampaignserviceService) { }
 
   ngOnInit(): void {
     this.getCampaign();
   }
 
   getCampaign(): void {
-    this.db.list('campaign_list/1', null, (response): void => {
+    debugger;
+    this.CampaignDb.list('campaign_list/1', null, (response): void => {
+      debugger;
       this.botData = response;
       console.log('my data : ',this.botData);
     });

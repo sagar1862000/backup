@@ -20,9 +20,10 @@ export class DbService implements OnInit, OnChanges {
   // rooturi = 'http://192.168.4.16:8000/';
   // rooturi = 'http://192.168.4.21:8000/';
   // rooturi = 'http://192.168.3.117:8000/'; Suraj Api
-  //  rooturi = 'http://192.168.0.106:8081/';  sir api
-  rooturi = 'http://192.168.151.33:8001/';   //deepanshu Api
+  // rooturi = 'http://192.168.0.106:8081/';  sir api
+  // rooturi = 'http://192.168.4.14:8002/'; //deepanshu Api
   // rooturi = 'https://api.botshreyasi.com/';
+     rooturi = 'http://192.168.4.39:8080/'
   // rooturi = 'http://192.168.51.219:8000/';
   // rooturi = 'http://192.168.4.14:8000/';
   ServiceURL = this.rooturi;
@@ -158,6 +159,7 @@ export class DbService implements OnInit, OnChanges {
     fail?: ICallback,
     loader?: any
   ) {
+    debugger;
     //  success('avc');
     console.log('h');
     this.showloaderfunction(loader);
@@ -278,7 +280,8 @@ export class DbService implements OnInit, OnChanges {
       message = 'Please Enter Valid Credentials';
     } else if (message.status === 429) {
       message = message.error.error;
-    } else if (
+    }
+     else if (
       this.isObject(message) &&
       message.error &&
       message.error.errors &&
@@ -291,11 +294,16 @@ export class DbService implements OnInit, OnChanges {
           this.showNotification(message);
         }
       }
-    } else if (this.isObject(message) && message.status === 401) {
+    }
+     else if (this.isObject(message) && message.status === 401) {
       message = 'Please authenticate to access secured resource.';
     } else if (this.isObject(message) && message.status >= 500) {
       message = 'Error Occured';
-    } else if (this.isObject(message) && message.status === 422) {
+    }
+    else if(this.isObject(message) && message.status === 200){
+      message = 'login Succesfull'
+    } 
+    else if (this.isObject(message) && message.status === 422) {
       message = message.error;
       const messages = [];
       for (const k in message) {
@@ -324,15 +332,15 @@ export class DbService implements OnInit, OnChanges {
     if (durationMS === undefined) {
       durationMS = 1000;
     }
-    const snackBarRef = this.snackBar.open(message, action, {
-      duration: durationMS,
-      verticalPosition: 'bottom',
-      horizontalPosition: 'left',
-    });
+    // const snackBarRef = this.snackBar.open(message, action, {
+    //   duration: durationMS,
+    //   verticalPosition: 'bottom',
+    //   horizontalPosition: 'left',
+    // });
 
     // $rootScope.universal_errors = [];
     // if (response.status == 422) {
-    //
+    
     //   for (var k in response) {
     //     var message = response[k].toString();
     //     $rootScope.universal_errors.push({ message: message, data: true });
@@ -342,19 +350,19 @@ export class DbService implements OnInit, OnChanges {
   }
 
   goToLogin(response: any): any {
-    localStorage.removeItem('token');
-    localStorage.removeItem('refresh');
-    if (response && response && response.msg) {
-      alert(response.msg);
-    }
+    // localStorage.removeItem('token');
+    // localStorage.removeItem('refresh');
+    // if (response && response && response.msg) {
+    //   alert(response.msg);
+    // }
 
     // Commented by sagar
 
-    // if (this.CurrentURL === undefined || this.CurrentURL === '') {
-    //   this.router.navigate(['login']);
-    // } else {
-    //   this.router.navigate(['login']);
-    // }
+    if (this.CurrentURL === undefined || this.CurrentURL === '') {
+      this.router.navigate(['login']);
+    } else {
+      this.router.navigate(['login']);
+    }
 
     // Commented by sagar
 
@@ -1174,7 +1182,7 @@ export class DbService implements OnInit, OnChanges {
     debugger;
     const totalPages = Math.ceil(totalItems / pageSize);
     this.storedpageno = parseInt(localStorage.getItem('page'), 10);
-    if (this.storedpageno == 'NaN') {
+    if (this.storedpageno == 'NaN' || Number.isNaN(this.storedpageno)) {
       this.storedpageno = 1;
     }
     let startPage: number, endPage: number;

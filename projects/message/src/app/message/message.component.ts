@@ -10,8 +10,7 @@ import { Router } from '@angular/router';
 })
 
 export class MessageComponent implements OnInit {
-
-  constructor(public db: DbService, private router: Router) { }
+  constructor(public db: DbService, private router: Router) {}
   childc: boolean = false;
   ngOnInit(): void {
   }

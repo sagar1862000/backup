@@ -8,13 +8,24 @@ import { MatSelectModule } from '@angular/material/select';
 import { RouterModule } from '@angular/router';
 import { MatInputModule } from '@angular/material/input';
 import { ComponentsModule } from 'projects/component/src/app/components/components.module';
-
-
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatDialogContent, MatDialogModule } from '@angular/material/dialog';
+import { DialogConfig } from '@angular/cdk/dialog';
+import { MatChipsModule } from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatButtonModule} from '@angular/material/button';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+// import { MatChipsModule } from '@angular/material/chips';
 @NgModule({
   declarations: [
     InternalDatabaseComponent
   ],
   imports: [
+    MatAutocompleteModule,
+    MatButtonModule,
+    MatDividerModule,
+    MatIconModule,
     CommonModule,
     InternalDatabaseRoutingModule,
     CommonModule, 
@@ -24,8 +35,11 @@ import { ComponentsModule } from 'projects/component/src/app/components/componen
      ComponentsModule,
      MatFormFieldModule,
      MatSelectModule,
-     
+     MatButtonToggleModule,
+     MatDialogModule,
+     MatChipsModule
   ],
+  providers:[DialogConfig],
   schemas:[CUSTOM_ELEMENTS_SCHEMA]
 })
 export class InternalDatabaseModule { }

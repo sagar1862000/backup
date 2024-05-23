@@ -180,207 +180,252 @@
         </div>
     </div> -->
 
-
-
-
-
-
-
-<div style="display: flex; justify-content: space-between;">
-    <div>
-        <h1 style="padding-left: 25px; padding-top: 15px;">Call</h1>
-    </div>
-    <div>
-        <i class="fa-solid fa-x closedialog" matDialogClose></i>
-    </div>
+<div style="display: flex; justify-content: space-between">
+  <div>
+    <h1 style="padding-left: 25px; padding-top: 15px">Call</h1>
+  </div>
+  <div>
+    <i
+      class="fa-solid fa-x closedialog"
+      style="font-size: 16px"
+      matDialogClose
+    ></i>
+  </div>
 </div>
 <div mat-dialog-content>
-    <!-- <p>What's your favorite animal?</p> -->
-    <!-- <mat-form-field> -->
-    <!-- <mat-label>Favorite Animal</mat-label> -->
-    <!-- <input matInput [(ngModel)]="data.animal"> -->
-    <!-- </mat-form-field> -->
+  <!-- <p>What's your favorite animal?</p> -->
+  <!-- <mat-form-field> -->
+  <!-- <mat-label>Favorite Animal</mat-label> -->
+  <!-- <input matInput [(ngModel)]="data.animal"> -->
+  <!-- </mat-form-field> -->
 
-    <div class="form-horizontal">
-        <div class="form-group">
-            <mat-form-field class="w-100" *ngIf="USR.clientsdepartment == 'Client/Department'">
-                <mat-label>{{USR.clientsdepartment}}:</mat-label>
-                <div class="col-xs-10">
-                    <mat-select id="clientsdepartment" [(ngModel)]="clientsdepartment"
-                        name="clientsdepartment">
-                        <mat-option (click)="getclientdepartment()" value="Client"
-                            *ngIf="USR.mp.view_client">Client</mat-option>
-                        <mat-option (click)="getclientdepartment()" value="Department"
-                            *ngIf="USR.mp.view_department">Department
-                        </mat-option>
-                    </mat-select>
-                </div>
-            </mat-form-field>
-
-            <mat-form-field class="w-100" *ngIf="USR.clientsdepartment == 'Client' || clientsdropdown">
-                <mat-label for="client">Client:</mat-label>
-                <div class="col-xs-10">
-                    <mat-select id="client" [(ngModel)]="call.department_id" name="client">
-                        <mat-option (click)="MR.GetJobAssignedbyclientdepartments('client',client.id)"
-                            value="{{client.id}}" *ngFor="let client of MR.departments">
-                            {{client.department_name}}</mat-option>
-                    </mat-select>
-                </div>
-            </mat-form-field>
-
-            <mat-form-field class="w-100"
-                *ngIf="USR.clientsdepartment == 'Department' || departmentsdropdown">
-                <mat-label for="department">Department:</mat-label>
-                <div class="col-xs-10">
-                    <mat-select id="department" [(ngModel)]="call.department_id" name="department">
-                        <mat-option (click)="MR.GetJobAssignedbyclientdepartments('department',dep.id)"
-                            value="{{dep.id}}" *ngFor="let dep of MR.departments">
-                            {{dep.department_name}}</mat-option>
-                    </mat-select>
-                </div>
-            </mat-form-field>
-
-            <div class="form-group">
-                <mat-form-field class="w-100">
-                    <mat-label for="Jobs" class="control-label col-xs-2">Jobs:</mat-label>
-                    <div class="col-xs-10">
-                        <mat-select [(ngModel)]="call.add_new_job_id" name="add_new_job_id">
-                            <mat-option [value]="x.id" (click)="checkcallport()"
-                                *ngFor="let  x of MR.assignedJob">
-                                {{x.job_title}}({{x.id}})
-                            </mat-option>
-                        </mat-select>
-                    </div>
-                </mat-form-field>
-            </div>
-
-
-            <div class="form-group" *ngIf="isSelectLocation">
-                <mat-form-field class="w-100">
-                    <mat-label for="Jobs" class="control-label col-xs-2">Select Location:</mat-label>
-                    <div class="col-xs-10">
-                        <mat-select [(ngModel)]="call.job_location" name="add_new_job_location">
-                            <mat-option [value]="joblocation" *ngFor="let  joblocation of location">
-                                {{joblocation}}
-                            </mat-option>
-                        </mat-select>
-                    </div>
-                </mat-form-field>
-            </div>
-
-            <div class="form-group" *ngIf="isSelectLocation">
-                <mat-form-field class="w-100">
-                    <mat-label for="Jobs" class="control-label col-xs-2">Select Location:</mat-label>
-                    <div class="col-xs-10">
-                        <mat-select [(ngModel)]="call.job_location" name="add_new_job_location">
-                            <mat-option [value]="joblocation" *ngFor="let  joblocation of location">
-                                {{joblocation}}
-                            </mat-option>
-                        </mat-select>
-                    </div>
-                </mat-form-field>
-            </div>
-
-
-            <div class="form-group">
-                <mat-form-field class="w-100">
-                    <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
-                    <div class="col-xs-10">
-                        <mat-select [(ngModel)]="call.manager">
-                            <mat-option [value]="USR.profile.id">
-                                Self
-                            </mat-option>
-                            <mat-option [value]="x.id" *ngFor="let  x of USR.managers">
-                                {{x.name}}
-                            </mat-option>
-                        </mat-select>
-
-                    </div>
-                </mat-form-field>
-            </div>
-
-            <div class="form-group" *ngIf="db.mp.multilingual">
-                <mat-form-field class="w-100">
-                    <mat-label for="Jobs" class="control-label col-xs-2">language</mat-label>
-                    <div class="col-xs-10">
-                        <mat-select [(ngModel)]="call.language">
-                            <mat-option [value]="x.code" *ngFor="let  x of USR.bot_language_code">
-                                {{x.language}}
-                            </mat-option>
-                        </mat-select>
-                    </div>
-                </mat-form-field>
-            </div>
-
-            <div class="form-group">
-
-
-                <div id="directlineupdata" style="display:none;">
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label class="col-md-12">Interview Date</label>
-                            <div class="col-md-12">
-
-                            </div>
-
-
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="col-md-12">Optional Date</label>
-                            <div class="col-md-12">
-
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <div class="row">
-
-                        <div class="form-group col-md-6">
-                            <label class="col-md-12">Interview Start Time</label>
-                            <div class="col-md-12">
-                            </div>
-
-
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label class="col-md-12">Interview End Time</label>
-                            <div class="col-md-12">
-
-
-                            </div>
-
-                        </div>
-                        <div class="form-group">
-                            <label class="col-md-12">Interview Location</label>
-                            <div class="col-md-12">
-
-                                <mat-form-field>
-                                    <input matInput autocomplete="off" [(ngModel)]="call.interview_loc"
-                                        name="location">
-
-                                </mat-form-field>
-
-                            </div>
-
-                        </div>
-
-
+  <div class="form-horizontal">
+    <div class="form-group">
+      <mat-form-field
+        class="w-100"
+        *ngIf="USR.clientsdepartment == 'Client/Department'"
+        appearance="outline"
+      >
+        <mat-label>{{ USR.clientsdepartment }}:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            id="clientsdepartment"
+            [(ngModel)]="clientsdepartment"
+            name="clientsdepartment"
+          >
+            <mat-option
+              (click)="getclientdepartment()"
+              value="Client"
+              *ngIf="USR.mp.view_client"
+              >Client</mat-option
+            >
+            <mat-option
+              (click)="getclientdepartment()"
+              value="Department"
+              *ngIf="USR.mp.view_department"
+              >Department
+            </mat-option>
+          </mat-select>
         </div>
-    </div>
-</div>
-</div>
-</div>
-</div>
-<div mat-dialog-actions>
-    <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
-      <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+      </mat-form-field>
+
+      <mat-form-field
+        class="w-100"
+        *ngIf="USR.clientsdepartment == 'Client' || clientsdropdown"
+        appearance="outline"
+      >
+        <mat-label for="client">Client:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            id="client"
+            [(ngModel)]="call.department_id"
+            name="client"
+          >
+            <mat-option
+              (click)="
+                MR.GetJobAssignedbyclientdepartments('client', client.id)
+              "
+              value="{{ client.id }}"
+              *ngFor="let client of MR.departments"
+            >
+              {{ client.department_name }}</mat-option
+            >
+          </mat-select>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field
+        class="w-100"
+        *ngIf="USR.clientsdepartment == 'Department' || departmentsdropdown"
+        appearance="outline"
+      >
+        <mat-label for="department">Department:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            id="department"
+            [(ngModel)]="call.department_id"
+            name="department"
+          >
+            <mat-option
+              (click)="
+                MR.GetJobAssignedbyclientdepartments('department', dep.id)
+              "
+              value="{{ dep.id }}"
+              *ngFor="let dep of MR.departments"
+            >
+              {{ dep.department_name }}</mat-option
+            >
+          </mat-select>
+        </div>
+      </mat-form-field>
 
       <div class="form-group">
-        <div class="col-md-12 ">
-            <button type="submit" class="btn btn-primary btn-block" data-bs-dismiss="modal"
-                tar="#client" (click)="sendcalltocandidates()">Place in Queue</button>
-        </div>
-    </div>
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs" class="control-label col-xs-2">Jobs:</mat-label>
+          <div class="col-xs-10">
+            <mat-select [(ngModel)]="call.add_new_job_id" name="add_new_job_id">
+              <mat-option
+                [value]="x.id"
+                (click)="checkcallport()"
+                *ngFor="let x of MR.assignedJob"
+              >
+                {{ x.job_title }}({{ x.id }})
+              </mat-option>
+            </mat-select>
+          </div>
+        </mat-form-field>
+      </div>
 
+      <div class="form-group" *ngIf="isSelectLocation">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs" class="control-label col-xs-2"
+            >Select Location:</mat-label
+          >
+          <div class="col-xs-10">
+            <mat-select
+              [(ngModel)]="call.job_location"
+              name="add_new_job_location"
+            >
+              <mat-option
+                [value]="joblocation"
+                *ngFor="let joblocation of location"
+              >
+                {{ joblocation }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group" *ngIf="isSelectLocation">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs" class="control-label col-xs-2"
+            >Select Location:</mat-label
+          >
+          <div class="col-xs-10">
+            <mat-select
+              [(ngModel)]="call.job_location"
+              name="add_new_job_location"
+            >
+              <mat-option
+                [value]="joblocation"
+                *ngFor="let joblocation of location"
+              >
+                {{ joblocation }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
+          <div class="col-xs-10">
+            <mat-select [(ngModel)]="call.manager">
+              <mat-option [value]="USR.profile.id"> Self </mat-option>
+              <mat-option [value]="x.id" *ngFor="let x of USR.managers">
+                {{ x.name }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group" *ngIf="db.mp.multilingual">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs" class="control-label col-xs-2"
+            >language</mat-label
+          >
+          <div class="col-xs-10">
+            <mat-select [(ngModel)]="call.language">
+              <mat-option
+                [value]="x.code"
+                *ngFor="let x of USR.bot_language_code"
+              >
+                {{ x.language }}
+              </mat-option>
+            </mat-select>
+          </div>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <div id="directlineupdata" style="display: none">
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="col-md-12">Interview Date</label>
+              <div class="col-md-12"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="col-md-12">Optional Date</label>
+              <div class="col-md-12"></div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="form-group col-md-6">
+              <label class="col-md-12">Interview Start Time</label>
+              <div class="col-md-12"></div>
+            </div>
+            <div class="form-group col-md-6">
+              <label class="col-md-12">Interview End Time</label>
+              <div class="col-md-12"></div>
+            </div>
+            <div class="form-group">
+              <label class="col-md-12">Interview Location</label>
+              <div class="col-md-12">
+                <mat-form-field>
+                  <input
+                    matInput
+                    autocomplete="off"
+                    [(ngModel)]="call.interview_loc"
+                    name="location"
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <!-- <button mat-button (click)="onNoClick()">No Thanks</button>
+      <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+
+  <div class="form-group">
+    <div class="col-md-12">
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        data-bs-dismiss="modal"
+        tar="#client"
+        (click)="sendcalltocandidates()"
+        style="margin-left: 15px;"
+      >
+        Place in Queue
+      </button>
+    </div>
+  </div>
 </div>

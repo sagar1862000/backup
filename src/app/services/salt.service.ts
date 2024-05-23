@@ -17,9 +17,16 @@ export class SaltService {
     debugger
     const url = this.DB.rooturi + 'api/generate-key-pair/';
     debugger
-    return this.http.get<string>(url).toPromise();
+    const result =  this.http.get<string>(url).toPromise();
+    return result;
   }
 
+
+  // getSalt(): void{
+  //   this.DB.list('candidatenote/',null, (response): void => {
+  //     return response
+  //     })
+  // }
   encryptPassword(keys: any, password: string) {
     debugger;
     var rsa = forge.pki.publicKeyFromPem(keys.publicKey);

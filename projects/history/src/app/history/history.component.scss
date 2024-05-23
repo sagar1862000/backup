@@ -1,119 +1,119 @@
 #iconbackground:hover {
-    background-color: #a64eed;
+  background-color: #a64eed;
+}
+
+.col-md-2 {
+  padding: 0px 6px;
+  /* margin: 0; */
+  margin-left: 2px;
+}
+
+.col-md-3 {
+  padding: 0px 6px;
+  margin-left: 3px;
+}
+
+#iconbackground:hover img {
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all 0.5s;
+  -moz-transition: all 0.5s;
+  -o-transition: all 0.5s;
+  -ms-transition: all 0.5s;
+  transition: all 0.5s;
+  /* background-color: #a64eed; */
+}
+
+@keyframes rotate-btn {
+  0% {
+    transform: rotate(0);
   }
-  
-  .col-md-2 {
-    padding: 0px 6px;
-    /* margin: 0; */
-    margin-left: 2px;
+
+  100% {
+    transform: rotate(-360deg);
   }
-  
-  .col-md-3 {
-    padding: 0px 6px;
-    margin-left: 3px;
-  }
-  
-  #iconbackground:hover img {
-    -moz-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-    -webkit-transition: all 0.5s;
-    -moz-transition: all 0.5s;
-    -o-transition: all 0.5s;
-    -ms-transition: all 0.5s;
-    transition: all 0.5s;
-    /* background-color: #a64eed; */
-  }
-  
-  @keyframes rotate-btn {
-    0% {
-      transform: rotate(0);
-    }
-  
-    100% {
-      transform: rotate(-360deg);
-    }
-  }
-  
-  .button:hover {
-    background-color: cornflowerblue;
-  }
-  
-  // @import url('../../../../../assets/scss/core/main-panel.scss');
-  
-  #buttoncoloronhover:hover {
-    background-color: #000000;
-  }
-  
-  .btn-label {
-    position: relative;
-    left: -10px;
-    /* display: inline-block; */
-    /* padding: 4px 12px; */
-    display: inherit;
-    padding: 3px 12px;
-    /* background: rgba(0,0,0,0.15); */
-    border-radius: 3px 0 0 3px;
-    background-color: #a64eed;
-    border-radius: 15px;
-  }
-  
-  .btn-labeled:hover {
-    /* background: linear-gradient(#a64eed, #a64eed); */
-    color: #fff;
-    background-color: #a64eed;
-  
-    #iconbackground {
-      background-color: #d9affe;
-    }
-  
-    /* transform: rotatex(20deg) rotateY(20deg); */
-  }
-  
-  .btn-labeled svg:hover #bg {
-    /* fill: #d9affe; */
-    fill: blue;
-  }
-  
-  .btn-labeled:hover img {
-    -moz-transform: rotate(360deg);
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    transform: rotate(360deg);
-    -webkit-transition: all 0.2s;
-    -moz-transition: all 0.2s;
-    -o-transition: all 0.2s;
-    -ms-transition: all 0.2s;
-    transition: all 0.2s;
-    /* background-color: #a64eed; */
-  }
-  
-  .btn-labeled {
-    padding-top: 0;
-    padding-bottom: 0;
+}
+
+.button:hover {
+  background-color: cornflowerblue;
+}
+
+// @import url('../../../../../assets/scss/core/main-panel.scss');
+
+#buttoncoloronhover:hover {
+  background-color: #000000;
+}
+
+.btn-label {
+  position: relative;
+  left: -10px;
+  /* display: inline-block; */
+  /* padding: 4px 12px; */
+  display: inherit;
+  padding: 3px 12px;
+  /* background: rgba(0,0,0,0.15); */
+  border-radius: 3px 0 0 3px;
+  background-color: #a64eed;
+  border-radius: 15px;
+}
+
+.btn-labeled:hover {
+  /* background: linear-gradient(#a64eed, #a64eed); */
+  color: #fff;
+  background-color: #a64eed;
+
+  #iconbackground {
     background-color: #d9affe;
-    border-radius: 15px;
-    color: #a64eed;
   }
-  
-  .col-md-2 {
-    width: 130px;
-  }
-  
-  .col-md-3 {
-    width: 200px;
-  }
-  
-  .col-md-6 {
-    width: 700px;
-  }
-  
-  @media only screen and (min-width: 768px) {
-    /* Add your styles for this media query */
-  }
-  
-  /* @media only screen and (min-width: 769px) and (max-width: 1281px) {
+
+  /* transform: rotatex(20deg) rotateY(20deg); */
+}
+
+.btn-labeled svg:hover #bg {
+  /* fill: #d9affe; */
+  fill: blue;
+}
+
+.btn-labeled:hover img {
+  -moz-transform: rotate(360deg);
+  -webkit-transform: rotate(360deg);
+  -ms-transform: rotate(360deg);
+  transform: rotate(360deg);
+  -webkit-transition: all 0.2s;
+  -moz-transition: all 0.2s;
+  -o-transition: all 0.2s;
+  -ms-transition: all 0.2s;
+  transition: all 0.2s;
+  /* background-color: #a64eed; */
+}
+
+.btn-labeled {
+  padding-top: 0;
+  padding-bottom: 0;
+  background-color: #d9affe;
+  border-radius: 15px;
+  color: #a64eed;
+}
+
+.col-md-2 {
+  width: 130px;
+}
+
+.col-md-3 {
+  width: 200px;
+}
+
+.col-md-6 {
+  width: 700px;
+}
+
+@media only screen and (min-width: 768px) {
+  /* Add your styles for this media query */
+}
+
+/* @media only screen and (min-width: 769px) and (max-width: 1281px) {
     .col-md-2 {
       width: 90px;
     }
@@ -121,25 +121,34 @@
       width: 150px;
     }
   } */
-  
-  .headerfixed {
-    position: sticky;
-  }
-  
-  .input-group-addon {
-    width: 10px;
-  }
-  
-  .closedialog {
-    font-size: 1.32rem; 
-    position: absolute;
-    right: 0.625rem; 
-    color: #f44336;
-    padding-top: 20px;
-    padding-right: 15px;
 
-    &:hover {
-      color: red;
-      cursor: pointer;
-    }
+.headerfixed {
+  position: sticky;
+}
+
+.input-group-addon {
+  width: 10px;
+}
+
+.closedialog {
+  font-size: 1.32rem;
+  position: absolute;
+  right: 0.625rem;
+  color: #f44336;
+  padding-top: 20px;
+  padding-right: 15px;
+
+  &:hover {
+    color: red;
+    cursor: pointer;
   }
+}
+//  ::ng-deep .mat-mdc-text-field-wrapper{
+//   width: 100%;
+//   height: 2.3rem !important;
+//   line-height: 1.5;
+//   color: antiquewhite;
+// }
+//  ::ng-deep .mat-mdc-text-field-wrapper {
+//   height: 40px !important
+// }
