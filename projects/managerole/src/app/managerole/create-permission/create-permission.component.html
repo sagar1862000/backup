@@ -1,0 +1,27 @@
+<div class="form-container">
+    <div class="form-top">
+      <span class="form-head">Permission</span>
+      <!-- <i class="fa-regular fa-window-maximize maximizeicon" routerLink="/add-new-candidate" title="Maximize Screen"></i> -->
+      <i routerLink="/managerole" class="fa-solid fa-xmark" title="Close"></i>
+    </div>
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Area Select:</mat-label>
+          <mat-select [(ngModel)]="areas">
+            <mat-option *ngFor="let opt of apidata" [value]="opt.id">
+              {{ opt.area_name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      
+      <div class="form-group">
+        <mat-form-field>
+          <mat-label>Candidate Permission:</mat-label>
+          <input matInput [(ngModel)]="permission_names" name="permission_names" placeholder="Enter Permission Name">
+        </mat-form-field>
+      </div>
+  
+      <button class="submitbtn" (click)="onSubmit()">Submit</button>
+  
+  </div>

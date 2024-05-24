@@ -14,16 +14,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'add_new_job'`, () => {
+  it(`should have as title 'permission'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('add_new_job');
+    expect(app.title).toEqual('permission');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('.content span')?.textContent).toContain('add_new_job app is running!');
+    expect(compiled.querySelector('.content span')?.textContent).toContain('permission app is running!');
   });
 });
