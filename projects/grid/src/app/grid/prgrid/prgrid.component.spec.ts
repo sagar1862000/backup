@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EmailComponent } from './email.component';
+import { PrgridComponent } from './prgrid.component';
 
-describe('EmailComponent', () => {
-  let component: EmailComponent;
-  let fixture: ComponentFixture<EmailComponent>;
+describe('PrgridComponent', () => {
+  let component: PrgridComponent;
+  let fixture: ComponentFixture<PrgridComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [EmailComponent]
+      declarations: [PrgridComponent]
     });
-    fixture = TestBed.createComponent(EmailComponent);
+    fixture = TestBed.createComponent(PrgridComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
