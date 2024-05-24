@@ -1,0 +1,56 @@
+<div class="main-content" style="position:relative;">
+    <div class="container-fluid">
+        <section>
+            <mat-card>
+                <mat-card-title><span *ngIf="!isEditTemplate">Create New</span>
+                    <span *ngIf="isEditTemplate">Edit </span> Email Template</mat-card-title>
+                <mat-card-content>
+                    <mat-form-field class="w-100">
+                        <input matInput class="form-control" n="Template Name" [(ngModel)]="message.template_name"
+                            id="titile" type="text" placeholder="Template Name">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-50">
+                        <mat-label>Template Area</mat-label>
+                        <mat-select disableRipple id="Template" n="area" [(ngModel)]="message.template_area">
+                            <mat-option>For Reference</mat-option>
+                            <mat-option value="cs">Candidate Status</mat-option>
+                            <mat-option value="rs" ng-if="profile.app_id=='6'">Referrer Status</mat-option>
+                            <mat-option value="job_status">Job Status</mat-option>
+                            <mat-option value="misc">Misc.</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field class="w-50">
+                        <mat-label>Sended BY:</mat-label>
+                        <input matInput class="form-control" n="Sended By" [(ngModel)]="message.sended_by"
+                        id="sended_by" type="text" placeholder="Sended By">
+                    </mat-form-field>
+
+                    <mat-form-field class="w-100">
+                        <input matInput maxlength="255" placeholder="Message" [(ngModel)]="message.subject">
+                        <mat-hint align="start">Please use lowercase for key between {{'{'}}valuetoreplace{{'}'}}
+                            otherwise
+                            value
+                            will not be replaced</mat-hint>
+                        <mat-hint align="end">{{message.message.length}} / 256</mat-hint>
+                    </mat-form-field>
+                </mat-card-content>
+
+
+
+
+                <!-- <button (click)="exportHtml()">Export</button> -->
+                <!-- <email-editor></email-editor> -->
+
+                <mat-card-actions>
+                    <!-- <button class="btn btn-success" *ngIf="!isEditTemplate"
+                        (click)="onSaveMessageTemplate()">Save</button>
+                    <button class="btn btn-success" *ngIf="isEditTemplate"
+                        (click)="onUpdateMessageTemplate()">Update</button> -->
+
+                </mat-card-actions>
+            </mat-card>
+        </section>
+    </div>
+</div>

@@ -1,0 +1,91 @@
+.layout {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  .content {
+    flex-grow: 1;
+    /* Add any other styles for your content area */
+  }
+  
+  .fixed-sidebar {
+    flex: 0 0 40%; /* Adjust the width of your fixed sidebar */
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #f0f0f0; 
+    overflow-y: auto;
+
+    /* Add any other styles for your fixed sidebar */
+  }
+  
+  
+  
+  .btn-label {
+    position: relative;
+    left: -10px;
+    display: inherit;
+  
+    padding: 3px 12px;
+    border-radius: 3px 0 0 3px;
+    background-color: #a64eed;
+    border-radius: 15px;
+  }
+  
+  
+  .btn-labeled:hover {
+    // background: linear-gradient(#a64eed, #a64eed);
+    color: #fff;
+    background-color: #a64eed;
+  
+    #iconbackground {
+      background-color: #d9affe;
+    }
+  
+    // transform: rotatex(20deg) rotateY(20deg);
+  }
+  
+  .btn-labeled svg:hover #bg {
+    // fill: #d9affe;
+    fill: blue;
+  }
+  
+  .btn-labeled:hover img {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+    // background-color: #a64eed;
+  }
+  
+  .btn-labeled {
+    padding-top: 0;
+    padding-bottom: 0;
+    background-color: #d9affe;
+    border-radius: 15px;
+    color: #a64eed;
+  }
+  
+  #iconbackground:hover {
+    background-color: #a64eed;
+  }
+  #iconbackground:hover img {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.5s;
+    -moz-transition: all 0.5s;
+    -o-transition: all 0.5s;
+    -ms-transition: all 0.5s;
+    transition: all 0.5s;
+  
+    // background-color: #a64eed;
+  }
+  
