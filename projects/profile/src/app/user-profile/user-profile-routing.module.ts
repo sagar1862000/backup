@@ -1,13 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { NewJobComponent } from './new-job.component';
+import { UserProfileComponent } from './user-profile.component';
 
-const routes: Routes = [
-  {path:'', component:NewJobComponent}
-];
+const routes: Routes = [{path:'', component:UserProfileComponent}];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class NewJobRoutingModule { }
+export class UserProfileRoutingModule { }
