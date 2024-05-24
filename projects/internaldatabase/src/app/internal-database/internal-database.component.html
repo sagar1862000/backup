@@ -1,0 +1,596 @@
+<app-add-candidates></app-add-candidates>
+<div class="main-content">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="row">
+          <div class="container-fluid">
+            <div class="" style="margin-top: 15px">
+              <div class="col-md-4">
+                <mat-button-toggle-group
+                  name="fontStyle"
+                  aria-label="Font Style"
+                >
+                  <button
+                    mat-raised-button
+                    style="
+                      background-color: #a64eed;
+                      color: white;
+                      margin-right: 10px;
+                      border-radius: 19px;
+                    "
+                    (click)="openBasic()"
+                  >
+                    Advance Search
+                  </button>
+
+                  <button
+                    mat-raised-button
+                    style="
+                      background-color: #a64eed;
+                      color: white;
+                      border-radius: 19px;
+                    "
+                    (click)="openAdvance()"
+                  >
+                    Boolean Search
+                  </button>
+                </mat-button-toggle-group>
+              </div>
+
+              <div class="col-md-8 pull-right">
+                <div class="row" style="margin-left: 110px; margin-top: 10px">
+                  <div class="col-md-8 pull-right"></div>
+                  <div class="col-md-4">
+                    <button
+                      class="btn btn-sm float-right btn-outline-secondary icousers"
+                      data-toggle="modal"
+                      title="Add Candidate"
+                      id="iconbackground"
+                      (click)="callModal()"
+                      *ngIf="db.mp.candidate_detail_store"
+                    >
+                      <i class="fa fa-users icones"></i>
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <br />
+            <br />
+            <br />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Boolean Search -->
+<div class="container mb-5" *ngIf="ShowAdvanceSearch">
+  <div class="row">
+    <!-- <div class="col-md-2"></div> -->
+    <div
+      class="col-md-10"
+      style="border-radius: 25px; margin-left: 60px; margin-top: -30px"
+    >
+      <div class="card-body" style="height: 300px">
+        <div>
+          <h1
+            style="
+              display: flex;
+              justify-content: center;
+              font-family: Poppins, Arial, sans-serif;
+              font-weight: 400;
+              line-height: 1.5;
+              font-size: 1.75rem;
+            "
+          >
+            Boolean Search
+          </h1>
+        </div>
+
+        <div class="row" style="margin-top: 10px; margin-bottom: 15px">
+          <div class="col-md-12" style="display: flex; justify-content: center">
+            <div>
+              <mat-form-field style="display: flex; justify-content: center">
+                <mat-label> Search </mat-label>
+                <input
+                  matInput
+                  autocomplete="off"
+                  type="text"
+                  [(ngModel)]="searchText"
+                  (keyup.enter)="loadGrid()"
+                />
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="height: 35px">
+          <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="salaryfrom"
+                name="salaryfrom"
+                placeholder="Salary From"
+                (ngModelChange)="updatemaxsalary()"
+                appearance="fill"
+              >
+                <mat-option
+                  value="{{ minimumSalarylac }}"
+                  *ngFor="let minimumSalarylac of minimumSalaryOption"
+                >
+                  {{ minimumSalarylac }} Lacs</mat-option
+                >
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="col-md-10">
+              <mat-select
+                [(ngModel)]="salaryto"
+                name="salaryto"
+                placeholder="Salary To-"
+              >
+                <mat-option
+                  value="{{ opt }}"
+                  *ngFor="let opt of maxSalaryOption"
+                  help="first select minimum value"
+                >
+                  {{ opt }} Lacs
+                </mat-option>
+                <mat-option value="99">any</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row experianceDetails" style="height: 35px">
+          <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="expfrom"
+                (ngModelChange)="updatemaxexperience()"
+                name="expfrom"
+                placeholder="Experience From-"
+              >
+                <mat-option value="1">Fresher</mat-option>
+                <mat-option value="{{ opt }}" *ngFor="let opt of minexperience"
+                  >{{ opt }} year</mat-option
+                >
+                <mat-option value="0">Any</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="col-md-10">
+              <mat-select
+                [(ngModel)]="expto"
+                name="expto"
+                placeholder="Experience To-"
+              >
+                <mat-option value="{{ opt }}" *ngFor="let opt of maxexperience"
+                  >{{ opt }} year</mat-option
+                >
+                <mat-option value="99">Any</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row locationdetails" style="height: 35px">
+          <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="selectedLocations"
+                name="location"
+                [multiple]="true"
+                placeholder="Location:"
+              >
+                <mat-option *ngFor="let locations of location">
+                  {{ locations }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div
+            class="col-3 form-group"
+            style="display: flex; justify-content: left; align-items: top"
+          >
+            <button
+              class="btn"
+              style="
+                margin-top: -5px;
+                background-color: #a64eed;
+                width: 200px;
+                height: 35px;
+                border-radius: 19px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                padding-right: 14px;
+                padding-bottom: 10px;
+              "
+              (click)="loadGridBoolean()"
+              matDialogClose
+            >
+              <i
+                class="fas fa-search closedialog"
+                style="margin-right: 5px"
+              ></i>
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
+
+<!-- Advance Search -->
+<div class="container mb-5" *ngIf="ShowbasicSearch">
+  <div class="row">
+    <!-- <div class="col-md-2"></div> -->
+    <div
+      class="col-md-10"
+      style="border-radius: 25px; margin-left: 60px; margin-top: -30px"
+    >
+      <div class="card-body" style="height: 300px">
+        <div>
+          <h1
+            style="
+              display: flex;
+              justify-content: center;
+              font-family: Poppins, Arial, sans-serif;
+              font-weight: 400;
+              line-height: 1.5;
+              font-size: 1.75rem;
+            "
+          >
+            Advance Search
+          </h1>
+        </div>
+        <div class="row" style="margin-top: 10px; margin-bottom: 15px">
+          <div class="col-md-4">
+            <div class="col-md-9">
+              <form class="example-form">
+                <mat-form-field
+                  class="example-chip-list"
+                  style="background-color: white"
+                >
+                  <!-- <mat-label>Any Keyword-</mat-label> -->
+                  <mat-chip-grid #chipGrid1 aria-label="Enter fruits">
+                    <mat-chip-row
+                      *ngFor="let Any of AnyArray"
+                      (removed)="removeAny(Any)"
+                      [editable]="true"
+                      (edited)="editAny(Any, $event)"
+                      [aria-description]="'press enter to edit ' + Any.name"
+                      style="margin-top: -8px"
+                    >
+                      {{ Any.name }}
+                      <button
+                        matChipRemove
+                        [attr.aria-label]="'remove ' + Any.name"
+                      >
+                        <mat-icon>cancel</mat-icon>
+                      </button>
+                    </mat-chip-row>
+
+                    <input
+                      placeholder="Any..."
+                      [matChipInputFor]="chipGrid1"
+                      [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                      [matChipInputAddOnBlur]="addOnBlur"
+                      [matAutocomplete]="anyKeywordAuto"
+                      (matChipInputTokenEnd)="addAny($event)"
+                      ((click))="fetchSuggestions()"
+                      (input)="onInputChangeAny($event)"
+                      [(ngModel)]="inputValueAny"
+                    />
+                    <mat-autocomplete
+                      #anyKeywordAuto="matAutocomplete"
+                      (optionSelected)="onOptionSelectedAny($event)"
+                    >
+                      <mat-option
+                        *ngFor="let suggestion of suggestionsAny"
+                        [value]="suggestion"
+                        >{{ suggestion }}</mat-option
+                      >
+                    </mat-autocomplete>
+                  </mat-chip-grid>
+                </mat-form-field>
+              </form>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="col-md-10">
+              <mat-form-field class="w-100">
+                <!-- <mat-label> All Keyword- </mat-label> -->
+                <mat-chip-grid #chipGrid2 aria-label="Enter fruits">
+                  <mat-chip-row
+                    *ngFor="let All of AllArray"
+                    (removed)="removeAll(All)"
+                    [editable]="true"
+                    (edited)="editAll(All, $event)"
+                    [aria-description]="'press enter to edit ' + All.name"
+                    style="margin-top: -8px"
+                  >
+                    {{ All.name }}
+                    <button
+                      matChipRemove
+                      [attr.aria-label]="'remove ' + All.name"
+                    >
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+
+                  <input
+                    placeholder="All..."
+                    [matChipInputFor]="chipGrid2"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    [matAutocomplete]="allKeywordAuto"
+                    (matChipInputTokenEnd)="addAll($event)"
+                    (input)="onInputChangeAll($event)"
+                    [(ngModel)]="inputValueAll"
+                  />
+
+                  <mat-autocomplete
+                    #allKeywordAuto="matAutocomplete"
+                    (optionSelected)="onOptionSelectedAll($event)"
+                  >
+                    <mat-option
+                      *ngFor="let suggestion of suggestionsAll"
+                      [value]="suggestion"
+                      >{{ suggestion }}</mat-option
+                    >
+                  </mat-autocomplete>
+                </mat-chip-grid>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="col-md-10">
+              <mat-form-field class="w-100">
+                <!-- <mat-label> Exclude Keyword- </mat-label> -->
+                <mat-chip-grid #chipGrid3 aria-label="Enter fruits">
+                  <mat-chip-row
+                    *ngFor="let Not of NotArray"
+                    (removed)="removeNot(Not)"
+                    [editable]="true"
+                    (edited)="editNot(Not, $event)"
+                    [aria-description]="'press enter to edit ' + Not.name"
+                    style="margin-top: -8px"
+                  >
+                    {{ Not.name }}
+                    <button
+                      matChipRemove
+                      [attr.aria-label]="'remove ' + Not.name"
+                    >
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+
+                  <input
+                    placeholder="Exclude"
+                    [matChipInputFor]="chipGrid3"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    (matChipInputTokenEnd)="addNot($event)"
+                    [matAutocomplete]="notKeywordAuto"
+                    (input)="onInputChangeNot($event)"
+                    [(ngModel)]="inputValueAll"
+                  />
+
+                  <mat-autocomplete
+                    #notKeywordAuto="matAutocomplete"
+                    (optionSelected)="onOptionSelectedNot($event)"
+                  >
+                    <mat-option
+                      *ngFor="let suggestion of suggestionsNot"
+                      [value]="suggestion"
+                      >{{ suggestion }}</mat-option
+                    >
+                  </mat-autocomplete>
+                </mat-chip-grid>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="row" style="height: 35px">
+          <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="salaryfrom"
+                name="salaryfrom"
+                placeholder="Salary From"
+                (ngModelChange)="updatemaxsalary()"
+                appearance="fill"
+                class="bold-placeholder"
+              >
+                <mat-option
+                  value="{{ minimumSalarylac }}"
+                  *ngFor="let minimumSalarylac of minimumSalaryOption"
+                >
+                  {{ minimumSalarylac }} Lacs</mat-option
+                >
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="col-md-10">
+              <mat-select
+                [(ngModel)]="salaryto"
+                name="salaryto"
+                placeholder="Salary To-"
+              >
+                <mat-option
+                  value="{{ opt }}"
+                  *ngFor="let opt of maxSalaryOption"
+                  help="first select minimum value"
+                >
+                  {{ opt }} Lacs
+                </mat-option>
+                <mat-option value="99">any</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row experianceDetails" style="height: 35px">
+          <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="expfrom"
+                (ngModelChange)="updatemaxexperience()"
+                name="expfrom"
+                placeholder="Experience From-"
+              >
+                <mat-option value="1">Fresher</mat-option>
+                <mat-option value="{{ opt }}" *ngFor="let opt of minexperience"
+                  >{{ opt }} year</mat-option
+                >
+                <mat-option value="0">Any</mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <div class="form-group col-md-6">
+            <div class="col-md-10">
+              <mat-select
+                [(ngModel)]="expto"
+                name="expto"
+                placeholder="Experience To-"
+              >
+                <mat-option value="{{ opt }}" *ngFor="let opt of maxexperience"
+                  >{{ opt }} year</mat-option
+                >
+                <mat-option value="99">Any</mat-option>
+              </mat-select>
+            </div>
+          </div>
+        </div>
+
+        <div class="row locationdetails" style="height: 55px">
+          <!-- <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="selectedLocations"
+                name="location"
+                [multiple]="true"
+                placeholder="Location:"
+                (selectionChange)="onLocationSelectionChange($event)"
+              >
+                <mat-option *ngFor="let locations of location" [value]="location">
+                  {{ locations }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div> -->
+
+          <div class="form-group col-md-6">
+            <div class="col-md-9">
+              <mat-select
+                [(ngModel)]="mylocation"
+                name="mylocation"
+                [multiple]="true"
+                placeholder="Location:"
+                (selectionChange)="onLocationSelectionChange($event)"
+              >
+                <mat-option
+                  *ngFor="let locations of location"
+                  [value]="locations"
+                >
+                  {{ locations }}
+                </mat-option>
+              </mat-select>
+            </div>
+          </div>
+
+          <!-- 
+            <mat-chip-grid #chipGrid2 aria-label="Enter fruits">
+                  <mat-chip-row
+                    *ngFor="let All of AllArray"
+                    (removed)="removeAll(All)"
+                    [editable]="true"
+                    (edited)="editAll(All, $event)"
+                    [aria-description]="'press enter to edit ' + All.name"
+                  >
+                    {{ All.name }}
+                    <button
+                      matChipRemove
+                      [attr.aria-label]="'remove ' + All.name"
+                    >
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+
+                  <input
+                    placeholder=""
+                    [matChipInputFor]="chipGrid2"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="addOnBlur"
+                    [matAutocomplete]="allKeywordAuto"
+                    (matChipInputTokenEnd)="addAll($event)"
+                    (input)="onInputChangeAll($event)"
+                    [(ngModel)]="inputValueAll"
+                  />
+
+                  <mat-autocomplete
+                    #allKeywordAuto="matAutocomplete"
+                    (optionSelected)="onOptionSelectedAll($event)"
+                  >
+                    <mat-option
+                      *ngFor="let suggestion of suggestionsAll"
+                      [value]="suggestion"
+                      >{{ suggestion }}</mat-option
+                    >
+                  </mat-autocomplete>
+                </mat-chip-grid>
+           -->
+          <div
+            class="col-3 form-group"
+            style="display: flex; justify-content: left; align-items: top"
+          >
+            <button
+              class="btn"
+              style="
+                margin-top: -5px;
+                background-color: #a64eed;
+                width: 200px;
+                height: 35px;
+                border-radius: 19px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: white;
+                padding-right: 14px;
+                padding-bottom: 10px;
+              "
+              (click)="loadGridAdvance()"
+              matDialogClose
+            >
+              <i
+                class="fas fa-search closedialog"
+                style="margin-right: 5px"
+              ></i>
+              Search
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2"></div>
+  </div>
+</div>
