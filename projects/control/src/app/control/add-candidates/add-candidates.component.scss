@@ -1,9 +1,3 @@
-.main-dialog{
-    display:flex
-}
-
-
-
 .closedialog {
     font-size: 1.32rem; 
     position: absolute;
@@ -16,4 +10,9 @@
       color: red;
       cursor: pointer;
     }
+  }
+
+  .dialog-actionbox{
+    margin-top: -28px;
+    margin-bottom: 18px;
   }
