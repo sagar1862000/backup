@@ -1,16 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyJobComponent } from './my-job.component';
+import { NewJobComponent } from './new-job.component';
 
-describe('MyJobComponent', () => {
-  let component: MyJobComponent;
-  let fixture: ComponentFixture<MyJobComponent>;
+describe('NewJobComponent', () => {
+  let component: NewJobComponent;
+  let fixture: ComponentFixture<NewJobComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [MyJobComponent]
+      declarations: [NewJobComponent]
     });
-    fixture = TestBed.createComponent(MyJobComponent);
+    fixture = TestBed.createComponent(NewJobComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
