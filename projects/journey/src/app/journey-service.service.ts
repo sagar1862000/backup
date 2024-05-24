@@ -5,11 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 declare var $: any;
 type ICallback = (response: any) => void;
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class InternalDatabaseService {
-
-  rooturi = 'http://192.168.4.14:8001/'; 
+export class JourneyService {
+  rooturi = 'http://192.168.4.14:8000/';
   ServiceURL = this.rooturi;
   ids12: any = [];
   loaderprogressbar = false;
@@ -68,13 +67,13 @@ export class InternalDatabaseService {
     }
   }
 
-  setToken(token: string, refresh: string) : void {
+  setToken(token: string, refresh: string): void {
     this.token = token;
     localStorage.setItem('token', this.token);
     localStorage.setItem('refresh', refresh);
   }
 
-  addmessageandremove(message): void {
+  addmessageandremove(message:any): void {
     this.showNotification(message);
   }
 

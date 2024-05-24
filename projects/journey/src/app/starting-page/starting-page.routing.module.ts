@@ -1,9 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { InternalDatabaseComponent } from './internal-database.component';
-
+// import { InternalDatabaseComponent } from './internal-database.component';
+import { StartingPageComponent } from './starting-page.component';
 const routes: Routes = [
-  {path:'', component:InternalDatabaseComponent}
+  { path:'', component:StartingPageComponent }
 ];
 
 @NgModule({
