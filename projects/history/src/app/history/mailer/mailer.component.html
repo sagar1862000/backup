@@ -1,0 +1,113 @@
+<div style="display: flex; justify-content: space-between">
+  <div>
+    <h1 style="padding-left: 25px; padding-top: 15px">Mailer</h1>
+  </div>
+  <div>
+    <i
+      class="fa-solid fa-x closedialog"
+      style="font-size: 16px"
+      matDialogClose
+    ></i>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <div
+        class="col-xs-10"
+        *ngIf="db.clientsdepartment == 'Client/Department'"
+      >
+        <ng-select
+          id="clientsdepartment"
+          [(ngModel)]="clientsdepartment"
+          name="clientsdepartment"
+          (change)="getclientdepartment()"
+          placeholder="{{ db.clientsdepartment }}:"
+        >
+          <ng-option value="Client" *ngIf="db.mp.page_client">Client</ng-option>
+          <ng-option value="Department" *ngIf="db.mp.page_departments"
+            >Department</ng-option
+          >
+        </ng-select>
+      </div>
+      <div
+        class="col-xs-10"
+        *ngIf="db.clientsdepartment == 'Client' || clientsdropdown"
+      >
+        <ng-select
+          [(ngModel)]="addtojob.client_detail_id"
+          (change)="getcandidatebyaddtojob(1)"
+          placeholder="Client:"
+        >
+          <ng-option *ngFor="let x of clients" [value]="x.id">{{
+            x.billingName
+          }}</ng-option>
+        </ng-select>
+      </div>
+      <div
+        class="col-xs-10"
+        *ngIf="db.clientsdepartment == 'Department' || departmentsdropdown"
+      >
+        <ng-select
+          id="department"
+          [(ngModel)]="addtojob.client_detail_id"
+          name="department"
+          (change)="getcandidatebyaddtojob(0)"
+          placeholder="Department:"
+        >
+          <ng-option value="{{ dep.id }}" *ngFor="let dep of departments">
+            {{ dep.department }}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label for="Jobs" class="control-label col-xs-2">Jobs:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            [(ngModel)]="addnewjob.add_new_job_id"
+            name="add_new_job_id"
+          >
+            <mat-option
+              [value]="x.id"
+              *ngFor="let x of jobslistbyclientsaddtojob"
+              >{{ x.job_title }}({{ x.id }})
+            </mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
+        <div class="col-xs-10">
+          <mat-select [(ngModel)]="addnewjob.manager">
+            <mat-option [value]="db.profile.id"> Self </mat-option>
+            <mat-option [value]="x.id" *ngFor="let x of managers">
+              {{ x.name }}
+            </mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="form-group">
+    <div class="col-md-12" style="display: flex; align-items: center; justify-content: center;" >
+      <button
+        type="submit"
+        class="btn btn-primary btn-block"
+        data-bs-dismiss="modal"
+        tar="#client"
+        (click)="sendmailsmstocandidates()"
+        style="margin-left: 15px; margin-top: -6px;"
+      >
+        Send in Queue
+      </button>
+    </div>
+  </div>
+</div>
