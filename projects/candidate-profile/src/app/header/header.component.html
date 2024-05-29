@@ -1,0 +1,53 @@
+<header class="header">
+  <div class="profile-section">
+    <div class="profile-icon">A</div>
+    <div class="profile-info">
+      <h2>{{ message }}</h2>
+      <div class="team-score">
+        <span class="score">75</span>
+        <span class="label">Team Score</span>
+      </div>
+    </div>
+    <div class="star-icon">⭐</div>
+  </div>
+  <div class="header-actions">
+    <div class="dropdown">
+      <button class="action-button" (click)="toggleDropdownForMoreOptions()">
+        <i class="fa fa-ellipsis-v"></i>
+      </button>
+      <div *ngIf="showMoreOptionsDropdown" class="dropdown-content" #dropdownMenu>
+        <a href="#"><i class="fa fa-share-alt"></i> Share On What's App</a>
+        <a href="#"><i class="fa fa-share-alt"></i> Share On Email</a>
+        <a href="#"><i class="fa fa-user-plus"></i> Request Referral</a>
+        <!-- <a href="#"><i class="fa fa-archive"></i> Archive</a>
+        <a href="#"><i class="fa fa-tasks"></i> Add Task</a>
+        <a href="#"><i class="fa fa-envelope-open"></i> Request Application</a>
+        <a href="#"><i class="fa fa-sms"></i> Request SMS Consent</a>
+        <a href="#"><i class="fa fa-share-alt"></i> Share Candidate</a>
+        <a href="#"><i class="fa fa-print"></i> Print</a>
+        <a href="#"><i class="fa fa-bell"></i> Set Reminder</a>
+        <a href="#"><i class="fa fa-lock"></i> Mark Private</a> -->
+      </div>
+    </div>
+    <button class="icon-button action-button" aria-label="User Profile">
+      <i class="fa fa-user-plus"></i>
+    </button>
+    <button class="icon-button action-button" aria-label="Settings">
+      <i class="fa-solid fa-calendar-days"></i>
+    </button>
+    <div class="dropdown">
+      <button class="dropbtn action-button icon-change-stage special" (click)="toggleDropdownForStaegs()">Change Stage <i class="fa fa-caret-down"></i></button>
+      <div *ngIf="showStagesDropdown" class="dropdown-content">
+        <a (click)="GettingValue('Discussion')"><i class="fa fa-user-check"></i> Applied</a>
+        <a (click)="GettingValue('Feedback')"><i class="fa fa-comment-dots"></i> Feedback</a>
+        <a (click)="GettingValue('Interviewing')"><i class="fa fa-user-tie"></i> Interviewing</a>
+        <a (click)="GettingValue('Made Offer')"><i class="fa fa-file-contract"></i> Made Offer</a>
+        <a (click)="GettingValue('Disqualified')"><i class="fa fa-user-slash"></i> Disqualified</a>
+        <a (click)="GettingValue('Hired')"><i class="fa fa-user-graduate"></i> Hired</a>
+      </div>
+    </div>
+    <button class="action-button icon-close">❌</button>
+    <button class="action-button icon-prev">⬅️</button>
+    <button class="action-button icon-next">➡️</button>
+  </div>
+</header>
