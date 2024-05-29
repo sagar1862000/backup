@@ -1,0 +1,129 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Importing Bootstrap SCSS file. */
+@import 'bootstrap/scss/bootstrap';
+
+@import "~@fortawesome/fontawesome-free/css/all.css";
+
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+
+.content {
+    min-height: 100%;
+  }
+  
+  body,
+  html {
+    margin: 0;
+    padding: 0;
+  }
+  
+  .active a div img {
+    border: 2px solid #fff;
+    background-color: #a64eed;
+  }
+  
+  .active a div img svg {
+    fill: #000;
+  }
+  
+  .active mat-expansion-panel-header a div img {
+    border: 2px solid #fff;
+    background-color: #a64eed;
+  }
+  
+  /* make sure to add the @import the SlickGrid Bootstrap Theme AFTER the variables changes */
+  
+  // @import '../node_modules/angular-slickgrid/styles/sass/slickgrid-theme-bootstrap.scss';
+  // @import "~@ng-select/ng-select/themes/material.theme.css";
+  // $ag-icons-path: "../node_modules/ag-grid-community/src/styles/ag-theme-balham/icons/";
+//   @import "../node_modules/ag-grid-community/src/styles/ag-grid.scss";
+  // @import "../node_modules/ag-grid-community/src/styles/ag-theme-balham/sass/ag-theme-balham.scss";
+//   @import 'ag-grid-community/dist/styles/ag-theme-material.css';
+  
+  //@import 'ag-grid-community/dist/styles/ag-theme-balhan.css';
+  html,
+  body {
+    height: 100%;
+  }
+  
+  .my-select.mat-select-panel {
+    max-height: none !important;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+  }
+  
+  .mat-drawer-inner-container::-webkit-scrollbar {
+    display: none;
+    // overflow:hidden;
+    overflow-y: scroll;
+    padding: 0%;
+    margin: 0%;
+  }
+  
+  // ::-webkit-scrollbar {
+  //   width: 4px;
+  //   overflow-y: scroll;
+  //   background: grey;
+  //   box-shadow: inset 0 0 4px #707070;
+  // }
+  
+  // ::-webkit-scrollbar-thumb {
+  //   background: #060308;
+  //   border-radius: 10px;
+  // }
+  mat-sidenav-content {
+    // margin-left: 0 !important;
+    bottom: 0;
+    left: 0;
+    flex: 1 1 auto;
+  }
+  
+  // on-off nodecomponent.ts css mat-slide-toggle
+  
+  // .mat-slide-toggle-thumb {
+  //   // width: 10px !important;
+  //   // height: 10px !important;
+  //   transform: translate(50%, 50%);
+  // }
+  
+  .mat-slide-toggle-bar {
+    background-color: #C1D5A4;
+    // border-radius: 15px !important;
+    // height: 16px !important;
+  }
+  
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-bar {
+    background-color: #a64eed;
+  }
+  
+  .mat-slide-toggle.mat-checked:not(.mat-disabled) .mat-slide-toggle-thumb {
+    background-color: #FCF8E8;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  .ng-select.ng-select-disabled>.ng-select-container {
+    background-color: red;
+  }
+  
+  .ng-select.ng-select-disabled .ng-arrow-wrapper {
+    display: none;
+  }
+  
