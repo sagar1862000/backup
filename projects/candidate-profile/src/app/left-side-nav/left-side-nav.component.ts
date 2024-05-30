@@ -21,4 +21,11 @@ export class LeftSideNavComponent {
       this._candidateId = data;
     }
   }
+  candidateIds: any;
+  @Input()
+  set AllCandidateIds(data:any) {
+    if(data){
+      this.candidateIds=data;
+    }
+  }
 }

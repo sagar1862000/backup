@@ -20,6 +20,7 @@ import { ActivatedRoute } from '@angular/router';
 export class AppComponent {
   decoded:any;
   Id:any;
+  candidateIds:any;
   constructor(public dailog: MatDialog , public route:ActivatedRoute ) {
     debugger;
     let candidateId:any;
@@ -29,7 +30,14 @@ export class AppComponent {
       this.Id = Number(this.decoded);
     });
     console.log('before decoding : ' , candidateId);
-    console.log('Candidate Id : ' , this.Id);    
+    console.log('Candidate Id : ' , this.Id);  
+    const data = localStorage.getItem('additionalData');
+    if (data) {
+      this.candidateIds = JSON.parse(data);
+      // Optionally, clear the local storage to avoid stale data
+      localStorage.removeItem('additionalData');
+    }
+    console.log('Ids in app:', this.candidateIds);  
   }
   title = 'candidate-profile';
   MyReference = 'table';

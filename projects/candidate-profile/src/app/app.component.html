@@ -1,7 +1,7 @@
 <router-outlet></router-outlet>
-<app-header></app-header>
+<app-header [CandidateId]="Id" [AllCandidateIds]="candidateIds"></app-header>
 <div class="main-content">
-  <app-left-side-nav (newItemEvent)="MyFunc($event)" [CandidateId]="Id"></app-left-side-nav>
-  <app-main-content [reference]="MyReference" [CandidateId]="Id"></app-main-content>
-  <app-right-side-nav [CandidateId]="Id"></app-right-side-nav>
+  <app-left-side-nav (newItemEvent)="MyFunc($event)" [CandidateId]="Id" [AllCandidateIds]="candidateIds"></app-left-side-nav>
+  <app-main-content [reference]="MyReference" [CandidateId]="Id" [AllCandidateIds]="candidateIds"></app-main-content>
+  <app-right-side-nav [CandidateId]="Id" [AllCandidateIds]="candidateIds"></app-right-side-nav>
 </div>
