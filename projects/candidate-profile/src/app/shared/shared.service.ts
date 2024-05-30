@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SharedService {
-  message:string='';
+  message:any;
   Stage:any;
   constructor() { }
   setMessage(data : any) {

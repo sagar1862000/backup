@@ -7,9 +7,9 @@ type ICallback = (response: any) => void;
 @Injectable({
   providedIn: 'root'
 })
-export class CampaignserviceService {
+export class CandidateProfileService {
 
-  rooturi = 'http://192.168.4.14:8001/'; 
+  rooturi = 'http://192.168.4.100:8080/'; 
   ServiceURL = this.rooturi;
   ids12: any = [];
   loaderprogressbar = false;
