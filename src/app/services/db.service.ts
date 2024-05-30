@@ -23,7 +23,7 @@ export class DbService implements OnInit, OnChanges {
   // rooturi = 'http://192.168.0.106:8081/';  sir api
   // rooturi = 'http://192.168.4.14:8002/'; //deepanshu Api
   // rooturi = 'https://api.botshreyasi.com/';
-  rooturi = 'http://192.168.4.100:8080/';
+  rooturi = 'http://192.168.1.109:8080/';
   // rooturi = 'http://192.168.51.219:8000/';
   // rooturi = 'http://192.168.4.14:8000/';
   ServiceURL = this.rooturi;

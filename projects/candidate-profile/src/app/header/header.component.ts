@@ -1,7 +1,8 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+import { SharedService } from '../shared/shared.service';
 import axios from 'axios';
 import { forkJoin } from 'rxjs';
-import { SharedService } from '../shared/shared.service';
+// import { SharedService } from '../shared/shared.service';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
@@ -13,40 +14,19 @@ export class HeaderComponent {
   candidateDetails: any;
   constructor(private shared: SharedService) {}
   showStagesDropdown = false;
-  showMoreOptionsDropdown = false;
-  Symbol: any;
-  ngOnInit() {
-  }
+  showMoreOptionsDropdown =false;
+  // Stage: any;
+  ngOnInit() {}
   ngDoCheck() {
-    this.getSymbol();
+    this.message = this.shared.getMessage();
   }
-
-  _candidateId : any;
-  @Input()
-  set CandidateId(data: any) {
-    if (data) {
-      this._candidateId = data;
-    }
-  }
-  candidateIds: any;
-  @Input()
-  set AllCandidateIds(data:any) {
-    if(data){
-      this.candidateIds=data;
-    }
-  }
-
-  getSymbol() {
-    this.Symbol = this.message.toUpperCase();
-  }
-
   toggleDropdownForStaegs(): void {
     this.showStagesDropdown = !this.showStagesDropdown;
-    this.showMoreOptionsDropdown = false;
+    this.showMoreOptionsDropdown=false;
   }
-  toggleDropdownForMoreOptions(): void {
+  toggleDropdownForMoreOptions(): void{
     this.showMoreOptionsDropdown = !this.showMoreOptionsDropdown;
-    this.showStagesDropdown = false;
+    this.showStagesDropdown=false;
   }
   GettingValue(Value: any) {
     this.showStagesDropdown = false;
@@ -83,7 +63,7 @@ export class HeaderComponent {
     const formData = new FormData();
     formData.append('stages', type);
     axios
-      .put(`${this.url}Update-Details/84/`, formData)
+      .put(`${this.url}Update-Details/84/`,formData)
       .then((response) => {
         console.log('Response : ', response);
         this.candidateDetails = response.data;
@@ -92,15 +72,6 @@ export class HeaderComponent {
         console.error('Upload failed', error);
       });
   }
-  next() {
-    this._candidateId = this._candidateId + 1;
-    // this.shared.setMessage(this._candidateId);
-    // console.log('current Id1:', this._candidateId);
-  }
-  
-  previous() {
-    this._candidateId = this._candidateId - 1;
-    // this.shared.setMessage(this._candidateId);
-    // console.log('current Id2:', this._candidateId);
-  }
+
+  // UpdateStageInBackend(Value: any) {}
 }

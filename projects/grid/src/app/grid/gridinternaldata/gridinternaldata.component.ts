@@ -425,7 +425,7 @@ export class GridinternaldataComponent implements OnInit {
     // // console.log('check');
   }
 
-  add(data : any) {
+  add(data) {
     this.dropdownclick = data;
   }
   public ngOnInit(): void {

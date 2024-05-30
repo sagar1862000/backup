@@ -1,17 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { SharedService } from '../shared/shared.service';
 import axios from 'axios';
-import { CandidateProfileService } from '../candidateprofile-service.service';
 @Component({
   selector: 'app-right-side-nav',
   templateUrl: './right-side-nav.component.html',
   styleUrls: ['./right-side-nav.component.css'],
 })
 export class RightSideNavComponent {
-  constructor(
-    private shared: SharedService,
-    private CPService: CandidateProfileService
-  ) {}
+  constructor(private shared: SharedService) {}
 
   @Output() nameChanged = new EventEmitter<string>();
   name: any;
@@ -22,7 +18,6 @@ export class RightSideNavComponent {
   // message:any='';
   ngOnInit() {
     this.CandidateDetails();
-
   }
 
   _candidateId = '';
@@ -32,48 +27,28 @@ export class RightSideNavComponent {
       this._candidateId = data;
     }
   }
-  candidateIds: any;
-  @Input()
-  set AllCandidateIds(data:any) {
-    if(data){
-      this.candidateIds=data;
-    }
-  }
 
   ngDoCheck() {
     // console.log('hi');
-    if (this.shared.getStage()) {
-      this.Stage = this.shared.getStage();
+    if(this.shared.getStage()){
+    this.Stage = this.shared.getStage();
+    console.log('myStage : ',this.Stage);
     }
   }
   CandidateDetails() {
-    this.CPService.list(
-      `candidate/candidate/${this._candidateId}/`,
-      null,
-      (response): void => {
-        debugger;
-        this.candidateDetails=response;
-        // this.candidateDetails = response.data;
-        // this.name = this.candidateDetails.candidate_name;
-        // console.log(this.candidateDetails);
-        // this.Stage = this.candidateDetails.stages;
-        // console.log('Stage : ', this.Stage);
+    axios
+      .get(`${this.url1}candidate_details/${this._candidateId}/`)
+      .then((response) => {
+        this.candidateDetails = response.data;
+        this.name = this.candidateDetails.candidate_name;
+        console.log(this.candidateDetails);
+        this.Stage = this.candidateDetails.stages;
+        console.log('Stage : ', this.Stage);
         this.my('', this.name);
-      }
-    );
-    // axios
-    //   .get(`${this.url1}/candidate/candidate_details/${this._candidateId}/`)
-    //   .then((response) => {
-    //     this.candidateDetails = response.data;
-    //     this.name = this.candidateDetails.candidate_name;
-    //     console.log(this.candidateDetails);
-    //     this.Stage = this.candidateDetails.stages;
-    //     console.log('Stage : ', this.Stage);
-    //     this.my('', this.name);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Upload failed', error);
-    //   });
+      })
+      .catch((error) => {
+        console.error('Upload failed', error);
+      });
   }
 
   my(type: string, name: any) {
@@ -110,28 +85,19 @@ export class RightSideNavComponent {
     }
 
     // this.candidateDetails.candidate_name = name;
-    // let formData = this.convertDetailsToFormData(this.candidateDetails);
-    console.log('MyId: ',this._candidateId);
-    this.CPService.update(
-      `candidate/candidate/`,this._candidateId,
-      this.candidateDetails,
-      (response:any): void => {
-        debugger;
-        console.log('myresponse : ' , response);
-      }
-    );
-    // axios
-    //   .put(`${this.url2}Update-Details/84/`, formData)
-    //   .then((response) => {
-    //     console.log('Response : ', response);
-    //     this.candidateDetails = response.data;
-    //     this.name = this.candidateDetails.candidate_name;
-    //     console.log(this.candidateDetails);
-    //     this.my('', this.name);
-    //   })
-    //   .catch((error) => {
-    //     console.error('Upload failed', error);
-    //   });
+    let formData = this.convertDetailsToFormData(this.candidateDetails);
+    axios
+      .put(`${this.url2}Update-Details/84/`, formData)
+      .then((response) => {
+        console.log('Response : ', response);
+        this.candidateDetails = response.data;
+        this.name = this.candidateDetails.candidate_name;
+        console.log(this.candidateDetails);
+        this.my('', this.name);
+      })
+      .catch((error) => {
+        console.error('Upload failed', error);
+      });
   }
   copyToClipboardName() {
     const editableElement = document.getElementById('editableName');

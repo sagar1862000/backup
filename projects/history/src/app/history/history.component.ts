@@ -21,9 +21,6 @@ import { CallComponent } from 'projects/component/src/app/components/call/call.c
 import { AddToJobComponent } from 'projects/component/src/app/components/add-to-job/add-to-job.component';
 import { MailerComponent } from './mailer/mailer.component';
 import { AddCandidatesComponent } from 'projects/control/src/app/control/add-candidates/add-candidates.component';
-import { SharedServiceService } from '../shared-service.service';
-import { SharedService } from 'src/app/services/shared.service';
-import { SharingService } from 'projects/sharing.service';
 declare var $: any;
 declare var window: any;
 export interface Message {
@@ -595,9 +592,7 @@ export class HistoryComponent implements OnInit {
     public USR: UserService,
     private router: Router,
     private renderer: Renderer2,
-    private dialog: MatDialog,
-    private shared:SharedService,
-    private sharing:SharingService
+    private dialog: MatDialog
   ) {
     this.defaultColDef = {
       editable: true,
@@ -1021,7 +1016,6 @@ export class HistoryComponent implements OnInit {
 
     this.LoadHistory();
   }
-  candidateIds:any;
   LoadHistory(): void {
     if (this.enablesearch === false) {
       this.rowData = [];
@@ -1042,8 +1036,7 @@ export class HistoryComponent implements OnInit {
         $('#searchpopup').appendTo('body').modal('hide');
         this.rowData = response;
         this.candidatedetails = response;
-        this.candidateIds = response.map(item => item.candidate_id);
-        console.log('candidate Ids : ',this.candidateIds);
+
         this.datas = response;
 
         this.historydata = response;
@@ -1645,12 +1638,8 @@ export class HistoryComponent implements OnInit {
     switch (evt.headername) {
       case 'candidateProfile':
         // const url = '/candidate/' + evt.fulldata.id; btoa(this.demoId)
-        // console.log('details : ' , evt)
-        const url = '/candidateProfile/'+btoa(evt.fulldata.candidate_id);
-        // this.shared.setMessage(this.candidateIds);
-        localStorage.setItem('additionalData', JSON.stringify(this.candidateIds));
+        const url = '/candidateProfile/'+btoa(evt.fulldata.id);
         window.open(url, '_blank');
-        // this.sharing.setMessage(this.candidateIds);
         break;
     }
   }
@@ -1668,7 +1657,7 @@ export class HistoryComponent implements OnInit {
     this.Showtable = !this.Showtable;
     this.LoadHistory();
   }
-  dataclick(evt:any) {
+  dataclick(evt) {
     if (evt.header == 'yes') {
       const url = '/candidate/' + evt.value.id;
       window.open(url, '_blank');
@@ -1676,8 +1665,9 @@ export class HistoryComponent implements OnInit {
     if (evt.header == undefined || evt.header == null) {
     }
   }
-  datafromprgridbuttondetails(data:any) {
+  datafromprgridbuttondetails(data) {
     alert('button');
+
     switch (data.button) {
       case 'Edit':
         // this.candidatedata(data.id);
@@ -1685,7 +1675,9 @@ export class HistoryComponent implements OnInit {
         // $('.box5').fadeToggle("slow");
         $('.box5').show('slow');
         $('.hide').hide();
+
         // $(".buttonclick").prop("disabled",false);
+
         $('.buttonclick').prop('disabled', true);
 
         break;
