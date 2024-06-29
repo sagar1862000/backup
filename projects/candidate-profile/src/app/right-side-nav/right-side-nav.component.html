@@ -1,0 +1,109 @@
+<!-- <h1>hello</h1> -->
+<aside class="right-sidebar">
+  <h2 class="sidebar-title">Details</h2>
+  <div class="details-content">
+    <div class="detail-item">
+      <span class="icon">👤</span>
+      <input
+        class="text"
+        id="editableName"
+        spellcheck="false"
+        [(ngModel)]="candidateDetails.candidate_name"
+        type="text"
+        placeholder="Enter name"
+        (ngModelChange)="onInputChange('candidateName')"
+      />
+      <span class="icon" *ngIf="showCheckmark.candidateName" (click)="resetInput('candidateName')">
+        <i class="fas fa-check"></i>
+      </span>
+      <span class="copy-icon" (click)="copyToClipboardName()">
+        <i class="fas fa-copy"></i>
+      </span>
+    </div>
+    <div class="detail-item">
+      <span class="icon">📝</span>
+      <input
+        class="text"
+        id="editableHeadline"
+        spellcheck="false"
+        type="text"
+        placeholder="Headline"
+        (ngModelChange)="onInputChange('headline')"
+        [(ngModel)]="candidateDetails.remark"
+      />
+      <span class="icon" *ngIf="showCheckmark.headline" (click)="resetInput('headline')">
+        <i class="fas fa-check"></i>
+      </span>
+      <span class="copy-icon" (click)="copyToClipboardHeadline()">
+        <i class="fas fa-copy"></i>
+      </span>
+    </div>
+    <div class="detail-item">
+      <span class="icon">💼</span>
+      <span class="text" style="margin-left: 1px">{{
+        candidateDetails.functional_area
+          ? candidateDetails.functional_area
+          : "Empty field"
+      }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="icon">👔</span>
+      <span class="text" style="margin-left: 1px">{{
+        Stage ? Stage : "Empty field"
+      }}</span>
+    </div>
+    <div class="detail-item">
+      <span class="icon">📞</span>
+      <input
+        class="text"
+        id="editableNumber"
+        spellcheck="false"
+        type="text"
+        placeholder="9867226867"
+        readonly
+        [(ngModel)]="candidateDetails.mobile_no"
+        (ngModelChange)="onInputChange('mobile_no')"
+      />
+      <span class="icon" *ngIf="showCheckmark.mobile_no" (click)="resetInput('mobile_no')">
+        <i class="fas fa-check"></i>
+      </span>
+      <span class="copy-icon" (click)="copyToClipboardNumber()">
+        <i class="fas fa-copy"></i>
+      </span>
+    </div>
+    <div class="detail-item">
+      <span class="icon">✉️</span>
+      <input
+        class="text"
+        id="editableEmail"
+        spellcheck="false"
+        type="text"
+        readonly
+        placeholder="Sagar@gmail.com"
+        [(ngModel)]="candidateDetails.email"
+        (ngModelChange)="onInputChange('email')"
+      />
+      <span class="icon" *ngIf="showCheckmark.email" (click)="resetInput('email')">
+        <i class="fas fa-check"></i>
+      </span>
+      <span class="copy-icon" (click)="copyToClipboardEmail()">
+        <i class="fas fa-copy"></i>
+      </span>
+    </div>
+    <div class="detail-item">
+      <span class="icon">🔗</span>
+      <span class="text" style="margin-left: 1px"
+        ><b>Added by</b> Arvind Chaudhary</span
+      >
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="tags">
+      <span class="add-btn">+ Add tags</span>
+    </div>
+    <div class="custom-attributes">
+      <span class="add-btn">+ Add custom field</span>
+    </div>
+  </div>
+</aside>

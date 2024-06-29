@@ -1,0 +1,175 @@
+<div style="display: flex; justify-content: space-between">
+  <div>
+    <h1 style="padding-left: 25px; padding-top: 15px">Add To Job</h1>
+  </div>
+  <div>
+    <i class="fa-solid fa-x closedialog" style="font-size: 16px;" matDialogClose></i>
+  </div>
+</div>
+<div mat-dialog-content>
+  <div class="form-horizontal">
+    <div class="form-group">
+      <mat-form-field class="w-100" appearance="outline">
+        <mat-label for="Jobs" class="control-label col-xs-2">Owner</mat-label>
+        <div class="col-xs-10">
+          <mat-select [(ngModel)]="addnewjob.manager">
+            <mat-option [value]="USR.profile.id"> Self </mat-option>
+            <mat-option [value]="x.id" *ngFor="let x of USR.managers">
+              {{ x.name }}
+            </mat-option>
+            <mat-option value="">Default</mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <mat-form-field
+        class="w-100"
+        *ngIf="USR.clientsdepartment == 'Client/Department'"
+        appearance="outline"
+      >
+        <mat-label>{{ USR.clientsdepartment }}:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            id="clientsdepartment"
+            [(ngModel)]="clientsdepartment"
+            name="clientsdepartment"
+          >
+            <mat-option
+              (click)="getclientdepartment()"
+              value="Client"
+              >Client</mat-option
+            >
+            <mat-option
+              (click)="getclientdepartment()"
+              value="Department"
+              >Department
+            </mat-option>
+          </mat-select>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field
+        class="w-100"
+        *ngIf="USR.clientsdepartment == 'Client' || clientsdropdown"
+        appearance="outline"
+      >
+        <mat-label for="client">Client:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            id="client"
+            [(ngModel)]="addtojob.client_detail_id"
+            name="client"
+          >
+            <mat-option
+              (click)="
+                MR.GetJobAssignedbyclientdepartments('client', client.id)
+              "
+              value="{{ client.id }}"
+              *ngFor="let client of MR.departments"
+            >
+              {{ client.department_name }}</mat-option
+            >
+          </mat-select>
+        </div>
+      </mat-form-field>
+
+      <mat-form-field
+        class="w-100"
+        *ngIf="USR.clientsdepartment == 'Department' || departmentsdropdown"
+        appearance="outline"
+      >
+        <mat-label for="department">Department:</mat-label>
+        <div class="col-xs-10">
+          <mat-select
+            id="department"
+            [(ngModel)]="addtojob.client_detail_id"
+            name="department"
+          >
+            <mat-option
+              (click)="
+                MR.GetJobAssignedbyclientdepartments('department', dep.id)
+              "
+              value="{{ dep.id }}"
+              *ngFor="let dep of MR.departments"
+            >
+              {{ dep.department_name }}</mat-option
+            >
+          </mat-select>
+        </div>
+      </mat-form-field>
+    </div>
+
+    <div class="form-group">
+      <div class="col-xs-10">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs">Jobs:</mat-label>
+
+          <mat-select
+            class="e"
+            [(ngModel)]="addnewjob.add_new_job_id"
+            name="add_new_job_id"
+          >
+            <mat-option
+              class="assign"
+              (click)="assigncandidate()"
+              value="{{ x.id }}"
+              *ngFor="let x of MR.assignedJob"
+              >{{ x.job_title }}({{ x.id }})</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-xs-10">
+        <mat-form-field class="w-100" appearance="outline">
+          <mat-label for="Jobs">Campaign:</mat-label>
+
+          <mat-select
+            class="e"
+            [(ngModel)]="addnewjob.campaign"
+            name="campaign_id"
+          >
+            <mat-option
+              class="assign"
+              value="{{ x.id }}"
+              *ngFor="let x of MR.Campaigns"
+              >{{ x.campaign_name }}({{ x.id }})</mat-option
+            >
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </div>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <div class="form-group">
+    <div class="col-md-4 col-md-offset-4">
+      <button
+        *ngIf="assign"
+        type="submit"
+        class="btn btn-primary btn-block"
+        data-bs-dismiss="modal"
+        tar="#client"
+        (click)="addtojobcandidates()"
+        style="margin-left: 18px"
+      >
+        Add
+      </button>
+      <button
+        *ngIf="unassign"
+        type="submit"
+        class="btn btn-danger btn-block"
+        data-bs-dismiss="modal"
+        tar="#client"
+        (click)="assignjob()"
+        style="margin-left: 18px"
+      >
+        Add
+      </button>
+    </div>
+  </div>
+</div>

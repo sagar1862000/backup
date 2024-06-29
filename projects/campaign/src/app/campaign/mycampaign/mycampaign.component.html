@@ -1,0 +1,38 @@
+<div class="content-body">
+  <div class="page-header">
+    <div class="box-layout">
+      <div class="col-xs-5 col-sm-6 col-md-5">
+        <h2 class="pull-left" style="margin-left: 20px">Campaigns</h2>
+      </div>
+      <div class="col-xs-7 col-sm-6 col-md-12">
+        <div class="toolbar text-right" id="toolbar">
+          <div class="std-toolbar btn-group">
+            <a
+              class="btn btn-default btn-outline-default"
+              routerLink="../campaign/new"
+              data-toggle="ajax"
+            >
+              <button
+                type="button"
+                class="btn btn-primary"
+                style="margin: 10px"
+              >
+                <i class="">Create New Campaign</i>
+              </button>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel panel-default bdr-t-wdh-0 mb-0" style="margin-left: 60px">
+    <app-prgrid
+      [data]="botData"
+      [header]="DataDefinitionsGrid"
+      (onHeaderClicked)="DatFromPRGridTableHeader($event)"
+      (onRowClicked)="onRowClicked($event)"
+    >
+    </app-prgrid>
+  </div>
+</div>

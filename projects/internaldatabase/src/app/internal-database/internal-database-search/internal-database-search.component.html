@@ -1,0 +1,504 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <div class="search-bar">
+    <button class="menu-button" (click)="snav.toggle()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    
+    <div class="input-group" *ngIf="isChecked">
+      <mat-form-field class="example-chip-list">
+        <mat-chip-grid #chipGrid1 aria-label="Enter fruits" class="chip-grid">
+          <div class="chip-container">
+            <mat-chip-row *ngFor="let Any of orsearchArray" (removed)="removeAny(Any)" [editable]="true" (edited)="editAny(Any, $event)" [aria-description]="'press enter to edit ' + Any.name" class="chip" style="margin-top: -2px;">
+              {{ Any.name }}
+              <button matChipRemove [attr.aria-label]="'remove ' + Any.name">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input class="overflow-input" placeholder="Any..." [matChipInputFor]="chipGrid1" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addAny($event)" />
+          </div>
+        </mat-chip-grid>
+      </mat-form-field>
+      
+      <mat-form-field class="example-chip-list">
+        <mat-chip-grid #chipGrid2 aria-label="Enter fruits" class="chip-grid">
+          <div class="chip-container">
+            <mat-chip-row *ngFor="let All of andsearchArray" (removed)="removeAll(All)" [editable]="true" (edited)="editAll(All, $event)" [aria-description]="'press enter to edit ' + All.name" class="chip" style="margin-top: -2px;">
+              {{ All.name }}
+              <button matChipRemove [attr.aria-label]="'remove ' + All.name">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input class="overflow-input" placeholder="All..." [matChipInputFor]="chipGrid2" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addAll($event)" />
+          </div>
+        </mat-chip-grid>
+      </mat-form-field>
+      
+      <mat-form-field class="example-chip-list">
+        <mat-chip-grid #chipGrid3 aria-label="Enter fruits" class="chip-grid">
+          <div class="chip-container">
+            <mat-chip-row *ngFor="let Not of notsearchArray" (removed)="removeNot(Not)" [editable]="true" (edited)="editNot(Not, $event)" [aria-description]="'press enter to edit ' + Not.name" class="chip" style="margin-top: -2px;">
+              {{ Not.name }}
+              <button matChipRemove [attr.aria-label]="'remove ' + Not.name">
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip-row>
+            <input class="overflow-input" placeholder="Exclude..." [matChipInputFor]="chipGrid3" [matChipInputSeparatorKeyCodes]="separatorKeysCodes" [matChipInputAddOnBlur]="addOnBlur" (matChipInputTokenEnd)="addNot($event)" />
+          </div>
+        </mat-chip-grid>
+      </mat-form-field>
+      <!-- <button class="search-button" (click)="OnheaderSearchClickedAdvance()">
+        <mat-icon>search</mat-icon>
+        Search
+      </button> -->
+    </div>
+    <div class="row" style="padding-top: 20px" *ngIf="!isChecked">
+      <div
+        class="col-md-9"
+        style="display: flex; align-items: center; justify-content: center"
+      >
+        <mat-form-field
+          class="example-full-width"
+          style="margin-left: 20px; padding-left: 100px"
+        >
+          <mat-label>Query</mat-label>
+          <input matInput [(ngModel)]="searchText" />
+        </mat-form-field>
+      </div>
+    </div>
+  
+    <button class="search-button" (click)="OnheaderSearchClicked(isChecked)">
+      <mat-icon>search</mat-icon>
+      Search
+    </button>
+  
+    <div
+    style="
+      display: flex;
+      justify-content: end;
+      margin-top: 3px;
+      padding-left: 24px;
+    "
+  >
+    <div class="form-check form-switch">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        role="switch"
+        id="flexSwitchCheckChecked"
+        [(ngModel)]="isChecked"
+      />
+      <label class="form-check-label" for="flexSwitchCheckChecked">
+        {{ isChecked ? "Advance" : "Boolean" }}
+      </label>
+    </div>
+  </div>
+  </div>
+  
+  
+
+  <mat-sidenav-container
+    class="example-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
+    <mat-sidenav
+      #snav
+      [mode]="mobileQuery.matches ? 'over' : 'side'"
+      [fixedInViewport]="mobileQuery.matches"
+      fixedTopGap="56"
+      [style.width.px]="320"
+    >
+      <div class="sort-container">
+        <label for="sort-by" class="sort-label">Sort By:</label>
+        <select
+          id="sort-by"
+          class="sort-select"
+          (change)="onSortChange($event)"
+        >
+          <option value="salary">Salary</option>
+          <option value="experience">Experience</option>
+        </select>
+      </div>
+      <div class="row" style="margin-bottom: -15px; margin-top: 15px">
+        <div
+          class="col-md-6"
+          style="display: flex; justify-content: left; align-items: center"
+        >
+          <h2 style="padding-left: 33px; font-weight: 450; padding-top: 10px">
+            Categories
+          </h2>
+        </div>
+
+        <div
+          class="col-md-6"
+          style="display: flex; justify-content: center; align-items: center"
+        >
+          <button
+            class="btn"
+            style="
+              background-color: #a64eed;
+              width: 100px;
+              height: 35px;
+              border-radius: 19px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              color: white;
+              padding-right: 14px;
+              padding-bottom: 4px;
+              margin-left: 30px;
+            "
+            (click)="OnSearchClick()"
+            matDialogClose
+          >
+            <i class="fas fa-search closedialog" style="margin-right: 5px"></i>
+            Search
+          </button>
+        </div>
+      </div>
+
+      <!-- New iteration code -->
+      <div style="display: flex; align-items: center; justify-content: center">
+        <mat-nav-list fxLayout="row wrap" style="padding-left: 30px">
+          <ng-container *ngFor="let nav of FilterColumns; let i = index">
+            <ng-container *ngIf="nav['input_box_type'] == 'text'">
+              <div *ngIf="nav['chips'] == 0">
+                <mat-form-field class="example-chip-list">
+                  <mat-label>{{ nav["placeholder"] }}</mat-label>
+                  <input
+                    autocomplete="off"
+                    name="event_name_{{ i }}"
+                    [(ngModel)]="inputData[nav['column_name']]"
+                    (ngModelChange)="
+                      updateCommaSeparatedArray(nav['column_name'])
+                    "
+                    class="small-input"
+                    matInput
+                  />
+                </mat-form-field>
+              </div>
+
+              <div *ngIf="nav['chips'] == 1">
+                <mat-form-field class="example-chip-list">
+                  <mat-chip-grid
+                    #Mychip
+                    aria-label="Enter fruits"
+                    class="chip-grid"
+                  >
+                    <div class="chip-container">
+                      <mat-chip-row
+                        *ngFor="let item of inputData[nav['column_name']]"
+                        (removed)="removeChip(item, nav['column_name'])"
+                        style="margin-top: -6px"
+                        class="chip"
+                      >
+                        {{ item }}
+                        <button
+                          matChipRemove
+                          [attr.aria-label]="'remove ' + item"
+                        >
+                          <mat-icon>cancel</mat-icon>
+                        </button>
+                      </mat-chip-row>
+
+                      <input
+                        class="overflow-input"
+                        placeholder="{{ nav['placeholder'] }}"
+                        [matChipInputFor]="Mychip"
+                        [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                        [matChipInputAddOnBlur]="true"
+                        (matChipInputTokenEnd)="
+                          addChip($event, nav['column_name'])
+                        "
+                        maxlength="18"
+                        autocomplete="off"
+                        [name]="'event_name_' + i"
+                        [(ngModel)]="newChips[nav['column_name']]"
+                        matInput
+                      />
+                    </div>
+                  </mat-chip-grid>
+                </mat-form-field>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="nav['input_box_type'] === 'email'">
+              <mat-form-field class="example-chip-list">
+                <mat-label>{{ nav["placeholder"] }}</mat-label>
+                <input
+                  maxlength="18"
+                  autocomplete="off"
+                  name="event_name_{{ i }}"
+                  [(ngModel)]="inputData[nav['column_name']]"
+                  (ngModelChange)="
+                    updateCommaSeparatedArray(nav['column_name'])
+                  "
+                  class="small-input"
+                  matInput
+                />
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="nav['input_box_type'] === 'number'">
+              <mat-form-field
+                class="example-chip-list"
+                *ngIf="
+                  nav['placeholder'] !== 'Overall Experience' &&
+                  nav['placeholder'] !== 'Salary'
+                "
+              >
+                <mat-label>{{ nav["placeholder"] }}</mat-label>
+                <input
+                  maxlength="18"
+                  autocomplete="off"
+                  name="event_name_{{ i }}"
+                  [(ngModel)]="inputData[nav['column_name']]"
+                  (ngModelChange)="
+                    updateCommaSeparatedArray(nav['column_name'])
+                  "
+                  class="small-input"
+                  matInput
+                  type="number"
+                />
+              </mat-form-field>
+
+              <div
+                class="row experianceDetails"
+                style="height: 35px"
+                *ngIf="
+                  nav['placeholder'] === 'Overall Experience' ||
+                  nav['placeholder'] === 'Salary'
+                "
+              >
+                <div class="row" style="width: 90%; padding-left: 30px">
+                  <div class="col-md-6" style="padding-bottom: 10px">
+                    <mat-select
+                      [(ngModel)]="inputData['expfrom']"
+                      (ngModelChange)="updatemaxexperience()"
+                      (ngModelChange)="
+                        updateCommaSeparatedArray(nav['column_name'])
+                      "
+                      name="expfrom"
+                      placeholder="From-"
+                    >
+                      <mat-option value="1">Fresher</mat-option>
+                      <mat-option
+                        *ngFor="let opt of minexperience"
+                        [value]="opt"
+                        >{{ opt }} year</mat-option
+                      >
+                      <mat-option value="0">Any</mat-option>
+                    </mat-select>
+                  </div>
+
+                  <div
+                    class="col-md-6"
+                    style="padding-bottom: 10px; padding-left: 20px"
+                  >
+                    <mat-select
+                      [(ngModel)]="inputData['expto']"
+                      (ngModelChange)="
+                        updateCommaSeparatedArray(nav['column_name'])
+                      "
+                      name="expto"
+                      placeholder="To-"
+                    >
+                      <mat-option
+                        *ngFor="let opt of maxexperience"
+                        [value]="opt"
+                        >{{ opt }} year</mat-option
+                      >
+                      <mat-option value="99">Any</mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="nav['input_box_type'] === 'dropdown'">
+              <mat-form-field class="example-chip-list">
+                <mat-label>{{ nav["placeholder"] }}</mat-label>
+                <mat-select
+                  [(ngModel)]="inputData[nav['column_name']]"
+                  (ngModelChange)="
+                    updateCommaSeparatedArray(nav['column_name'])
+                  "
+                  name="event_name_{{ i }}"
+                  [multiple]="nav['chips'] === 1"
+                  class="small-input"
+                >
+                  <mat-option
+                    *ngFor="let option of nav['unique_values']"
+                    [value]="option"
+                  >
+                    {{ option }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </ng-container>
+          </ng-container>
+        </mat-nav-list>
+      </div>
+
+      <!-- old iteration code -->
+      <!-- <div style="display: flex; align-items: center; justify-content: center">
+        <mat-nav-list fxLayout="row wrap" style="padding-left: 30px">
+          <ng-container *ngFor="let nav of FilterColumns; let i = index">
+            <ng-container *ngIf="nav['input_box_type'] == 'text'">
+              <mat-form-field
+                class="example-chip-list"
+                *ngIf="nav['chips'] == 0 || nav['chips'] == 1"
+              >
+                <mat-label>{{ nav["placeholder"] }}</mat-label>
+                <input
+                  maxlength="18"
+                  autocomplete="off"
+                  name="event_name_{{ i }}"
+                  [(ngModel)]="inputData[nav['column_name']]"
+                  class="small-input"
+                  matInput
+                />
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="nav['input_box_type'] == 'email'">
+              <mat-form-field class="example-chip-list">
+                <mat-label>{{ nav["placeholder"] }}</mat-label>
+                <input
+                  maxlength="18"
+                  autocomplete="off"
+                  name="event_name_{{ i }}"
+                  [(ngModel)]="inputData[nav['column_name']]"
+                  class="small-input"
+                  matInput
+                />
+              </mat-form-field>
+            </ng-container>
+
+            <ng-container *ngIf="nav['input_box_type'] == 'number'">
+              <mat-form-field
+                class="example-chip-list"
+                *ngIf="
+                  nav['placeholder'] !== 'Overall Experience' &&
+                  nav['placeholder'] !== 'Salary'
+                "
+              >
+                <mat-chip-grid #Mychip aria-label="Enter fruits">
+                  <mat-chip-row
+                    *ngFor="let item of inputData[nav['column_name']]"
+                    (removed)="removeNew(item, nav['column_name'])"
+                  >
+                    {{ item }}
+                    <button matChipRemove [attr.aria-label]="'remove ' + item">
+                      <mat-icon>cancel</mat-icon>
+                    </button>
+                  </mat-chip-row>
+
+                  <input
+                    placeholder="{{ nav['placeholder'] }}"
+                    [matChipInputFor]="Mychip"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    [matChipInputAddOnBlur]="true"
+                    (matChipInputTokenEnd)="
+                      addNew($event.value, nav['column_name'])
+                    "
+                    maxlength="18"
+                    autocomplete="off"
+                    [name]="'event_name_' + i"
+                    [(ngModel)]="newChip"
+                    class="small-input"
+                    matInput
+                  />
+                </mat-chip-grid>
+              </mat-form-field>
+
+              <div
+                class="row experianceDetails"
+                style="height: 35px"
+                *ngIf="
+                  nav['placeholder'] === 'Overall Experience' ||
+                  nav['placeholder'] === 'Salary'
+                "
+              >
+                <div class="row" style="width: 90%; padding-left: 30px">
+                  <div class="col-md-6" style="padding-bottom: 10px">
+                    <mat-select
+                      [(ngModel)]="expfrom"
+                      (ngModelChange)="updatemaxexperience()"
+                      name="expfrom"
+                      placeholder="From-"
+                    >
+                      <mat-option value="1">Fresher</mat-option>
+                      <mat-option
+                        value="{{ opt }}"
+                        *ngFor="let opt of minexperience"
+                        >{{ opt }} year</mat-option
+                      >
+                      <mat-option value="0">Any</mat-option>
+                    </mat-select>
+                  </div>
+
+                  <div
+                    class="col-md-6"
+                    style="padding-bottom: 10px; padding-left: 20px"
+                  >
+                    <mat-select
+                      [(ngModel)]="expto"
+                      name="expto"
+                      placeholder="To-"
+                    >
+                      <mat-option
+                        value="{{ opt }}"
+                        *ngFor="let opt of maxexperience"
+                        >{{ opt }} year</mat-option
+                      >
+                      <mat-option value="99">Any</mat-option>
+                    </mat-select>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="nav['input_box_type'] == 'dropdown'">
+              <div class="form-group" *ngIf="nav['chips'] == 1">
+                <div class="col-md-9">
+                  <mat-select
+                    [(ngModel)]="mylocation"
+                    name="mylocation"
+                    [multiple]="true"
+                    *ngIf="
+                      nav['placeholder'] === 'Gender' ||
+                      nav['placeholder'] === 'Location'
+                    "
+                    [placeholder]="
+                      nav['placeholder'] === 'Gender' ? 'Gender' : 'Location'
+                    "
+                    style="border-bottom: solid black; border-width: 0.01em"
+                  >
+                    <mat-option
+                      *ngFor="let gen of nav['unique_values']"
+                      [value]="locations"
+                    >
+                      {{ gen }}
+                    </mat-option>
+                  </mat-select>
+                </div>
+                <div></div>
+              </div>
+            </ng-container>
+          </ng-container>
+        </mat-nav-list>
+      </div> -->
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <app-gridinternaldata
+        [candidatecount]="counts"
+        [data]="datas"
+        [header]="DataDefinitions"
+        (GridHeaderClicked)="datfromprgrid($event)"
+        (GridRowClicked)="OnRowclicked($event)"
+        sendData="true"
+      >
+      </app-gridinternaldata>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>

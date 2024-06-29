@@ -1,0 +1,497 @@
+<div class="main-content" style="position: relative">
+  <div class="container-fluid">
+    <div style="margin-top: 20px;" class="mx-3">
+      <div class="row">
+        <ul
+          class="nav nav-tabs showloader"
+          style="list-style-type: none; padding-left: 0; border-bottom: none"
+        >
+          <a
+            href="javascript:"
+            title="call"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            data-target="#calldiv"
+            data-toggle="modal"
+            ng-if="mp.btn_can_call"
+            (click)="openmodal('#calldiv')"
+            style="margin-right: 8px"
+            ><i class="fa fa-phone"></i> Call</a
+          >
+          <a
+            *ngIf="db.mp.candidates_under_job_copyjob"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            href="javascript:"
+            data-toggle="modal"
+            data-target="#addtojob"
+            (click)="openmodal('#addtojob')"
+            style="margin-right: 8px"
+          >
+            <!-- <span class="material-icons"> assignment_ind</span>  -->
+            <i class="far fa-user-tag"></i> Assign Candidate
+          </a>
+
+          <a
+            *ngIf="db.mp.ats_department"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            href="javascript:"
+            (click)="submit_cv_to_panel_status()"
+            style="margin-right: 8px"
+          >
+            <!-- <span class="material-icons"> login</span>  -->
+            <i class="fa fa-sign-in"></i> Submit to Panel
+          </a>
+
+          <a
+            href="javascript:"
+            *ngIf="db.mp.ats_client"
+            (click)="submitcv(1)"
+            style="margin-right: 8px"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+          >
+            <i class="fa fa-share-square"></i>
+            Submit Cv
+          </a>
+          <button
+            type="button"
+            id="activetaball"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            (click)="filterdrbytabs('My Candidates', 'all', myjobid)"
+            style="margin-right: 8px"
+            data-toggle="modal"
+          >
+            All
+            <span class="badge ng-binding">{{ selectedjoball }}</span>
+          </button>
+          <button
+            type="button"
+            id="activetabur"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            (click)="filterdrbytabs('My Candidates', 'Under Review', myjobid)"
+            data-toggle="modal"
+            style="margin-right: 8px"
+          >
+            In Review/Referrals
+            <span class="badge ng-binding">{{ selectedjobunderreview }}</span>
+          </button>
+          <button
+            type="button"
+            id="activetabIP"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            (click)="filterdrbytabs('My Candidates', 'In Process', myjobid)"
+            data-toggle="modal"
+            style="margin-right: 8px"
+          >
+            In process
+            <span class="badge ng-binding">{{ selectedjobinprocess }}</span>
+          </button>
+          <button
+            type="button"
+            id="activetabisinterview"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            (click)="filterdrbytabs('My Candidates', 'isinterview', myjobid)"
+            data-toggle="modal"
+            style="margin-right: 8px"
+          >
+            Interview
+            <span class="badge ng-binding">{{ selectedjobininterview }}</span>
+          </button>
+          <button
+            type="button"
+            id="activetabselected"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            (click)="filterdrbytabs('My Candidates', 'Selected', myjobid)"
+            data-toggle="modal"
+            style="margin-right: 8px"
+          >
+            Selected
+            <span class="badge ng-binding">{{
+              selectedjobselectedcandidate
+            }}</span>
+          </button>
+          <button
+            type="button"
+            id="activetabRejected"
+            class="btn btn-outline-primary hightlighted_keyword btn-sm"
+            (click)="filterdrbytabs('My Candidates', 'Rejected', myjobid)"
+            data-toggle="modal"
+          >
+            Rejected
+            <span class="badge ng-binding">{{ selectedjobrejected }}</span>
+          </button>
+        </ul>
+      </div>
+    </div>
+
+    <div
+      class="row"
+      style="margin-top: 10px; display: flex; align-items: center"
+    >
+      <mat-form-field class="col-md-2" style="display: flex">
+        <input
+          matInput
+          autocomplete="off"
+          [(ngModel)]="startdatefilter"
+          [matDatepicker]="picker"
+          (focus)="picker.open()"
+          placeholder="from date"
+          class="e"
+        />
+        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+
+      <mat-form-field
+        class="col-md-2"
+        style="justify-content: center; align-items: center"
+      >
+        <input
+          matInput
+          autocomplete="off"
+          [(ngModel)]="enddatefilter"
+          [matDatepicker]="picker2"
+          (focus)="picker2.open()"
+          placeholder="to date"
+          class="e"
+        />
+        <mat-datepicker-toggle
+          matSuffix
+          [for]="picker2"
+        ></mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+      </mat-form-field>
+      <div
+        class="col-md-1"
+        style="
+          margin-bottom: 1.5%;
+          display: flex;
+          justify-content: center;
+          align-items: start;
+        "
+      >
+        <button
+          class="btn btn-info btn-sm btn-outline-secondary"
+          (click)="filterbyJob()"
+        >
+          Search
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+  <app-gridinternaldata
+    [data]="rowData"
+    [header]="DataDefinitions"
+    (GridHeaderClicked)="datfromprgrid($event)"
+    (GridRowClicked)="OnRowclicked($event)"
+    sendData="true"
+  >
+  </app-gridinternaldata>
+</div>
+
+<div
+  class="modal bs-example-modal-md"
+  id="myModal"
+  tabindex="-1"
+  role="dialog"
+  aria-labelledby="exampleModalLabel"
+  aria-hidden="true"
+>
+  <div class="modal-dialog SendMSg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="center">
+          Send Mail
+          <span
+            [ngClass]="allids.length > 10 ? 'text-danger' : 'text - success'"
+          >
+            (CV Selected : {{ allids.length }})</span
+          >
+        </h6>
+        <button
+          type="button"
+          class="close"
+          data-bs-dismiss="modal"
+          aria-label="Close"
+        >
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="form-horizontal" role="form">
+          <div class="form-group">
+            <div class="col-lg-12">
+              <ng-select
+                ngDefaultControl
+                class="m"
+                [(ngModel)]="sendtracker.trackerno"
+                n="Tracker NO"
+                validate
+                ngDefaultControl
+              >
+                <ng-option
+                  value="{{ tracker.id }}"
+                  *ngFor="let tracker of trackerlist"
+                  >{{ tracker.tracker_name }}
+                </ng-option>
+              </ng-select>
+            </div>
+            <div class="col-lg-2">
+              <button
+                *ngIf="sendtracker.trackerno"
+                type="button"
+                (click)="sendtrackerdata(1)"
+                class="btn btn-raised btn-primary btn-sm"
+              >
+                Download
+              </button>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-12">
+              <input
+                type="email"
+                class="form-control m e"
+                [(ngModel)]="sendtracker.to"
+                n="To"
+                validate
+                id="inputEmail4"
+                placeholder="TO:"
+                ngDefaultControl
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-12">
+              <input
+                type="email"
+                class="form-control m"
+                [(ngModel)]="sendtracker.cc"
+                n="CC"
+                validate
+                id="inputEmail5"
+                placeholder="CC:"
+                ngDefaultControl
+              />
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-lg-12">
+              <input
+                type="email"
+                class="form-control m"
+                n="BCC"
+                validate
+                [(ngModel)]="sendtracker.bcc"
+                id="inputEmail6"
+                placeholder="BCC:"
+                ngDefaultControl
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-12">
+              <input type="file" class="form-control" />
+              <!--                                <input type="text" autocomplete="off"  class="form-control e" n=""  id="inputEmail5" placeholder="Subject:">-->
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-lg-12">
+              <input
+                type="text"
+                autocomplete="off"
+                class="form-control e"
+                n=""
+                [(ngModel)]="sendtracker.subject"
+                id="inputEmail7"
+                placeholder="Subject:"
+                ngDefaultControl
+              />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <textarea
+                class="form-control e"
+                n="message"
+                contenteditable
+                [(ngModel)]="sendtracker.message"
+                placeholder="message"
+                style="min-width: 100%; height: 140px"
+                ngDefaultControl
+              >
+              </textarea>
+            </div>
+          </div>
+
+          <button
+            type="submit"
+            (click)="sendtrackerdata(false)"
+            class="btn btn-raised btn-primary btn-md"
+          >
+            send
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div
+  aria-hidden="true"
+  aria-labelledby="myModalLabel"
+  role="dialog"
+  tabindex="-1"
+  id="uploadresumesss"
+  class="modal fade"
+>
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title" id="messagetitle">{{ nocv }}</h6>
+        <button
+          aria-hidden="true"
+          data-bs-dismiss="modal"
+          class="close"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+      <div class="modal-body" id="messagebody">
+        <div class="col-md-12 row" *ngFor="let data of resumesupload">
+          {{ data.name }}
+          &nbsp; &nbsp;
+
+          <!-- <input type='file' id='file' (change)="uploadresume($event.target.files,data.id)" title='upload resume'> -->
+        </div>
+        <div class="col-md-12 row">
+          <div class="col-md-4 pull-right">
+            <button
+              class="btn btn-sm btn-outline-secondary"
+              (click)="Skipcandidate(download)"
+            >
+              Skip
+            </button>
+            <button
+              class="btn btn-sm btn-outline-secondary-primary"
+              (click)="sendtrackerdata(download)"
+            >
+              Submit
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" role="dialog" id="submit_cv_to_panel_status">
+  <div class="modal-dialog modal-md">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h6 class="modal-title">Submit cv to panel</h6>
+        <button
+          aria-hidden="true"
+          data-bs-dismiss="modal"
+          class="close"
+          type="button"
+        >
+          ×
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-horizontal" role="form">
+              <div class="form-group">
+                <label class="col-md-3">Email:</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    class="form-control e m"
+                    n="Email"
+                    [(ngModel)]="cv_to_panel.email"
+                    ngDefaultControl
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3">Subject:</label>
+                <div class="col-md-9">
+                  <input
+                    type="text"
+                    autocomplete="off"
+                    class="form-control e"
+                    n="Subject"
+                    [(ngModel)]="cv_to_panel.subject"
+                    ngDefaultControl
+                  />
+                </div>
+              </div>
+              <div class="form-group">
+                <label class="col-md-3">Comment:</label>
+                <div class="col-md-9">
+                  <textarea
+                    class="form-control e"
+                    n="Comment"
+                    [(ngModel)]="cv_to_panel.comment"
+                    ngDefaultControl
+                  >
+                  </textarea>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <button
+                  type="submit"
+                  class="btn btn-raised btn-block btn-primary validatebutton"
+                  validate
+                  tar="#submit_cv_to_panel_status"
+                  (click)="sendCvToPanel(1)"
+                >
+                  send
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- <div id="showDocuments" class="modal fade " role="dialog">
+    <div class="modal-dialog modal-lg" style="width:100%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-hidden="true" data-bs-dismiss="modal" class="close" type="button">×</button>
+                <h6 class="modal-title">Documents</h6>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+  
+  
+                <iframe
+               id="resumeview" style="border:0;" width="100%" height="580px"></iframe>
+              <div style="width: 80px; height: 80px; position: absolute; opacity: 0; right: 0px; top: 0px;">&nbsp;</div>
+  
+            <button type="button" class="btn btn-success" (click)="RecruiterResponse('validate')">validate</button>
+            <button type="button" class="btn btn-success" (click)="RecruiterResponse("reject")">Reject</button>
+  
+  
+  
+                </div>
+            </div>
+        </div>
+    </div>
+  </div> -->
+
+<app-call [allids]="allids"></app-call>
+<app-add-to-job [allids]="allids"></app-add-to-job>
+
+<app-activity [activities]="activities"></app-activity>
+<app-update-status [set_status_row]="comments"></app-update-status>

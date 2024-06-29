@@ -1,0 +1,138 @@
+<div class="main-content" style="position: relative">
+  <div class="container-fluid">
+    <section>
+      <mat-card>
+        <mat-icon (click)="onCloseChild()">close</mat-icon>
+        <mat-card-title
+          ><span *ngIf="!isEditTemplate">Create New</span>
+          <span *ngIf="isEditTemplate">Edit </span> Email
+          Template</mat-card-title
+        >
+        <mat-card-content>
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              n="Template Name"
+              [(ngModel)]="message.template_name"
+              id="titile"
+              type="text"
+              placeholder="Template Name"
+            />
+          </mat-form-field>
+
+          <div class="row">
+            <mat-form-field class="col-md-6">
+              <mat-label>Template Area</mat-label>
+              <mat-select
+                disableRipple
+                id="Template"
+                n="area"
+                [(ngModel)]="message.template_area"
+              >
+                <mat-option>For Reference</mat-option>
+                <mat-option value="cs">Candidate Status</mat-option>
+                <mat-option value="rs" ng-if="profile.app_id == '6'"
+                  >Referrer Status</mat-option
+                >
+                <mat-option value="job_status">Job Status</mat-option>
+                <mat-option value="misc">Misc.</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="col-md-6">
+              <mat-label>Sended BY:</mat-label>
+              <input
+                matInput
+                n="Sended By"
+                [(ngModel)]="message.sended_by"
+                id="sended_by"
+                type="text"
+                placeholder="Sended By"
+              />
+            </mat-form-field>
+          </div>
+
+          <mat-form-field class="w-100">
+            <input
+              matInput
+              n="Template Name"
+              [(ngModel)]="message.subject"
+              id="titile"
+              type="text"
+              placeholder="Template Name"
+            />
+          </mat-form-field>
+          <div class="row">
+            <div class="col-xs-12">
+              <div class="form-group">
+                <strong> Message: </strong>
+                <!-- <ckeditor [editor]="Editor" [config]="editorConfig" [(ngModel)]="model.editorData"></ckeditor> -->
+                <div>
+                  <ckeditor
+                    #myEditor
+
+                    [config]="editorConfig"
+                    class="custom_editor"
+                    rows="20"
+                    row="10"
+                    [(ngModel)]="message.message"
+                    placeholder="Campaign Description"
+                    (change)="onEditorChange($event)"
+                  >
+                  </ckeditor>
+                  <mat-form-field style="visibility: hidden">
+                    <input
+                      matInput
+                      [matAutocomplete]="auto"
+                      placeholder="Variables"
+                      (input)="onEditorInput($event.target)"
+                    />
+                    <mat-autocomplete #auto="matAutocomplete">
+                      <mat-option
+                        *ngFor="let suggestion of suggestions"
+                        [value]="suggestion"
+                        (onSelectionChange)="
+                          onAutocompleteSelection(suggestion)
+                        "
+                      >
+                        {{ suggestion }}
+                      </mat-option>
+                    </mat-autocomplete>
+                  </mat-form-field>
+                </div>
+                <!-- <ckeditor>
+                  <ckbutton
+                    [name]="'saveButton'"
+                    [command]="'saveCmd'"
+                    
+                    [icon]="'save.png'"
+                    [label]="'Save Document'"
+                    [toolbar]="'clipboard,1'"
+                  >
+                  </ckbutton>
+                </ckeditor> -->
+              </div>
+            </div>
+          </div>
+        </mat-card-content>
+
+        <mat-card-actions>
+          <button
+            class="btn btn-success"
+            *ngIf="!isEditTemplate"
+            (click)="onSaveMessageTemplate()"
+          >
+            Save
+          </button>
+          <button
+            class="btn btn-success"
+            *ngIf="isEditTemplate"
+            (click)="onUpdateMessageTemplate()"
+          >
+            Update
+          </button>
+        </mat-card-actions>
+      </mat-card>
+    </section>
+  </div>
+</div>

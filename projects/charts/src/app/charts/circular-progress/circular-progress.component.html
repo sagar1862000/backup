@@ -1,0 +1,34 @@
+
+<!-- <div class="btn" (click)="downloadChart()">
+  <a class="mybtn" >Download Button</a>
+  </div> -->
+<div class="row legend-style" id="chartdata">
+	<div class="col  col-md-6">
+    <!-- s6 -->
+		<!-- <div class="chart-title ">{{chartTitle}}</div> -->
+		<svg viewBox="0 0 36 36 ">
+		  <g *ngFor="let data of chartData;let i=index">
+			<path  class='circle'
+      [attr.d]="circleArray[i].vector"
+			 fill="none"
+       [style.stroke]="chartColors[i]"
+       stroke-width="1.5"
+       style.stroke-dasharray="{{dashArray[i]}}, 100"
+			/> </g>
+			<g fill="#000A12" class="total-display">
+				<text x="16.91549431" y="16.5" alignment-baseline="central" text-anchor="middle" font-size="5">{{totalValue}}</text>
+			</g>
+			<text x="16.91549431" y="20" alignment-baseline="central" text-anchor="middle" font-family="OpenSans-Regular, Open Sans"
+			 font-size="2" fill="#888888">Calls</text>
+		</svg>
+
+	</div>
+
+</div>
+<div class="col s6">
+  <div class=" row" *ngFor="let data of chartData;let i=index">
+    <div class="col  legend-box " [style.backgroundColor]="chartColors[i]"><span class="legend-text">{{data.percentage}} %</span></div>
+    <div class="col s6 legend-labelbox ">{{data.Name}}</div>
+    <!-- <div class="col s3 legend-value ">{{data.Value}}</div> -->
+  </div>
+</div>
