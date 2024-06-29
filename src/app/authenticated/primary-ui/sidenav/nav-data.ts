@@ -52,7 +52,7 @@ export const navbarData: INavbarData[] = [
   {
     routeLink: 'campaign',
     icon: 'fas fa-bullhorn',
-    label: 'Design Camping',
+    label: 'Design Campaign',
   },
   {
     routeLink: 'journey',

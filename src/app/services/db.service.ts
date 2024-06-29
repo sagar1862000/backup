@@ -13,7 +13,7 @@ type ICallback = (response: any) => void;
 })
 export class DbService implements OnInit, OnChanges {
   // rooturi = 'https://api.botshreyasi.com/';
-  rooturi = 'http://192.168.4.100:8080/';
+  rooturi = 'http://192.168.4.112:8080/';
   ServiceURL = this.rooturi;
   ids12: any = [];
   loaderprogressbar = false;
@@ -223,14 +223,16 @@ export class DbService implements OnInit, OnChanges {
           align: align,
         },
         template:
-        '<div style="z-index:99999!important; display: flex; align-items: center; padding: 10px;" data-notify="container" ' +
-        'class="col-xl-4 col-lg-4 col-11 zindex col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
-        '<i class="material-icons" data-notify="icon" style="margin-right: 10px;">notifications</i>' +
-        '<span data-notify="message" style="flex-grow: 1; margin-right: 10px; margin-top: -15px">' + message + '</span>' +
-        '<button mat-button type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss" style="margin-top:8px; background: none; border: none; margin-left: auto; display: flex; align-items: center;">' +
-        '<i class="material-icons">close</i></button>' +
-        '<a href="{3}" target="{4}" data-notify="url" style="display: none;"></a>' +
-        '</div>',
+          '<div style="z-index:99999!important; display: flex; align-items: center; padding: 10px;" data-notify="container" ' +
+          'class="col-xl-4 col-lg-4 col-11 zindex col-sm-4 col-md-4 alert alert-{0} alert-with-icon" role="alert">' +
+          '<i class="material-icons" data-notify="icon" style="margin-right: 10px;">notifications</i>' +
+          '<span data-notify="message" style="flex-grow: 1; margin-right: 10px; margin-top: -15px">' +
+          message +
+          '</span>' +
+          '<button mat-button type="button" aria-hidden="true" class="close mat-button" data-notify="dismiss" style="margin-top:8px; background: none; border: none; margin-left: auto; display: flex; align-items: center;">' +
+          '<i class="material-icons">close</i></button>' +
+          '<a href="{3}" target="{4}" data-notify="url" style="display: none;"></a>' +
+          '</div>',
       }
     );
   }
